@@ -115,7 +115,7 @@ for outputs processing.
 
 **For Documentation:**
 
-Documentation and API Reference is available [here](https://gt-tdalab.github.io/SARMA/) for local generation the following are needed:
+Documentation and API Reference is available [here](https://gt-tdalab.github.io/sarma) for local generation the following are needed:
 
 * [Python 3](https://www.python.org/downloads/)
 * [Pip](https://pip.pypa.io/en/stable/installing/)
