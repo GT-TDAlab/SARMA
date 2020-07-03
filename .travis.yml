@@ -37,5 +37,3 @@ jobs:
         local_dir: ./build/docs/sphinx
         token: $GITHUB_TOKEN
         verbose: true
-        on:
-          branch: master
