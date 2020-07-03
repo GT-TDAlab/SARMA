@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mixed Integer Programming &mdash; SARMA 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom_tweaks.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="SARMA 1.0.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Algorithms" href="../algorithms.html"/>
+        <link rel="next" title="Nicol 1D" href="nicol1d.html"/>
+        <link rel="prev" title="Algorithms" href="../algorithms.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SARMA
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">SARMA</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Containers and Views</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../algorithms.html">Algorithms</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Mixed Integer Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nicol1d.html">Nicol 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nicol2d.html">Nicol 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="probe_a_load.html">Probe a Load (PaL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refine_a_cut.html">Refine a Cut (RaC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uniform.html">Uniform</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SARMA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../algorithms.html">Algorithms</a> &raquo;</li>
+        
+      <li>Mixed Integer Programming</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/doc/api/algorithms/mixed_integer_program.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mixed-integer-programming">
+<h1>Mixed Integer Programming<a class="headerlink" href="#mixed-integer-programming" title="Permalink to this headline">¶</a></h1>
+<p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/algorithms/mixed_integer_program.hpp">algorithms/mixed_integer_program.hpp</a></p>
+<dl class="cpp type">
+<dt id="_CPPv4N5sarma21mixed_integer_programE">
+<span id="_CPPv3N5sarma21mixed_integer_programE"></span><span id="_CPPv2N5sarma21mixed_integer_programE"></span><span id="sarma::mixed_integer_program"></span><span class="target" id="namespacesarma_1_1mixed__integer__program"></span><em class="property">namespace </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">mixed_integer_program</code><a class="headerlink" href="#_CPPv4N5sarma21mixed_integer_programE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>To the best of our knowledge, this is the first work that tackles the symmetric rectilinear partitioning problem. Symmetric rectilinear partitioning is a restricted problem, therefore comparing our algorithms with more relaxed partitioning algorithms (such as jagged, rectilinear etc.) doesn’t provide enough information about the quality of the found partition vectors. Hence, we implemented a mathematical model that finds the optimal solution using Gurobi. This namespace contains required functions. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>This mixed integer program implementation can also handle non-symmetric partitioning. </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int">
+<span id="_CPPv3I_b00EN5sarma21mixed_integer_program9partitionERK6MatrixI3Int5ValueEK3IntK3Int"></span><span id="_CPPv2I_b00EN5sarma21mixed_integer_program9partitionERK6MatrixI3Int5ValueEK3IntK3Int"></span>template&lt;bool <code class="sig-name descname">symmetric</code>, typename <code class="sig-name descname">Int</code>, typename <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1mixed__integer__program_1a04c942941af2c6c0ce4e5fe8379a276f"></span>auto <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Int">Int</a>, <a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Int">Int</a> <em>P</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Int">Int</a> <em>Q_</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the mixed integer program solver for rectilinear partitioning. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector if symmetric and returns a pair of vectors if symmetric is false </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: the input matrix </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Q_</span></code>: number of parts in the other dimension for when template parameter symmetric is false </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nicol1d.html" class="btn btn-neutral float-right" title="Nicol 1D" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../algorithms.html" class="btn btn-neutral" title="Algorithms" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GT-TDAlab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

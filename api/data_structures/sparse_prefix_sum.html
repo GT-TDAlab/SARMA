@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sparse Prefix Sum &mdash; SARMA 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom_tweaks.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="SARMA 1.0.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Containers and Views" href="../data_structures.html"/>
+        <link rel="next" title="Algorithms" href="../algorithms.html"/>
+        <link rel="prev" title="CSR Matrix" href="csr_matrix.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SARMA
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">SARMA</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../data_structures.html">Containers and Views</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="csr_matrix.html">CSR Matrix</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sparse Prefix Sum</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../algorithms.html">Algorithms</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SARMA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../data_structures.html">Containers and Views</a> &raquo;</li>
+        
+      <li>Sparse Prefix Sum</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/doc/api/data_structures/sparse_prefix_sum.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sparse-prefix-sum">
+<h1>Sparse Prefix Sum<a class="headerlink" href="#sparse-prefix-sum" title="Permalink to this headline">¶</a></h1>
+<p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/data_structures/sparse_prefix_sum.hpp">data_structures/sparse_prefix_sum.hpp</a></p>
+<dl class="cpp class">
+<dt id="_CPPv4I00EN5sarma17sparse_prefix_sumE">
+<span id="_CPPv3I00EN5sarma17sparse_prefix_sumE"></span><span id="_CPPv2I00EN5sarma17sparse_prefix_sumE"></span>template&lt;typename <code class="sig-name descname">Int</code>, typename <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="classsarma_1_1sparse__prefix__sum"></span><em class="property">class </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">sparse_prefix_sum</code><a class="headerlink" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Subclassed by sparse_prefix_sum_wrapper</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma17sparse_prefix_sum4sizeEv">
+<span id="_CPPv3NK5sarma17sparse_prefix_sum4sizeEv"></span><span id="_CPPv2NK5sarma17sparse_prefix_sum4sizeEv"></span><span id="sarma::sparse_prefix_sum::sizeC"></span><span class="target" id="classsarma_1_1sparse__prefix__sum_1af603138731050537590cc99da3322e30"></span>auto <code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma17sparse_prefix_sum4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>return the maximum of row or column of the underlying matrix </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N5sarma17sparse_prefix_sum17sparse_prefix_sumEv">
+<span id="_CPPv3N5sarma17sparse_prefix_sum17sparse_prefix_sumEv"></span><span id="_CPPv2N5sarma17sparse_prefix_sum17sparse_prefix_sumEv"></span><span id="sarma::sparse_prefix_sum::sparse_prefix_sum"></span><span class="target" id="classsarma_1_1sparse__prefix__sum_1aacdcf08d42787c83c80d1e527accb08b"></span><code class="sig-name descname">sparse_prefix_sum</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = default<a class="headerlink" href="#_CPPv4N5sarma17sparse_prefix_sum17sparse_prefix_sumEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N5sarma17sparse_prefix_sum17sparse_prefix_sumERK6MatrixI3Int5ValueE">
+<span id="_CPPv3N5sarma17sparse_prefix_sum17sparse_prefix_sumERK6MatrixI3Int5ValueE"></span><span id="_CPPv2N5sarma17sparse_prefix_sum17sparse_prefix_sumERK6MatrixI3Int5ValueE"></span><span id="sarma::sparse_prefix_sum::sparse_prefix_sum__Matrix:Int.Value:CR"></span><span class="target" id="classsarma_1_1sparse__prefix__sum_1a50802abdaff89a36d4012d7540cb7b76"></span><code class="sig-name descname">sparse_prefix_sum</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Value">Value</a>&gt; &amp;<em>A_</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5sarma17sparse_prefix_sum17sparse_prefix_sumERK6MatrixI3Int5ValueE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor to construct sparse prefix sum data structure for a given matrix. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A_</span></code>: the input matrix </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma17sparse_prefix_sum5queryE3Int3Int">
+<span id="_CPPv3NK5sarma17sparse_prefix_sum5queryE3Int3Int"></span><span id="_CPPv2NK5sarma17sparse_prefix_sum5queryE3Int3Int"></span><span id="sarma::sparse_prefix_sum::query__Int.IntC"></span><span class="target" id="classsarma_1_1sparse__prefix__sum_1aee31eef9b090d990e40a51d253c20914"></span><a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Value">Value</a> <code class="sig-name descname">query</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a> <em>i</em>, <a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a> <em>j</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma17sparse_prefix_sum5queryE3Int3Int" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Queries the rectangle whose bottom right corner is given. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: the row of the bottom right corner </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">j</span></code>: the column of the bottom right corner </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma17sparse_prefix_sum5queryENSt4pairI3Int3IntEENSt4pairI3Int3IntEE">
+<span id="_CPPv3NK5sarma17sparse_prefix_sum5queryENSt4pairI3Int3IntEENSt4pairI3Int3IntEE"></span><span id="_CPPv2NK5sarma17sparse_prefix_sum5queryENSt4pairI3Int3IntEENSt4pairI3Int3IntEE"></span><span id="sarma::sparse_prefix_sum::query__std::pair:Int.Int:.std::pair:Int.Int:C"></span><span class="target" id="classsarma_1_1sparse__prefix__sum_1a30f1dce1bf175bc8c8e07f15b9b704e6"></span><a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Value">Value</a> <code class="sig-name descname">query</code><span class="sig-paren">(</span>std::pair&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>&gt; <em>upper_left</em>, std::pair&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>&gt; <em>lower_right</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma17sparse_prefix_sum5queryENSt4pairI3Int3IntEENSt4pairI3Int3IntEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Queries the rectangle whose upper left and bottom right corners are given. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">upper_left</span></code>: holds the row and column in this order </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lower_right</span></code>: holds the row and column in this order </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma17sparse_prefix_sum10total_loadEv">
+<span id="_CPPv3NK5sarma17sparse_prefix_sum10total_loadEv"></span><span id="_CPPv2NK5sarma17sparse_prefix_sum10total_loadEv"></span><span id="sarma::sparse_prefix_sum::total_loadC"></span><span class="target" id="classsarma_1_1sparse__prefix__sum_1addae274d887ba1a5853105af22e4a25f"></span><a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Value">Value</a> <code class="sig-name descname">total_load</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma17sparse_prefix_sum10total_loadEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the sum of all nonzeros in the underlying matrix. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma17sparse_prefix_sum13compute_loadsERKNSt6vectorI3IntEERKNSt6vectorI3IntEE">
+<span id="_CPPv3NK5sarma17sparse_prefix_sum13compute_loadsERKNSt6vectorI3IntEERKNSt6vectorI3IntEE"></span><span id="_CPPv2NK5sarma17sparse_prefix_sum13compute_loadsERKNSt6vectorI3IntEERKNSt6vectorI3IntEE"></span><span id="sarma::sparse_prefix_sum::compute_loads__std::vector:Int:CR.std::vector:Int:CRC"></span><span class="target" id="classsarma_1_1sparse__prefix__sum_1ac2f3538c4c1011a8ffb0f93f36704d6f"></span>std::vector&lt;std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Value">Value</a>&gt;&gt; <code class="sig-name descname">compute_loads</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>&gt; &amp;<em>p</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>&gt; &amp;<em>q</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma17sparse_prefix_sum13compute_loadsERKNSt6vectorI3IntEERKNSt6vectorI3IntEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given two cut vectors, returns the tile loads implied by the cut vectors. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code>: the cut vector along rows </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: the cut vector along columns </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma17sparse_prefix_sum15compute_maxloadERKNSt6vectorI3IntEERKNSt6vectorI3IntEE">
+<span id="_CPPv3NK5sarma17sparse_prefix_sum15compute_maxloadERKNSt6vectorI3IntEERKNSt6vectorI3IntEE"></span><span id="_CPPv2NK5sarma17sparse_prefix_sum15compute_maxloadERKNSt6vectorI3IntEERKNSt6vectorI3IntEE"></span><span id="sarma::sparse_prefix_sum::compute_maxload__std::vector:Int:CR.std::vector:Int:CRC"></span><span class="target" id="classsarma_1_1sparse__prefix__sum_1ab44e1b49c98baa249a78c26212a37fb6"></span><a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Value">Value</a> <code class="sig-name descname">compute_maxload</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>&gt; &amp;<em>p</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>&gt; &amp;<em>q</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma17sparse_prefix_sum15compute_maxloadERKNSt6vectorI3IntEERKNSt6vectorI3IntEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given two cut vectors, returns the maximum load implied by the cut vectors. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code>: the cut vector along rows </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: the cut vector along columns </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma17sparse_prefix_sum15compute_maxloadERKNSt6vectorI3IntEERKNSt6vectorI3IntEEK3Intb">
+<span id="_CPPv3NK5sarma17sparse_prefix_sum15compute_maxloadERKNSt6vectorI3IntEERKNSt6vectorI3IntEEK3Intb"></span><span id="_CPPv2NK5sarma17sparse_prefix_sum15compute_maxloadERKNSt6vectorI3IntEERKNSt6vectorI3IntEEK3Intb"></span><span id="sarma::sparse_prefix_sum::compute_maxload__std::vector:Int:CR.std::vector:Int:CR.IntC.bC"></span><span class="target" id="classsarma_1_1sparse__prefix__sum_1a3b18e8f0f20681bec00aebb503f15e54"></span>auto <code class="sig-name descname">compute_maxload</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>&gt; &amp;<em>p</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a>&gt; &amp;<em>q</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma17sparse_prefix_sumE" title="sarma::sparse_prefix_sum::Int">Int</a> <em>idx</em>, bool <em>col</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma17sparse_prefix_sum15compute_maxloadERKNSt6vectorI3IntEERKNSt6vectorI3IntEEK3Intb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given two cut vectors, returns the maximum load of either idx’th row or column depending on the col parameter implied by the cut vectors. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code>: the cut vector along rows </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: the cut vector along columns </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">idx</span></code>: the row or column index in the tile load matrix </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">col</span></code>: whether idx is for rows or columns </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../algorithms.html" class="btn btn-neutral float-right" title="Algorithms" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="csr_matrix.html" class="btn btn-neutral" title="CSR Matrix" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GT-TDAlab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

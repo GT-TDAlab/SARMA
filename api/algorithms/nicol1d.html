@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Nicol 1D &mdash; SARMA 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom_tweaks.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="SARMA 1.0.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Algorithms" href="../algorithms.html"/>
+        <link rel="next" title="Nicol 2D" href="nicol2d.html"/>
+        <link rel="prev" title="Mixed Integer Programming" href="mixed_integer_program.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SARMA
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">SARMA</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Containers and Views</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../algorithms.html">Algorithms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mixed_integer_program.html">Mixed Integer Programming</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Nicol 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nicol2d.html">Nicol 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="probe_a_load.html">Probe a Load (PaL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refine_a_cut.html">Refine a Cut (RaC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uniform.html">Uniform</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SARMA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../algorithms.html">Algorithms</a> &raquo;</li>
+        
+      <li>Nicol 1D</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/doc/api/algorithms/nicol1d.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nicol-1d">
+<h1>Nicol 1D<a class="headerlink" href="#nicol-1d" title="Permalink to this headline">¶</a></h1>
+<p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/algorithms/nicol1d.hpp">algorithms/nicol1d.hpp</a></p>
+<dl class="cpp type">
+<dt id="_CPPv4N5sarma7nicol1dE">
+<span id="_CPPv3N5sarma7nicol1dE"></span><span id="_CPPv2N5sarma7nicol1dE"></span><span id="sarma::nicol1d"></span><span class="target" id="namespacesarma_1_1nicol1d"></span><em class="property">namespace </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">nicol1d</code><a class="headerlink" href="#_CPPv4N5sarma7nicol1dE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This namespace contains required functions for Nicol’s optimal one-dimensional partitioning algorithm. described in “David Nicol, Rectilinear Partitioning of Irregular Data Parallel Computations, JPDC, 1994”. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4I00_bEN5sarma7nicol1d5probeEDaPKNSt6vectorI5ValueEEK7OrdinalK5ValuePNSt6vectorI7OrdinalEE">
+<span id="_CPPv3I00_bEN5sarma7nicol1d5probeEPKNSt6vectorI5ValueEEK7OrdinalK5ValuePNSt6vectorI7OrdinalEE"></span><span id="_CPPv2I00_bEN5sarma7nicol1d5probeEPKNSt6vectorI5ValueEEK7OrdinalK5ValuePNSt6vectorI7OrdinalEE"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>, bool <code class="sig-name descname">version</code> = false&gt;<br /><span class="target" id="namespacesarma_1_1nicol1d_1a72cbfb58978f02eaad2cb37c6c57bb31"></span>auto <code class="sig-name descname">probe</code><span class="sig-paren">(</span>std::vector&lt;<a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol1d5probeEDaPKNSt6vectorI5ValueEEK7OrdinalK5ValuePNSt6vectorI7OrdinalEE" title="sarma::nicol1d::probe::Value">Value</a>&gt; <em class="property">const</em> *<em>prefixes</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol1d5probeEDaPKNSt6vectorI5ValueEEK7OrdinalK5ValuePNSt6vectorI7OrdinalEE" title="sarma::nicol1d::probe::Ordinal">Ordinal</a> <em>Q</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol1d5probeEDaPKNSt6vectorI5ValueEEK7OrdinalK5ValuePNSt6vectorI7OrdinalEE" title="sarma::nicol1d::probe::Value">Value</a> <em>L</em>, std::vector&lt;<a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol1d5probeEDaPKNSt6vectorI5ValueEEK7OrdinalK5ValuePNSt6vectorI7OrdinalEE" title="sarma::nicol1d::probe::Ordinal">Ordinal</a>&gt; *<em>UB</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00_bEN5sarma7nicol1d5probeEDaPKNSt6vectorI5ValueEEK7OrdinalK5ValuePNSt6vectorI7OrdinalEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements 2D probe with ‘version’ choosing different optimizations. Given 2D prefix sum array (Q by N), number of partitions (P = UB.size() - 1) and the maximum load, this algorithm returns a valid cut vector of [0, N-1] (last elements are &gt;= N),if such partition exists, and an unvalid one otherwise. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prefixes</span></code>: Q of N prefix sum arrays </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code>: number of prefix sum arrays </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L</span></code>: upper bound of load size </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UB</span></code>: upper bound of each cut </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma7nicol1d5probeEbRKNSt6vectorI5ValueEEK7OrdinalK5Value">
+<span id="_CPPv3I00EN5sarma7nicol1d5probeERKNSt6vectorI5ValueEEK7OrdinalK5Value"></span><span id="_CPPv2I00EN5sarma7nicol1d5probeERKNSt6vectorI5ValueEEK7OrdinalK5Value"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1nicol1d_1a188707815191b61838aa013b1f810bcd"></span>bool <code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d5probeEbRKNSt6vectorI5ValueEEK7OrdinalK5Value" title="sarma::nicol1d::probe::Value">Value</a>&gt; &amp;<em>prefix</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d5probeEbRKNSt6vectorI5ValueEEK7OrdinalK5Value" title="sarma::nicol1d::probe::Ordinal">Ordinal</a> <em>P</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d5probeEbRKNSt6vectorI5ValueEEK7OrdinalK5Value" title="sarma::nicol1d::probe::Value">Value</a> <em>B</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma7nicol1d5probeEbRKNSt6vectorI5ValueEEK7OrdinalK5Value" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements standard 1D probe Given prefix sum array, number of partitions and the maximum load, this algorithm returns true if such partition exists, and false otherwise. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>whether feasiable cuts exists </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prefix</span></code>: </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: upper bound </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma7nicol1d16partition_valuesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal">
+<span id="_CPPv3I00EN5sarma7nicol1d16partition_valuesEPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal"></span><span id="_CPPv2I00EN5sarma7nicol1d16partition_valuesEPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1nicol1d_1ac0fae6ef8e6551a556a45d9b5d64d878"></span>auto <code class="sig-name descname">partition_values</code><span class="sig-paren">(</span>std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d16partition_valuesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="sarma::nicol1d::partition_values::Value">Value</a>&gt; <em class="property">const</em> *<em>prefixes</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d16partition_valuesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="sarma::nicol1d::partition_values::Ordinal">Ordinal</a> <em>Q</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d16partition_valuesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="sarma::nicol1d::partition_values::Ordinal">Ordinal</a> <em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma7nicol1d16partition_valuesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma7nicol1d17partition_indicesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal">
+<span id="_CPPv3I00EN5sarma7nicol1d17partition_indicesEPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal"></span><span id="_CPPv2I00EN5sarma7nicol1d17partition_indicesEPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1nicol1d_1adc3b00de7eeb734f8a408559aeb2ba04"></span>auto <code class="sig-name descname">partition_indices</code><span class="sig-paren">(</span>std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d17partition_indicesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="sarma::nicol1d::partition_indices::Value">Value</a>&gt; <em class="property">const</em> *<em>prefixes</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d17partition_indicesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="sarma::nicol1d::partition_indices::Ordinal">Ordinal</a> <em>Q</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d17partition_indicesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="sarma::nicol1d::partition_indices::Ordinal">Ordinal</a> <em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma7nicol1d17partition_indicesEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00_bEN5sarma7nicol1d9partitionEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal">
+<span id="_CPPv3I00_bEN5sarma7nicol1d9partitionEPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal"></span><span id="_CPPv2I00_bEN5sarma7nicol1d9partitionEPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>, bool <code class="sig-name descname">use_indices</code> = true&gt;<br /><span class="target" id="namespacesarma_1_1nicol1d_1a9afca0a3170e89d630904a01e89baa47"></span>auto <code class="sig-name descname">partition</code><span class="sig-paren">(</span>std::vector&lt;<a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol1d9partitionEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="sarma::nicol1d::partition::Value">Value</a>&gt; <em class="property">const</em> *<em>prefixes</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol1d9partitionEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="sarma::nicol1d::partition::Ordinal">Ordinal</a> <em>Q</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol1d9partitionEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="sarma::nicol1d::partition::Ordinal">Ordinal</a> <em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00_bEN5sarma7nicol1d9partitionEDaPKNSt6vectorI5ValueEEK7OrdinalK7Ordinal" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the helper function that computes optimum 1D cut for given prefix sum. The algorithm is described in “David Nicol, Rectilinear Partitioning of Irregular Data Parallel Computations, JPDC, 1994”. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>cut vector and optimal bound </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prefix</span></code>: prefix sum for 1D </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of part </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma7nicol1d16partition_prefixENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal">
+<span id="_CPPv3I00EN5sarma7nicol1d16partition_prefixERKNSt6vectorI5ValueEEK7Ordinal"></span><span id="_CPPv2I00EN5sarma7nicol1d16partition_prefixERKNSt6vectorI5ValueEEK7Ordinal"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1nicol1d_1a56f1082f911fac1a432ad65d3947a4cc"></span>std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d16partition_prefixENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal" title="sarma::nicol1d::partition_prefix::Ordinal">Ordinal</a>&gt; <code class="sig-name descname">partition_prefix</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d16partition_prefixENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal" title="sarma::nicol1d::partition_prefix::Value">Value</a>&gt; &amp;<em>prefix</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d16partition_prefixENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal" title="sarma::nicol1d::partition_prefix::Ordinal">Ordinal</a> <em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma7nicol1d16partition_prefixENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements optimum 1D partitioning The algorithm is described in “David Nicol, Rectilinear Partitioning of Irregular Data Parallel Computations, JPDC, 1994”. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>cut vector and optimal bound </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prefix</span></code>: vector </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">on</span></code>: dimension that <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> will be cut </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma7nicol1d9partitionENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal">
+<span id="_CPPv3I00EN5sarma7nicol1d9partitionERKNSt6vectorI5ValueEEK7Ordinal"></span><span id="_CPPv2I00EN5sarma7nicol1d9partitionERKNSt6vectorI5ValueEEK7Ordinal"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1nicol1d_1aba980a6be63c6a279bee75f426ff32b2"></span>std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d9partitionENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal" title="sarma::nicol1d::partition::Ordinal">Ordinal</a>&gt; <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d9partitionENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal" title="sarma::nicol1d::partition::Value">Value</a>&gt; &amp;<em>array</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7nicol1d9partitionENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal" title="sarma::nicol1d::partition::Ordinal">Ordinal</a> <em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma7nicol1d9partitionENSt6vectorI7OrdinalEERKNSt6vectorI5ValueEEK7Ordinal" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements optimum 1D partitioning algorithm described in “David Nicol, Rectilinear Partitioning of Irregular Data Parallel Computations, JPDC, 1994”. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>cut vector and optimal bound </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">array</span></code>: input 1D array </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of part </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nicol2d.html" class="btn btn-neutral float-right" title="Nicol 2D" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mixed_integer_program.html" class="btn btn-neutral" title="Mixed Integer Programming" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GT-TDAlab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

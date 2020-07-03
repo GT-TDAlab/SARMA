@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Uniform &mdash; SARMA 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom_tweaks.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="SARMA 1.0.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Algorithms" href="../algorithms.html"/>
+        <link rel="next" title="Site Map" href="../../genindex.html"/>
+        <link rel="prev" title="Refine a Cut (RaC)" href="refine_a_cut.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SARMA
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">SARMA</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Containers and Views</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../algorithms.html">Algorithms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mixed_integer_program.html">Mixed Integer Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nicol1d.html">Nicol 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nicol2d.html">Nicol 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="probe_a_load.html">Probe a Load (PaL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refine_a_cut.html">Refine a Cut (RaC)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Uniform</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SARMA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../algorithms.html">Algorithms</a> &raquo;</li>
+        
+      <li>Uniform</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/doc/api/algorithms/uniform.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="uniform">
+<h1>Uniform<a class="headerlink" href="#uniform" title="Permalink to this headline">¶</a></h1>
+<p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/algorithms/uniform.hpp">algorithms/uniform.hpp</a></p>
+<dl class="cpp type">
+<dt id="_CPPv4N5sarma7uniformE">
+<span id="_CPPv3N5sarma7uniformE"></span><span id="_CPPv2N5sarma7uniformE"></span><span id="sarma::uniform"></span><span class="target" id="namespacesarma_1_1uniform"></span><em class="property">namespace </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">uniform</code><a class="headerlink" href="#_CPPv4N5sarma7uniformE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This namespace contains required functions for the uniform (checker-board) partitioning. Uniform partitioning is one of the straightforward algorithms that is used to solve mLI problem. Its dual (<a class="reference internal" href="#namespacesarma_1_1uniform_1a8325d322ee4fc80300edcdb1af9f0857"><span class="std std-ref">sarma::uniform::bal</span></a>) solves the mNC problem. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4I0EN5sarma7uniform9partitionENSt6vectorI7OrdinalEEK7OrdinalK7Ordinal">
+<span id="_CPPv3I0EN5sarma7uniform9partitionEK7OrdinalK7Ordinal"></span><span id="_CPPv2I0EN5sarma7uniform9partitionEK7OrdinalK7Ordinal"></span>template&lt;class <code class="sig-name descname">Ordinal</code>&gt;<br /><span class="target" id="namespacesarma_1_1uniform_1a69fdd2aa2ee6e0db6407e2739e6e924b"></span>std::vector&lt;<a class="reference internal" href="#_CPPv4I0EN5sarma7uniform9partitionENSt6vectorI7OrdinalEEK7OrdinalK7Ordinal" title="sarma::uniform::partition::Ordinal">Ordinal</a>&gt; <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN5sarma7uniform9partitionENSt6vectorI7OrdinalEEK7OrdinalK7Ordinal" title="sarma::uniform::partition::Ordinal">Ordinal</a> <em>N</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN5sarma7uniform9partitionENSt6vectorI7OrdinalEEK7OrdinalK7Ordinal" title="sarma::uniform::partition::Ordinal">Ordinal</a> <em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN5sarma7uniform9partitionENSt6vectorI7OrdinalEEK7OrdinalK7Ordinal" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the uniform (checker-board) partitioning taking number of rows and number of cuts as parameters. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>: number of rows </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts </p></li>
+</ul>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ordinal</span></code>: data-type of indptr and indices structures in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma7uniform3balEDaRK6MatrixI7Ordinal5ValueEK5Value">
+<span id="_CPPv3I00EN5sarma7uniform3balERK6MatrixI7Ordinal5ValueEK5Value"></span><span id="_CPPv2I00EN5sarma7uniform3balERK6MatrixI7Ordinal5ValueEK5Value"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1uniform_1a8325d322ee4fc80300edcdb1af9f0857"></span>auto <code class="sig-name descname">bal</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7uniform3balEDaRK6MatrixI7Ordinal5ValueEK5Value" title="sarma::uniform::bal::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma7uniform3balEDaRK6MatrixI7Ordinal5ValueEK5Value" title="sarma::uniform::bal::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7uniform3balEDaRK6MatrixI7Ordinal5ValueEK5Value" title="sarma::uniform::bal::Value">Value</a> <em>Z</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma7uniform3balEDaRK6MatrixI7Ordinal5ValueEK5Value" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements Bound a Load (BaL) algorithm using UNI as the mLI algorithm. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Z</span></code>: Target load </p></li>
+</ul>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ordinal</span></code>: data-type of indptr and indices structures in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Value</span></code>: data-type of data structure in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma7uniform9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Value">
+<span id="_CPPv3I00EN5sarma7uniform9partitionERK6MatrixI7Ordinal5ValueEK7OrdinalK5Value"></span><span id="_CPPv2I00EN5sarma7uniform9partitionERK6MatrixI7Ordinal5ValueEK7OrdinalK5Value"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1uniform_1a241b0c7eae6338c235fdbdd09504b9da"></span>std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7uniform9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Value" title="sarma::uniform::partition::Ordinal">Ordinal</a>&gt; <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma7uniform9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Value" title="sarma::uniform::partition::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma7uniform9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Value" title="sarma::uniform::partition::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7uniform9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Value" title="sarma::uniform::partition::Ordinal">Ordinal</a> <em>P</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma7uniform9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Value" title="sarma::uniform::partition::Value">Value</a> <em>Z</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma7uniform9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Value" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the Uniform (Uni) checker-board partitioning It basically returns equally spaced cuts. Note that if Z is greater than zero then this function overrides P and calls the dual of the uniform partitioning that solves MNc problem. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Z</span></code>: Target load </p></li>
+</ul>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ordinal</span></code>: data-type of indptr and indices structures in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../genindex.html" class="btn btn-neutral float-right" title="Site Map" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="refine_a_cut.html" class="btn btn-neutral" title="Refine a Cut (RaC)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GT-TDAlab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Refine a Cut (RaC) &mdash; SARMA 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom_tweaks.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="SARMA 1.0.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Algorithms" href="../algorithms.html"/>
+        <link rel="next" title="Uniform" href="uniform.html"/>
+        <link rel="prev" title="Probe a Load (PaL)" href="probe_a_load.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SARMA
+          
+
+          
+            
+            <img src="../../_static/logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">SARMA</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Containers and Views</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../algorithms.html">Algorithms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mixed_integer_program.html">Mixed Integer Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nicol1d.html">Nicol 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nicol2d.html">Nicol 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="probe_a_load.html">Probe a Load (PaL)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Refine a Cut (RaC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uniform.html">Uniform</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SARMA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../algorithms.html">Algorithms</a> &raquo;</li>
+        
+      <li>Refine a Cut (RaC)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/doc/api/algorithms/refine_a_cut.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="refine-a-cut-rac">
+<h1>Refine a Cut (RaC)<a class="headerlink" href="#refine-a-cut-rac" title="Permalink to this headline">¶</a></h1>
+<p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/algorithms/refine_a_cut.hpp">algorithms/refine_a_cut.hpp</a></p>
+<dl class="cpp type">
+<dt id="_CPPv4N5sarma12refine_a_cutE">
+<span id="_CPPv3N5sarma12refine_a_cutE"></span><span id="_CPPv2N5sarma12refine_a_cutE"></span><span id="sarma::refine_a_cut"></span><span class="target" id="namespacesarma_1_1refine__a__cut"></span><em class="property">namespace </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">refine_a_cut</code><a class="headerlink" href="#_CPPv4N5sarma12refine_a_cutE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This namespace contains required functions for the Refine a Cut (RaC) partitioning algorithm. RaC partitioning is one of the algorithms that is used to solve mLI problem. Its dual (<a class="reference internal" href="#namespacesarma_1_1refine__a__cut_1a5c8bce5fd75af4cc12f1ae8f7507e676"><span class="std std-ref">sarma::refine_a_cut::bal</span></a>) solves the mNC problem. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Enums</p>
+<dl class="cpp enum">
+<dt id="_CPPv4N5sarma12refine_a_cut6LOOKUPE">
+<span id="_CPPv3N5sarma12refine_a_cut6LOOKUPE"></span><span id="_CPPv2N5sarma12refine_a_cut6LOOKUPE"></span><span class="target" id="namespacesarma_1_1refine__a__cut_1a615f167ace9b66fbf1fe3b7d80127817"></span><em class="property">enum </em><code class="sig-name descname">LOOKUP</code><a class="headerlink" href="#_CPPv4N5sarma12refine_a_cut6LOOKUPE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>An enum type used to define refinement direction. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N5sarma12refine_a_cut6LOOKUP5DIM_XE">
+<span id="_CPPv3N5sarma12refine_a_cut6LOOKUP5DIM_XE"></span><span id="_CPPv2N5sarma12refine_a_cut6LOOKUP5DIM_XE"></span><span class="target" id="namespacesarma_1_1refine__a__cut_1a615f167ace9b66fbf1fe3b7d80127817a384d3263bd844f0aea0c960454871661"></span><em class="property">enumerator </em><code class="sig-name descname">DIM_X</code><a class="headerlink" href="#_CPPv4N5sarma12refine_a_cut6LOOKUP5DIM_XE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>column direction </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N5sarma12refine_a_cut6LOOKUP5DIM_YE">
+<span id="_CPPv3N5sarma12refine_a_cut6LOOKUP5DIM_YE"></span><span id="_CPPv2N5sarma12refine_a_cut6LOOKUP5DIM_YE"></span><span class="target" id="namespacesarma_1_1refine__a__cut_1a615f167ace9b66fbf1fe3b7d80127817acf8775b6bec942670e206e16441c497c"></span><em class="property">enumerator </em><code class="sig-name descname">DIM_Y</code><a class="headerlink" href="#_CPPv4N5sarma12refine_a_cut6LOOKUP5DIM_YE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>row direction </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma12refine_a_cut10refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorI5ValueEERKNSt6vectorI7OrdinalEE">
+<span id="_CPPv3I00EN5sarma12refine_a_cut10refinementERK6MatrixI7Ordinal5ValueERNSt6vectorI5ValueEERKNSt6vectorI7OrdinalEE"></span><span id="_CPPv2I00EN5sarma12refine_a_cut10refinementERK6MatrixI7Ordinal5ValueERNSt6vectorI5ValueEERKNSt6vectorI7OrdinalEE"></span>template&lt;typename <code class="sig-name descname">Ordinal</code>, typename <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1refine__a__cut_1ace68a00213f8e6ca436a31d62d5b2805"></span>auto <code class="sig-name descname">refinement</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut10refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorI5ValueEERKNSt6vectorI7OrdinalEE" title="sarma::refine_a_cut::refinement::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut10refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorI5ValueEERKNSt6vectorI7OrdinalEE" title="sarma::refine_a_cut::refinement::Value">Value</a>&gt; &amp;<em>A</em>, std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut10refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorI5ValueEERKNSt6vectorI7OrdinalEE" title="sarma::refine_a_cut::refinement::Value">Value</a>&gt; &amp;<em>prefix</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut10refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorI5ValueEERKNSt6vectorI7OrdinalEE" title="sarma::refine_a_cut::refinement::Ordinal">Ordinal</a>&gt; &amp;<em>prev_cuts</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma12refine_a_cut10refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorI5ValueEERKNSt6vectorI7OrdinalEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements a simplified refinement technique inspired from Nicol’s refinement precedure. Here instead of running simultaneous binary searches over prefix sum arrays of each interval we first compute the maximum of the each interval than apply an optimal one-dimensional partitioning. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: a matrix </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prefix</span></code>: prefix sum array </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prev_cuts</span></code>: cuts of the previous iteration </p></li>
+</ul>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ordinal</span></code>: data-type of indptr and indices structures in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Value</span></code>: data-type of data structure in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma12refine_a_cut14nic_refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorINSt6vectorI5ValueEEEERKNSt6vectorI7OrdinalEE">
+<span id="_CPPv3I00EN5sarma12refine_a_cut14nic_refinementERK6MatrixI7Ordinal5ValueERNSt6vectorINSt6vectorI5ValueEEEERKNSt6vectorI7OrdinalEE"></span><span id="_CPPv2I00EN5sarma12refine_a_cut14nic_refinementERK6MatrixI7Ordinal5ValueERNSt6vectorINSt6vectorI5ValueEEEERKNSt6vectorI7OrdinalEE"></span>template&lt;typename <code class="sig-name descname">Ordinal</code>, typename <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1refine__a__cut_1acabaf009f36f64cb909ba7fca8198268"></span>auto <code class="sig-name descname">nic_refinement</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut14nic_refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorINSt6vectorI5ValueEEEERKNSt6vectorI7OrdinalEE" title="sarma::refine_a_cut::nic_refinement::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut14nic_refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorINSt6vectorI5ValueEEEERKNSt6vectorI7OrdinalEE" title="sarma::refine_a_cut::nic_refinement::Value">Value</a>&gt; &amp;<em>A</em>, std::vector&lt;std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut14nic_refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorINSt6vectorI5ValueEEEERKNSt6vectorI7OrdinalEE" title="sarma::refine_a_cut::nic_refinement::Value">Value</a>&gt;&gt; &amp;<em>prefixes</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut14nic_refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorINSt6vectorI5ValueEEEERKNSt6vectorI7OrdinalEE" title="sarma::refine_a_cut::nic_refinement::Ordinal">Ordinal</a>&gt; &amp;<em>prev_cuts</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma12refine_a_cut14nic_refinementEDaRK6MatrixI7Ordinal5ValueERNSt6vectorINSt6vectorI5ValueEEEERKNSt6vectorI7OrdinalEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements Nicol’s refinement precedure. This procedure runs simultaneous binary searches over prefix sum arrays of each interval. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: a matrix </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prefix</span></code>: prefix sum array </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prev_cuts</span></code>: cuts of the previous iteration </p></li>
+</ul>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ordinal</span></code>: data-type of indptr and indices structures in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Value</span></code>: data-type of data structure in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma12refine_a_cut9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEbib">
+<span id="_CPPv3I00EN5sarma12refine_a_cut9partitionERK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEbib"></span><span id="_CPPv2I00EN5sarma12refine_a_cut9partitionERK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEbib"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1refine__a__cut_1ad64ad301d338749a60d22fcd16f19abb"></span>auto <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEbib" title="sarma::refine_a_cut::partition::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEbib" title="sarma::refine_a_cut::partition::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEbib" title="sarma::refine_a_cut::partition::Ordinal">Ordinal</a>&gt; &amp;<em>p</em>, bool <em>pdf</em> = true, int <em>max_iteration</em> = 0, bool <em>nic_ref</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEbib" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the Refine a Cut algorithm. Applies row and column based mapping to map 2D into 1D chooses the direction that gives better load imbalance. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code>: starting cut vector after choosing the direction </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pdf</span></code>: pick direction first if it is true. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_iteration</span></code>: limit on refinement iterations </p></li>
+</ul>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ordinal</span></code>: data-type of indptr and indices structures in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Value</span></code>: data-type of data structure in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma12refine_a_cut3balEDaRK6MatrixI7Ordinal5ValueEK5Value">
+<span id="_CPPv3I00EN5sarma12refine_a_cut3balERK6MatrixI7Ordinal5ValueEK5Value"></span><span id="_CPPv2I00EN5sarma12refine_a_cut3balERK6MatrixI7Ordinal5ValueEK5Value"></span>template&lt;typename <code class="sig-name descname">Ordinal</code>, typename <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1refine__a__cut_1a5c8bce5fd75af4cc12f1ae8f7507e676"></span>auto <code class="sig-name descname">bal</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut3balEDaRK6MatrixI7Ordinal5ValueEK5Value" title="sarma::refine_a_cut::bal::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut3balEDaRK6MatrixI7Ordinal5ValueEK5Value" title="sarma::refine_a_cut::bal::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut3balEDaRK6MatrixI7Ordinal5ValueEK5Value" title="sarma::refine_a_cut::bal::Value">Value</a> <em>Z</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma12refine_a_cut3balEDaRK6MatrixI7Ordinal5ValueEK5Value" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements Bound a Load (BaL) algorithm using RaC as the mLI algorithm. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Z</span></code>: Target load </p></li>
+</ul>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ordinal</span></code>: data-type of indptr and indices structures in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Value</span></code>: data-type of data structure in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma12refine_a_cut9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Valuebib">
+<span id="_CPPv3I00EN5sarma12refine_a_cut9partitionERK6MatrixI7Ordinal5ValueEK7OrdinalK5Valuebib"></span><span id="_CPPv2I00EN5sarma12refine_a_cut9partitionERK6MatrixI7Ordinal5ValueEK7OrdinalK5Valuebib"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1refine__a__cut_1aa30b3a7d3cfe438e17c8e324d0bc5774"></span>std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Valuebib" title="sarma::refine_a_cut::partition::Ordinal">Ordinal</a>&gt; <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Valuebib" title="sarma::refine_a_cut::partition::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Valuebib" title="sarma::refine_a_cut::partition::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Valuebib" title="sarma::refine_a_cut::partition::Ordinal">Ordinal</a> <em>P</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Valuebib" title="sarma::refine_a_cut::partition::Value">Value</a> <em>Z</em> = 0, bool <em>pdf</em> = true, int <em>max_iteration</em> = 0, bool <em>nic_ref</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma12refine_a_cut9partitionENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK7OrdinalK5Valuebib" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the Refine a Cut (RaC) algorithm. Applies row and column based mapping to map 2D into 1D chooses the direction that gives better load imbalance. Note that if Z is greater than zero then this function overrides P and calls the dual of the uniform partitioning that solves MNc problem. If pdf is false then in each iteration this algorithm applies row-wise and column-wise refinement and picks the best cuts for the next iteration. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of cuts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Z</span></code>: target load </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pdf</span></code>: pick direction first if it is true. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_iteration</span></code>: limit on refinement iterations </p></li>
+</ul>
+</dd>
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ordinal</span></code>: data-type of indptr and indices structures in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Value</span></code>: data-type of data structure in <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">sarma::Matrix</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="uniform.html" class="btn btn-neutral float-right" title="Uniform" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="probe_a_load.html" class="btn btn-neutral" title="Probe a Load (PaL)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GT-TDAlab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

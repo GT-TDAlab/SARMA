@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SARMA &mdash; SARMA 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom_tweaks.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="SARMA 1.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Containers and Views" href="api/data_structures.html"/>
+        <link rel="prev" title="Welcome to SARMA’s documentation!" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SARMA
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SARMA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributors">Contributors</a><ul>
+<li class="toctree-l3"><a class="reference external" href="http://cc.gatech.edu/~ayasar3">Abdurrahman Yasar</a></li>
+<li class="toctree-l3"><a class="reference external" href="https://www.cc.gatech.edu/~mbalin3/">M. Fatih Balin</a></li>
+<li class="toctree-l3"><a class="reference external" href="http://www.kaansancak.com/">Kaan Sancak</a></li>
+<li class="toctree-l3"><a class="reference external" href="https://xiaojingan.com/">Xiaojing An</a></li>
+<li class="toctree-l3"><a class="reference external" href="http://mucahidbenlioglu.com">M. Mucahid Benlioglu</a></li>
+<li class="toctree-l3"><a class="reference external" href="http://cc.gatech.edu/~umit">Umit V. Catalyurek</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#contact">Contact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#citation">Citation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-build">How to build</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
+<li class="toctree-l4"><a class="reference external" href="https://www.python.org/downloads/">Python 3</a></li>
+<li class="toctree-l4"><a class="reference external" href="https://pip.pypa.io/en/stable/installing/">Pip</a></li>
+<li class="toctree-l4"><a class="reference external" href="https://www.doxygen.nl/download.html">Doxygen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-run">How to run</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-run-tests">How to run tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#unit-tests">Unit Tests:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-tests">System Tests:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#benchmark">Benchmark:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#running-performance-tests">Running Performance Tests:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comparing-performance-between-commits">Comparing Performance Between Commits</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/data_structures.html">Containers and Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/algorithms.html">Algorithms</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SARMA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>SARMA</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/doc/README.md" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sarma">
+<h1>SARMA<a class="headerlink" href="#sarma" title="Permalink to this headline">¶</a></h1>
+<p>SARMA (SpatiAl Rectilinear Matrix pArtitioning) is a template-based, header only,
+library for spatial rectilinear partitioning.
+The main goal of this library to introduce novel <strong>symmetric</strong> rectilinear partitioning
+algorithms.</p>
+<p>SARMA is developed by the members of <a class="reference external" href="http://tda.gatech.edu">GT-TDAlab</a>.</p>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>SARMA is distributed under BSD License. For details, see <a class="reference internal" href="LICENSE.html"><span class="doc">LICENSE</span></a>.</p>
+<p>The MMIO library is included as an external program. See <a class="reference internal" href="MMIO-LICENSE.html"><span class="doc">MMIO LICENSE</span></a> for details.</p>
+</div>
+<div class="section" id="contributors">
+<h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference external" href="http://cc.gatech.edu/~ayasar3">Abdurrahman Yasar</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.cc.gatech.edu/~mbalin3/">M. Fatih Balin</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://www.kaansancak.com/">Kaan Sancak</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://xiaojingan.com/">Xiaojing An</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://mucahidbenlioglu.com">M. Mucahid Benlioglu</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://cc.gatech.edu/~umit">Umit V. Catalyurek</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
+<p>For questions or support <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/issues">open an issue</a> or contact contributors via <a class="reference external" href="mailto:tdalab&#37;&#52;&#48;cc&#46;gatech&#46;edu">tdalab<span>&#64;</span>cc<span>&#46;</span>gatech<span>&#46;</span>edu</a>.</p>
+</div>
+<div class="section" id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
+<p>Citation for the rectilinear partitioners (BibTeX):</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span>    <span class="nc">@techreport</span><span class="p">{</span><span class="nl">Yasar20-ARXIV</span><span class="p">,</span>
+        <span class="na">author</span> <span class="p">=</span>  <span class="s">{Abdurrahman Ya\c{s}ar and M. Fatih Bal{\i}n and Xiaojing An and Kaan Sancak and {\&quot;{U}}mit V. {\c{C}}ataly{\&quot;{u}}rek}</span><span class="p">,</span>
+        <span class="na">title</span> <span class="p">=</span> <span class="s">{On Symmetric Rextilinear Matrix Partitioning}</span><span class="p">,</span>
+        <span class="na">institution</span> <span class="p">=</span> <span class="s">{ArXiv}</span><span class="p">,</span>
+        <span class="na">KEYWORDS</span> <span class="p">=</span> <span class="s">{Spatial partitioning, rectilinear partitioning, symmetric partitioning}</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-build">
+<h2>How to build<a class="headerlink" href="#how-to-build" title="Permalink to this headline">¶</a></h2>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">build</span></code> directory and run <code class="docutils literal notranslate"><span class="pre">cmake</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span></code> from there like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span>
+<span class="n">cd</span> <span class="n">build</span>
+<span class="n">cmake</span> <span class="o">..</span>
+<span class="n">make</span> <span class="o">-</span><span class="n">j</span>
+</pre></div>
+</div>
+<div class="section" id="mac-os-x">
+<h3>Mac OS X<a class="headerlink" href="#mac-os-x" title="Permalink to this headline">¶</a></h3>
+<p>In order to properly set your compiler, especially if you are using
+external package managers like <code class="docutils literal notranslate"><span class="pre">brew</span></code>, we recommend running <code class="docutils literal notranslate"><span class="pre">cmake</span></code>
+with the following options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> \
+    <span class="o">-</span><span class="n">D</span> <span class="n">CMAKE_OSX_SYSROOT</span><span class="o">=</span><span class="s2">&quot;/&quot;</span> \
+    <span class="o">-</span><span class="n">D</span> <span class="n">CMAKE_OSX_DEPLOYMENT_TARGET</span><span class="o">=</span><span class="s2">&quot;&quot;</span> \
+    <span class="o">-</span><span class="n">D</span> <span class="n">CMAKE_C_COMPILER</span><span class="o">=</span><span class="n">gcc</span><span class="o">-</span><span class="mi">9</span> \
+    <span class="o">-</span><span class="n">D</span> <span class="n">CMAKE_CXX_COMPILER</span><span class="o">=</span><span class="n">g</span><span class="o">++-</span><span class="mi">9</span> \
+    <span class="o">..</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">cmake</span></code> is used to build sarma.</p>
+<p>This project depends on Intel’s TBB library because gcc depends on it for its parallel stl implementation.</p>
+<p>You can install the latest version with your favorite package manager or
+you could go to <a class="reference external" href="https://github.com/oneapi-src/oneTBB/releases">tbb releases</a>
+and download the latest release.
+<a class="reference external" href="https://github.com/oneapi-src/oneTBB/archive/v2020.2.zip">This one</a> has been confirmed to work.</p>
+<p>To ensure correct installation, we recommend using <a class="reference external" href="https://github.com/oneapi-src/oneTBB/blob/tbb_2020/build/build.py">build.py</a>
+provided by TBB for the installation. It can be simply used as follows from TBB root.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3 build/build.py --prefix<span class="o">=</span><span class="s2">&quot;&lt;PATH-TO-INSTALL&gt;&quot;</span> --install-libs --install-devel
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">tbb</span></code> is not found, add environment variable: <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">TBB_ROOT=&lt;PATH-TO-INSTALL&gt;</span></code>.</p>
+<p>The mixed integer program to optimally solve partitioning problems, i.e. the <code class="docutils literal notranslate"><span class="pre">mip</span></code> algorithm, requires
+<a class="reference external" href="https://www.gurobi.com/products/gurobi-optimizer/">gurobi 9</a> to be installed. After installation,
+set either of <code class="docutils literal notranslate"><span class="pre">GUROBI_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">GUROBI_DIR</span></code> environment variables to the root of your installation.</p>
+<p>The python bindings depend on pybind11. After installing pybind11, please set <code class="docutils literal notranslate"><span class="pre">pybind11_DIR</span></code> to where
+your installation’s <code class="docutils literal notranslate"><span class="pre">pybind11Config.cmake</span></code> file is. To install the bindings, use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> at the
+root of the sarma project repository which is where <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> resides. An example
+usage can be found below and also under <code class="docutils literal notranslate"><span class="pre">utils/python_example.py</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sarma</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">mmread</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">mmread</span><span class="p">(</span><span class="s1">&#39;../tests/system/matrices/email-Eu-core.mtx&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of the matrix: &#39;</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">get_shape</span><span class="p">())</span>
+<span class="go">Shape of the matrix:  (1005, 1005)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Q</span> <span class="o">=</span> <span class="n">sps</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">nic</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">L</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">max_load</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Load imbalance: &#39;</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+<span class="go">Load imbalance:  543</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max load : &#39;</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+<span class="go">Max load :  543</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cut vectors: &#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="go">Cut vectors:  ([0, 61, 113, 168, 249, 339, 434, 551, 1005], [0, 51, 125, 206, 283, 380, 495, 710, 1005])</span>
+</pre></div>
+</div>
+<p><strong>For tests:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.python.org/downloads/">Python 3</a> is used for output processing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timeout</span></code> is used in tests to ensure timeouts can be cleaned up.
+On Mac OS, <code class="docutils literal notranslate"><span class="pre">timeout</span></code> can be installed via <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">coreutils</span></code>. <code class="docutils literal notranslate"><span class="pre">python3</span></code> is used in tests
+for outputs processing.</p></li>
+</ul>
+<p><strong>For Documentation:</strong></p>
+<p>Documentation and API Reference is available <a class="reference external" href="https://gt-tdalab.github.io/sarma">here</a> for local generation the following are needed:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://www.python.org/downloads/">Python 3</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pip.pypa.io/en/stable/installing/">Pip</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.doxygen.nl/download.html">Doxygen</a></li>
+</ul>
+</div>
+<p>Additionally run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">docs/requirements.txt</span></code> for python dependencies in the project root.</p>
+<p>Now running <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> in build directory will create documentations under <code class="docutils literal notranslate"><span class="pre">build/docs/sphinx</span></code></p>
+</div>
+</div>
+<div class="section" id="how-to-run">
+<h2>How to run<a class="headerlink" href="#how-to-run" title="Permalink to this headline">¶</a></h2>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">sarma</span></code> executable to run partitioning algorithms from command line.
+Use <code class="docutils literal notranslate"><span class="pre">sarma</span> <span class="pre">--help</span></code> to see all options. For example, to run Nicol’s rectilinear
+algorithm from build directory</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sarma --graph ../tests/system/matrices/email-Eu-core.mtx --alg nic -p <span class="nv">4</span>
+<span class="o">=========================</span>
+Graph     : ../tests/system/matrices/email-Eu-core.mtx
+Algorithm : nic
+Order     : nat
+P         : <span class="m">4</span>
+Q         : <span class="m">0</span>
+Z         : <span class="nv">0</span>
+<span class="o">=========================</span>
+Cuts:
+<span class="m">0</span>	<span class="m">115</span>	<span class="m">254</span>	<span class="m">438</span>	<span class="m">1005</span>	
+<span class="m">0</span>	<span class="m">132</span>	<span class="m">283</span>	<span class="m">481</span>	<span class="m">1005</span>	
+<span class="o">&lt;&lt;&lt;</span>
+<span class="m">1914</span>	<span class="m">1502</span>	<span class="m">1562</span>	<span class="m">1379</span>	
+<span class="m">1655</span>	<span class="m">1914</span>	<span class="m">1572</span>	<span class="m">1262</span>	
+<span class="m">1626</span>	<span class="m">1621</span>	<span class="m">1923</span>	<span class="m">1248</span>	
+<span class="m">1584</span>	<span class="m">1408</span>	<span class="m">1484</span>	<span class="m">1917</span>	
+<span class="o">&lt;&lt;&lt;</span>
+Max load: <span class="m">1923</span>
+Sparsification <span class="nb">time</span> <span class="o">(</span>s<span class="o">)</span>: <span class="m">0</span>
+Sparse data structure construction <span class="nb">time</span> <span class="o">(</span>s<span class="o">)</span>: <span class="m">0</span>
+Partitioning <span class="nb">time</span> <span class="o">(</span>s<span class="o">)</span>: <span class="m">0</span>.002112
+Load imbalance: <span class="m">1</span>.20324
+Column and row max loads:
+<span class="m">1914</span>	<span class="m">1914</span>	<span class="m">1923</span>	<span class="m">1917</span>	
+<span class="m">1914</span>	<span class="m">1914</span>	<span class="m">1923</span>	<span class="m">1917</span>
+</pre></div>
+</div>
+<p>If we run SARMA’s PAL algorithm for symmetric rectilinear partitioning, the output should
+look like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sarma --graph ../tests/system/matrices/email-Eu-core.mtx --alg pal -p <span class="nv">4</span>
+<span class="o">=========================</span>
+Graph     : ../tests/system/matrices/email-Eu-core.mtx
+Algorithm : pal
+Order     : nat
+P         : <span class="m">4</span>
+Q         : <span class="m">0</span>
+Z         : <span class="nv">0</span>
+<span class="o">=========================</span>
+Cuts:
+<span class="m">0</span>	<span class="m">124</span>	<span class="m">271</span>	<span class="m">458</span>	<span class="m">1005</span>	
+<span class="o">&lt;&lt;&lt;</span>
+<span class="m">1937</span>	<span class="m">1635</span>	<span class="m">1662</span>	<span class="m">1634</span>	
+<span class="m">1545</span>	<span class="m">1929</span>	<span class="m">1607</span>	<span class="m">1421</span>	
+<span class="m">1513</span>	<span class="m">1548</span>	<span class="m">1934</span>	<span class="m">1396</span>	
+<span class="m">1334</span>	<span class="m">1283</span>	<span class="m">1240</span>	<span class="m">1953</span>	
+<span class="o">&lt;&lt;&lt;</span>
+Max load: <span class="m">1953</span>
+Sparsification <span class="nb">time</span> <span class="o">(</span>s<span class="o">)</span>: <span class="m">0</span>
+Sparse data structure construction <span class="nb">time</span> <span class="o">(</span>s<span class="o">)</span>: <span class="m">0</span>.008359
+Partitioning <span class="nb">time</span> <span class="o">(</span>s<span class="o">)</span>: <span class="m">0</span>.007461
+Load imbalance: <span class="m">1</span>.22201
+Column and row max loads:
+<span class="m">1937</span>	<span class="m">1929</span>	<span class="m">1934</span>	<span class="m">1953</span>
+</pre></div>
+</div>
+<div class="section" id="how-to-run-tests">
+<h3>How to run tests<a class="headerlink" href="#how-to-run-tests" title="Permalink to this headline">¶</a></h3>
+<p>Using ctest for testing.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> build
+cmake ..
+make -j <span class="m">32</span>
+ctest -j <span class="m">32</span>
+</pre></div>
+</div>
+<p>Some common ctest options:</p>
+<ul>
+<li><p>To run tests in parallel, add the <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">N</span></code> flag, where <code class="docutils literal notranslate"><span class="pre">N</span></code> is the number of tests to run in parallel.</p></li>
+<li><p>For selecting tests: you can select tests to run through ‘-R’ option, eg. you can select to run unit tests only by:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest -R <span class="s1">&#39;unit_*&#39;</span>
+</pre></div>
+</div>
+<p>and select all system tests by:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest -R <span class="s1">&#39;sys_*&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>For more detailed testing output:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ctest -R <span class="s1">&#39;unit_*&#39;</span> -V
+</pre></div>
+</div>
+</li>
+</ul>
+<p>More and updated option list can be found at <a class="reference external" href="https://cmake.org/cmake/help/v3.4/manual/ctest.1.html">cmake.org on ctest</a>.</p>
+<div class="section" id="unit-tests">
+<h4>Unit Tests:<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h4>
+<p>Unit tests are designed for testing correctness of each partitioning function.
+Tests uses small examples and are designed to run very fast.</p>
+</div>
+<div class="section" id="system-tests">
+<h4>System Tests:<a class="headerlink" href="#system-tests" title="Permalink to this headline">¶</a></h4>
+<p>System tests are designed to validate the results of partitioning algorithms. By default,
+tests are run on all the matrices under <code class="docutils literal notranslate"><span class="pre">./tests/system/matrices</span></code>
+using <code class="docutils literal notranslate"><span class="pre">./build/sarma</span></code> executable with some predertmined arguments.</p>
+<p>SHA of results [Cuts, loads, max loads] for each combination of matrices and
+argument is compared against ones from <code class="docutils literal notranslate"><span class="pre">./tests/system/outputs/valid</span></code></p>
+<ul>
+<li><p>To reset valid results: Run <code class="docutils literal notranslate"><span class="pre">ctest</span></code> with the environment variable <code class="docutils literal notranslate"><span class="pre">SARMA_BUILD_VALID</span></code> set. For example,</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">SARMA_BUILD_VALID</span><span class="o">=</span><span class="m">1</span> ctest
+</pre></div>
+</div>
+</li>
+<li><p>To reset testing matrices directory: updating line 10 in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tests</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">CMakeLists</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">cmake</span></code> command needs to be rerun after this change.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="benchmark">
+<h3>Benchmark:<a class="headerlink" href="#benchmark" title="Permalink to this headline">¶</a></h3>
+<p>The source code of the benchmark is available under <code class="docutils literal notranslate"><span class="pre">src/sarma-benchmark.cpp</span></code>.
+General Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sarma</span><span class="o">-</span><span class="n">bench</span> <span class="p">[</span><span class="n">OPTION</span><span class="p">]</span><span class="o">..</span> <span class="p">[</span><span class="o">--</span><span class="n">help</span> <span class="o">|</span> <span class="o">-</span><span class="n">h</span><span class="p">]</span>
+<span class="n">Options</span><span class="p">:</span>                                                        <span class="p">(</span><span class="n">Defaults</span><span class="p">)</span>
+  <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">--</span><span class="nb">dir</span>    <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span>            <span class="n">Directory</span> <span class="n">of</span> <span class="n">the</span> <span class="n">matrices</span><span class="o">.</span>     <span class="p">()</span>
+  <span class="o">-</span><span class="n">i</span><span class="p">,</span> <span class="o">--</span><span class="nb">input</span>  <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span>            <span class="n">Input</span> <span class="n">config</span> <span class="n">file</span><span class="o">.</span>             <span class="p">(</span><span class="n">stdin</span><span class="p">)</span>
+  <span class="o">-</span><span class="n">o</span><span class="p">,</span> <span class="o">--</span><span class="n">output</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span>            <span class="n">Output</span> <span class="n">directory</span>               <span class="p">(</span><span class="n">stdout</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Config format is an input file where each line is one configuration to run.
+Lines starting with hashtag (<strong>#</strong>) are considered as comments and ignored.
+Line format:</p>
+<p><code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">order</span> <span class="pre">algorithm</span> <span class="pre">p</span> <span class="pre">prob</span> <span class="pre">seed</span> <span class="pre">load_imbalance</span> <span class="pre">time</span> <span class="pre">norm_imbalance</span> <span class="pre">norm_time</span></code></p>
+<p>where each column is deliminated by tab(<code class="docutils literal notranslate"><span class="pre">\t</span></code>);</p>
+<p>A sample configuration file for performance tests is available under
+<code class="docutils literal notranslate"><span class="pre">tests/system/matrices/sarma-bench_configfile.txt</span></code></p>
+<div class="section" id="running-performance-tests">
+<h4>Running Performance Tests:<a class="headerlink" href="#running-performance-tests" title="Permalink to this headline">¶</a></h4>
+<p>The systems tests are available under <code class="docutils literal notranslate"><span class="pre">tests/system/matrices/sarma-bench_configfile.txt</span></code>.
+These results are considered as baselines for future changes.
+To run the performance tests <code class="docutils literal notranslate"><span class="pre">sarma-bench</span></code> can be used by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sarma</span><span class="o">-</span><span class="n">bench</span> <span class="o">-</span><span class="n">d</span> <span class="n">tests</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">matrices</span><span class="o">/</span> <span class="o">-</span><span class="n">i</span> <span class="n">tests</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">matrices</span><span class="o">/</span><span class="n">sarma</span><span class="o">-</span><span class="n">bench_configfile</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="n">tests</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">matrices</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>You can monitor the progress via progress bar. Once benchmark is completed,
+the results will be available under <code class="docutils literal notranslate"><span class="pre">tests/system/matrices</span></code>, with proper time stamp.</p>
+</div>
+<div class="section" id="comparing-performance-between-commits">
+<h4>Comparing Performance Between Commits<a class="headerlink" href="#comparing-performance-between-commits" title="Permalink to this headline">¶</a></h4>
+<p>A fast and easy way to compare performances of two commits is available via
+a <code class="docutils literal notranslate"><span class="pre">make</span></code> command. General usage can be described as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">compare</span> <span class="n">HASH</span><span class="o">=&lt;</span><span class="n">commit</span><span class="o">-</span><span class="nb">hash</span><span class="o">&gt;</span> <span class="n">CONFIG</span><span class="o">=&lt;</span><span class="n">config_file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>This command will compare the head commit with the given hash, and configuration file.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api/data_structures.html" class="btn btn-neutral float-right" title="Containers and Views" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to SARMA’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GT-TDAlab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
