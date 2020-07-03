@@ -5,13 +5,16 @@ library for spatial rectilinear partitioning.
 The main goal of this library to introduce novel **symmetric** rectilinear partitioning
 algorithms. 
 
+💻 **Source Code:** [http://github.com/GT-TDAlab/SARMA]  
+📘 **Documentation:** [http://gt-tdalab.github.io/SARMA/]  
+
 SARMA is developed by the members of [GT-TDAlab](http://tda.gatech.edu). 
 
 ## License
 
 SARMA is distributed under BSD License. For details, see [`LICENSE`](LICENSE.md).
 
-The MMIO library is included as an external program. See [`MMIO LICENSE`](MMIO-LICENSE.md) for details.
+The MMIO library is included as an external program. See [`MMIO LICENSE`](./external/mmio/LICENSE.md) for details.
 
 ## Contributors
 
@@ -115,7 +118,7 @@ for outputs processing.
 
 **For Documentation:**
 
-Documentation and API Reference is available [here](https://gt-tdalab.github.io/SARMA/) for local generation the following are needed:
+Documentation and API Reference is available [here](https://gt-tdalab.github.io/sarma) for local generation the following are needed:
 
 * [Python 3](https://www.python.org/downloads/)
 * [Pip](https://pip.pypa.io/en/stable/installing/)
