@@ -7,7 +7,7 @@ addons:
       - g++-9
       - cmake-data
       - cmake
-
+      - libtbb-dev
 jobs:
   include:
     # Docs
