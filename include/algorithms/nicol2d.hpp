@@ -16,8 +16,12 @@
 * Nicol's two-dimensional partitioning algorithm
 * described in "David Nicol, Rectilinear Partitioning of Irregular Data Parallel Computations, JPDC, 1994".
 */
+#if defined(ENABLE_CPP_PARALLEL)
 namespace sarma::nicol2d {
-
+#else
+namespace sarma{
+    namespace nicol2d {
+#endif
     template <class Ordinal, class Value, bool use_indices = true>
     auto partition(const Matrix<Ordinal, Value> &A, const std::vector<Ordinal> &p, const Ordinal Q, const bool p_is_rows = true, int max_iteration = 0) {
         if (max_iteration == 0)
@@ -38,14 +42,26 @@ namespace sarma::nicol2d {
             const auto &q = ps[~i & 1];
             auto &prefixes = prefixess[i & 1];
             for (auto &v: prefixes)
+#if defined(ENABLE_CPP_PARALLEL)
                 std::fill(exec_policy, v.begin(), v.end(), 0);
             std::for_each(exec_policy, A.indptr.begin(), A.indptr.end() - 1, [&](const auto &indptr_i) {
+#else
+                std::fill(v.begin(), v.end(), 0);
+            std::for_each( A.indptr.begin(), A.indptr.end() - 1, [&](const auto &indptr_i) {
+#endif
                 const auto i = std::distance(&A.indptr[0], &indptr_i);
                 for (auto j = indptr_i; j < A.indptr[i + 1]; j++)
                     prefixes[utils::lowerbound_index(q, A.indices[j])][i + 1] += A.data(j);
             });
-            for (auto &v: prefixes)
+            for (auto &v: prefixes){
+#if defined(ENABLE_CPP_PARALLEL)
                 std::inclusive_scan(exec_policy, v.begin(), v.end(), v.begin());
+#else
+                for (size_t j=1; j<v.size(); j++){
+                    v[j] += v[j-1];
+                }
+#endif
+            }
             const auto prev_p = p;
             p = nicol1d::partition<Ordinal, Value, use_indices>(&prefixes[0], (Ordinal)prefixes.size(), P);
             #ifdef DEBUG
@@ -80,7 +96,10 @@ namespace sarma::nicol2d {
     */
     template <class Ordinal, class Value, bool use_indices = true>
     auto partition(const Matrix<Ordinal, Value> &A, const Ordinal P, const Ordinal Q, const int max_iteration = 0) {
-        const auto p = nicol1d::partition<Ordinal, Value, use_indices>(&A.indptr, (Ordinal)1, P);
+        const auto p = nicol1d::partition<Ordinal, Ordinal, use_indices>(&A.indptr, (Ordinal)1, P);
         return partition<Ordinal, Value, use_indices>(A, p, Q, true, max_iteration);
     }
-};
+}
+#if !defined(ENABLE_CPP_PARALLEL)
+} // nested namespace
+#endif

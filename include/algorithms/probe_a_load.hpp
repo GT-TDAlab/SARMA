@@ -11,7 +11,12 @@
 * is one of the algorithms that is used to solve
 * mNC problem. Its dual solves the mLI problem
 */
+#if defined(ENABLE_CPP_PARALLEL)
 namespace sarma::probe_a_load {
+#else
+namespace sarma{
+    namespace probe_a_load {
+#endif
 
     /**
     * @brief Implements the Probe a Load algorithm.
@@ -74,7 +79,7 @@ namespace sarma::probe_a_load {
         auto l = (M - 1 + P * P) / P / P;
         auto r = std::min(M, (M + P - 1) / P + N);
         std::vector<Ordinal> UB(P + 1, N);
-        while (l < r) {
+        while (l + .5 < r) {
             const auto m = l + (r - l) / 2;
             const auto p = probe(A, m, &UB);
             if (p.back() < N)
@@ -87,3 +92,6 @@ namespace sarma::probe_a_load {
         return probe(A, r, &UB);
     }
 }
+#if !defined(ENABLE_CPP_PARALLEL)
+} // nested namespace
+#endif

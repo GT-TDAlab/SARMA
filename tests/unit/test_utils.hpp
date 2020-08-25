@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <filesystem>
+// #include <filesystem>
 
+#include "sarma.hpp"
 #include "algorithms/algorithm.hpp"
 #include "data_structures/csr_matrix.hpp"
 #include "data_structures/sparse_prefix_sum.hpp"
@@ -19,10 +20,10 @@ namespace sarma::test_utils {
         const auto gdir = std::getenv("TEST_MTX_DIR");
         std::vector<sarma::Matrix<Ordinal, Value>> matrices;
 
-        if (!std::filesystem::exists(gdir))
+        if (!ns_filesystem::exists(gdir))
             return matrices;
 
-        for (const auto &g: std::filesystem::directory_iterator(gdir))
+        for (const auto &g: ns_filesystem::directory_iterator(gdir))
             if (g.path().extension() == ".mtx" || g.path().extension() == ".bin")
                 matrices.emplace_back(g, use_data);
 
@@ -34,14 +35,14 @@ namespace sarma::test_utils {
         const auto gdir = std::getenv("TEST_MTX_DIR");
         std::vector<std::pair<sarma::Matrix<Ordinal, Value>, sarma::Matrix<Ordinal, Value>>> matrices;
 
-        if (!std::filesystem::exists(gdir))
+        if (!ns_filesystem::exists(gdir))
             return matrices;
 
-        for (auto &g: std::filesystem::directory_iterator(gdir))
+        for (auto &g: ns_filesystem::directory_iterator(gdir))
             if (g.path().extension() == ".mtx") {
                 auto bin_path = g.path();
                 bin_path.replace_extension(".bin");
-                if (std::filesystem::exists(bin_path))
+                if (ns_filesystem::exists(bin_path))
                     matrices.emplace_back(std::make_pair(
                         sarma::Matrix<Ordinal, Value>(g, false),
                         sarma::Matrix<Ordinal, Value>(bin_path, false)
@@ -230,7 +231,7 @@ namespace sarma::test_utils {
 
     template <typename Ordinal, typename Value, typename alg_t>
     int test_alg(alg_t alg, const sarma::Matrix<Ordinal, Value> &A, const Ordinal P, const Ordinal Q, const Ordinal Z) {
-        const auto [ans, _] = alg(A, P, Q, Z, 1);
+        const auto ans = alg(A, P, Q, Z, 1).first;
         return is_valid(ans, A.N()) ? 0 : -1;
     }
 

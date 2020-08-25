@@ -412,7 +412,11 @@ int nicol2dpartition_versioncompare(std::vector<Value> * prefixes, Ordinal Q, Or
     else
         expected_cuts = cuts;
 
+#if defined(ENABLE_CPP_PARALLEL)
     if constexpr( std::is_integral_v<Value> ) {
+#else
+    if (std::is_integral<Value>::value ) {
+#endif
         cuts = sarma::nicol1d::partition<Ordinal, Value, false>(prefixes, Q, P);
         pass |= test_utils::is_same(cuts, expected_cuts);
     }
@@ -637,23 +641,31 @@ int partition2d() {
 
     TEST(partition2d_example1<int COMMA int>)
     TEST(partition2d_example1<int COMMA unsigned int>)
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(partition2d_example1<int COMMA float>)
     TEST(partition2d_example1<int COMMA double>)
+#endif
 
     TEST(partition2d_example2<int COMMA int>)
     TEST(partition2d_example2<int COMMA unsigned int>)
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(partition2d_example2<int COMMA float>)
     TEST(partition2d_example2<int COMMA double>)
+#endif
 
     TEST(partition2d_allzeros<int COMMA int>)
     TEST(partition2d_allzeros<int COMMA unsigned int>)
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(partition2d_allzeros<int COMMA float>)
     TEST(partition2d_allzeros<int COMMA double>)
+#endif
 
     TEST(partition2d_randomnumber<int COMMA int>, time(NULL))
     TEST(partition2d_randomnumber<int COMMA unsigned int>, time(NULL))
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(partition2d_randomnumber<int COMMA float>, time(NULL))
     TEST(partition2d_randomnumber<int COMMA double>, time(NULL))
+#endif
 
     return pass;
 }

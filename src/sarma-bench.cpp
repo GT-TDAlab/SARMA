@@ -1,13 +1,14 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <fstream>
-#include <filesystem>
 #include <cmath>
 #include <ctime>
 #include <iomanip>
 #include <sstream>
 #include <memory>
 #include <map>
+#include <iomanip>
 
 #include "sarma.hpp"
 #include "tools/progress_bar.hpp"
@@ -28,9 +29,9 @@ const auto PRECISION = 3;
 const auto EPSILON = 1e-7;
 
 struct Parameters {
-    std::filesystem::path graph_dir = "";  // Graph locations
-    std::filesystem::path input_path = ""; // Config file
-    std::filesystem::path output_dir = ""; // Default is std::cout
+    ns_filesystem::path graph_dir = "";  // Graph locations
+    ns_filesystem::path input_path = ""; // Config file
+    ns_filesystem::path output_dir = ""; // Default is std::cout
 };
 
 struct noop {
@@ -161,7 +162,7 @@ int main(int argc, const char *argv[]) {
         std::shared_ptr<std::ostream> out;
         if (params.output_dir != "") {
             const auto out_file = params.output_dir / time_stream.str();
-            std::filesystem::create_directories(out_file.parent_path());
+            ns_filesystem::create_directories(out_file.parent_path());
             out.reset(new std::ofstream(out_file, std::ofstream::out));
         } else {
             out.reset(&std::cout, noop());
@@ -175,14 +176,39 @@ int main(int argc, const char *argv[]) {
         bool is_first = base_configs.begin()->second.begin()->second.begin()->second.time < 0; // Check if the previous iteration is first run
 
         utils::progress_bar pb(num_config);
+#if defined(ENABLE_CPP_PARALLEL)
         for (auto& [go, pps] : base_configs) {
+#else
+        for (auto& config : base_configs) {
+            auto &go = config.first;
+            auto &pps = config.second;
+#endif
             auto a_ord = AlgorithmOrder<Ordinal, Value>(params.graph_dir / go.first, ords.at(go.second), triangular, use_data);
+#if defined(ENABLE_CPP_PARALLEL)
             for (auto& [k, configs] : pps) {
                 auto [a_sp, sp_time, ds_time] = AlgorithmPlan(a_ord, utils::get_prob(a_ord->NNZ(), std::get<0>(k), std::get<0>(k), std::get<1>(k)), std::get<2>(k), true);
                 for (auto& [index, config] : configs) {
                     try {
                         const auto &[alg, use_sparse] = algs.at(config.algorithm);
                         auto [load_imbalance, par_time] = AlgorithmBenchmark(alg, a_ord, a_sp, config.p, config.p, (Ordinal)0, config.seed);
+#else
+            for (auto& pp : pps) {
+                auto &k = pp.first;
+                auto &configs = pp.second;
+                auto plan_terms = AlgorithmPlan(a_ord, utils::get_prob(a_ord->NNZ(), std::get<0>(k), std::get<0>(k), std::get<1>(k)), std::get<2>(k), true);
+                auto a_sp = std::get<0>(plan_terms);
+                auto sp_time = std::get<1>(plan_terms);
+                auto ds_time = std::get<2>(plan_terms);
+                for (auto& i_c : configs) {
+                    auto &index = i_c.first;
+                    auto &config = i_c.second;
+                    try {
+                        const auto &alg = algs.at(config.algorithm).first;
+                        const auto &use_sparse = algs.at(config.algorithm).second;
+                        auto l_p = AlgorithmBenchmark(alg, a_ord, a_sp, config.p, config.p, (Ordinal)0, config.seed);
+                        auto load_imbalance = l_p.first;
+                        auto par_time = l_p.second;
+#endif
                         const auto total_time = sp_time + (use_sparse ? ds_time : 0) + par_time;
                         config.norm_load_imbalance = is_first ? 1 : load_imbalance / config.load_imbalance;
                         config.norm_time = is_first ? 1 : total_time / config.time;
@@ -208,7 +234,12 @@ int main(int argc, const char *argv[]) {
         std::sort(run_configs.begin(), run_configs.end(), [](const auto& u, const auto& v) {
             return u.first < v.first;
         });
+#if defined(ENABLE_CPP_PARALLEL)
         for (auto& [index, config]: run_configs) {
+#else
+        for (auto& i_c: run_configs) {
+            auto &config = i_c.second;
+#endif
             *out << config;
         }
 
@@ -309,13 +340,13 @@ int parse_parameters(Parameters &params, int argc, const char **argv) {
     for (int i = 1; i < argc; i++) {
         if (!strcasecmp(argv[i], "--dir") || !strcasecmp(argv[i], "-d")) {
             params.graph_dir = std::string(argv[++i]);
-            if (!std::filesystem::exists(params.graph_dir)) {
+            if (!ns_filesystem::exists(params.graph_dir)) {
                 std::cerr << "Graph directory does not exist." << std::endl;
                 return -1;
             }
         } else if (!strcasecmp(argv[i], "--input") || !strcasecmp(argv[i], "-i")) {
             params.input_path = std::string(argv[++i]);
-            if (!std::filesystem::exists(params.input_path)) {
+            if (!ns_filesystem::exists(params.input_path)) {
                 std::cerr << "Input path does not exist." << std::endl;
                 return -1;
             } 

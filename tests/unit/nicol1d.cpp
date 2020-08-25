@@ -340,10 +340,15 @@ template<typename Ordinal, typename Value>
 int nicol1dpartition_versioncompare(std::vector<Value> & array, Ordinal P, std::vector<Ordinal> & expected_cuts) {
     int pass = 0;
     auto cuts = sarma::nicol1d::partition<Ordinal, Value>(array, P);
+
     pass |= test_utils::is_same(cuts, expected_cuts);
 
     std::vector<Value> prefix(array.size()+1, 0);
+#if defined(ENABLE_CPP_PARALLEL)
     std::inclusive_scan(std::execution::par_unseq, array.begin(), array.end(), prefix.begin() + 1);
+#else
+    std::partial_sum(array.begin(), array.end(), prefix.begin() + 1);
+#endif
 
     cuts = sarma::nicol1d::partition_prefix<Ordinal, Value>(prefix, P);
 
@@ -353,7 +358,11 @@ int nicol1dpartition_versioncompare(std::vector<Value> & array, Ordinal P, std::
 
     pass |= test_utils::is_same(cuts, expected_cuts);
 
+#if defined(ENABLE_CPP_PARALLEL)
     if constexpr ( std::is_integral_v<Value> ) {
+#else
+    if ( std::is_integral<Value>::value ) {
+#endif
         cuts = sarma::nicol1d::partition<Ordinal, Value, false>(&prefix, 1, P);
         pass |= test_utils::is_same(cuts, expected_cuts);
     }
@@ -523,33 +532,45 @@ int nicol1dPartition() {
 
     TEST(nicol1dPartition_onenumber<int COMMA int>)
     TEST(nicol1dPartition_onenumber<int COMMA unsigned int>)
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(nicol1dPartition_onenumber<int COMMA float>)
     TEST(nicol1dPartition_onenumber<int COMMA double>)
+#endif
 
     TEST(nicol1dPartition_allzeros<int COMMA int>)
     TEST(nicol1dPartition_allzeros<int COMMA unsigned int>)
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(nicol1dPartition_allzeros<int COMMA float>)
     TEST(nicol1dPartition_allzeros<int COMMA double>)
+#endif
 
     TEST(nicol1dPartition_example1<int COMMA int>)
     TEST(nicol1dPartition_example1<int COMMA unsigned int>)
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(nicol1dPartition_example1<int COMMA float>)
     TEST(nicol1dPartition_example1<int COMMA double>)
+#endif
 
     TEST(nicol1dPartition_example2<int COMMA int>)
     TEST(nicol1dPartition_example2<int COMMA unsigned int>)
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(nicol1dPartition_example2<int COMMA float>)
     TEST(nicol1dPartition_example2<int COMMA double>)
+#endif
 
     TEST(nicol1dPartition_example3<int COMMA int>)
     TEST(nicol1dPartition_example3<int COMMA unsigned int>)
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(nicol1dPartition_example3<int COMMA float>)
     TEST(nicol1dPartition_example3<int COMMA double>)
+#endif
 
     TEST(nicol1dPartition_randomnumber<int COMMA int>, time(NULL))
     TEST(nicol1dPartition_randomnumber<int COMMA unsigned int>, time(NULL))
+#if defined(ENABLE_CPP_PARALLEL)
     TEST(nicol1dPartition_randomnumber<int COMMA float>, time(NULL))
     TEST(nicol1dPartition_randomnumber<int COMMA double>, time(NULL))
+#endif
 
     return pass;
 }

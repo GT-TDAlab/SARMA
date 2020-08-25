@@ -107,6 +107,9 @@ set(_TBB_ARCH_PLATFORM $ENV{TBB_ARCH_PLATFORM})
 
 if (NOT TBB_ROOT)
     file(TO_CMAKE_PATH "$ENV{TBB_ROOT}" TBB_ROOT)
+    if (NOT TBB_ROOT)
+        file(TO_CMAKE_PATH "$ENV{TBB_DIR}" TBB_ROOT)
+    endif ()
 endif ()
 
 set(_TBB_INC_PATH_SUFFIXES include)

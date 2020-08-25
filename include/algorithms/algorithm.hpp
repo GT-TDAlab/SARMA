@@ -80,7 +80,11 @@ namespace sarma {
 
         alg_vec.push_back({"uni", {uni<Ordinal, Value>, false}});
         alg_vec.push_back({"nic", {nic<Ordinal, Value>, false}});
+#if defined(ENABLE_CPP_PARALLEL)
         if constexpr (std::is_integral_v<Value>)
+#else
+        if (std::is_integral<Value>::value)
+#endif
             alg_vec.push_back({"nic_v", {nic<Ordinal, Value, false>, false}});
 
         alg_vec.push_back({"rac", {rac<Ordinal, Value>, false}});
@@ -98,21 +102,35 @@ namespace sarma {
         std::map<std::string, std::pair<std::function<std::pair<std::vector<Ordinal>, std::vector<Ordinal>>(
              const Matrix<Ordinal, Value> &, const Ordinal, const Ordinal, const Value, const int)>, bool>> alg_list;
 
-        for (auto &[str, alg]: get_algorithm_vec<Ordinal, Value>())
+#if defined(ENABLE_CPP_PARALLEL)
+        for (auto &[str, alg]: get_algorithm_vec<Ordinal, Value>()){
+#else
+        for (auto &av: get_algorithm_vec<Ordinal, Value>()){
+            auto &str = av.first;
+            auto &alg = av.second;
+#endif
             alg_list.insert({str, alg});
+        }
 
         return alg_list;
     }
 
     auto get_order_vec() {
         return std::vector<std::pair<std::string, Order>> {
-            {"nat", Order::NAT}, {"asc", Order::ASC}, {"dsc", Order::DSC}, {"rcm", Order::RCM}};
+            {"nat", Order::NAT}, {"asc", Order::ASC}, {"dsc", Order::DSC}, {"rcm", Order::RCM}, {"rnd", Order::RND}};
     }
 
     auto get_order_map() {
         std::map<std::string, Order> order_map;
-        for (auto &[str, order] : get_order_vec())
+#if defined(ENABLE_CPP_PARALLEL)
+        for (auto &[str, order] : get_order_vec()){
+#else
+        for (auto &ar : get_order_vec()){
+            auto &str = ar.first;
+            auto &order = ar.second;
+#endif
             order_map.insert({str, order});
+        }
         return order_map;
     }
 
@@ -143,14 +161,20 @@ namespace sarma {
             double ds_time) {
 
         timer t("Partitioning");
+#if defined(ENABLE_CPP_PARALLEL)
         auto [p, q] = AlgorithmPartition<partitioner_t, Ordinal, Value>(partitioner, A_sp, P, Q, Z, seed);
+#else
+        auto pq = AlgorithmPartition<partitioner_t, Ordinal, Value>(partitioner, A_sp, P, Q, Z, seed);
+        auto p = pq.first;
+        auto q = pq.second;
+#endif
         auto par_time = t.time();
 
-        A_ord->print(out, p, q, 
+        A_ord->print(out, p, q,
                     (p == q), sp_time,
-                    use_sparse ? ds_time : 0, 
+                    use_sparse ? ds_time : 0,
                     par_time);
-        
+
         return std::make_pair(p, q);
     }
 
@@ -165,7 +189,13 @@ namespace sarma {
             int seed) {
 
         timer t("Partitioning");
+#if defined(ENABLE_CPP_PARALLEL)
         auto [p, q] = AlgorithmPartition<partitioner_t, Ordinal, Value>(partitioner, A_sp, P, Q, Z, seed);
+#else
+        auto pq = AlgorithmPartition<partitioner_t, Ordinal, Value>(partitioner, A_sp, P, Q, Z, seed);
+        auto p = pq.first;
+        auto q = pq.second;
+#endif
         auto par_time = t.time();
         const auto loads = A_ord->compute_loads(p, q);
         const auto max_load = utils::max(loads);
@@ -179,13 +209,20 @@ namespace sarma {
         // std::cerr << "# Graph : " << mname << "\n" << "# Order : " << order_type << std::endl;
 
         auto A_org = std::make_shared<Matrix<Ordinal, Value>>(mname, use_data);
-        auto A_ord = std::make_shared<Matrix<Ordinal, Value>>(A_org->order(order_type, 
+        auto A_ord = std::make_shared<Matrix<Ordinal, Value>>(A_org->order(order_type,
                                                             triangular, true));
         A_ord->use_data(use_data);
 
-        std::vector<std::string> order_info = {"ascending degree", "descending degree", 
+        std::vector<std::string> order_info = {"ascending degree", "descending degree",
                                             "reverse cuthill mckee", "natural"};
         // std::cerr << "# Ordering: " << order_info[order_type] << std::endl;
+        return A_ord;
+    }
+
+    template <typename Ordinal, typename Value>
+    auto AlgorithmOrder(std::shared_ptr<Matrix<Ordinal, Value> > mtx, Order order_type, bool triangular, bool use_data) {
+        auto A_ord = std::make_shared<Matrix<Ordinal, Value> >(mtx->order(order_type, triangular, true));
+        A_ord->use_data(use_data);
         return A_ord;
     }
 
@@ -223,10 +260,44 @@ namespace sarma {
             bool use_data,
             int seed) {
         auto a_ord = AlgorithmOrder<Ordinal, Value>(mname, order_type, triangular, use_data);
-        sparsify = utils::get_prob(a_ord->NNZ(), P, P, sparsify);
-        auto [a_sp, sp_time, ds_time] = AlgorithmPlan<Ordinal, Value>(a_ord, sparsify, 
-                                                                        seed, use_sparse);
+        sparsify = utils::get_prob(a_ord->NNZ(), P, Q == 0 ? P : Q, sparsify);
+#if defined(ENABLE_CPP_PARALLEL)
+        auto [a_sp, sp_time, ds_time] = AlgorithmPlan<Ordinal, Value>(a_ord, sparsify, seed, use_sparse);
+#else
+        auto terms = AlgorithmPlan<Ordinal, Value>(a_ord, sparsify, seed, use_sparse);
+        auto a_sp = std::get<0>(terms);
+        auto sp_time = std::get<1>(terms);
+        auto ds_time = std::get<2>(terms);
+#endif
         return AlgorithmRun<partitioner_t, Ordinal, Value>(partitioner, out, a_ord, a_sp, P, Q, Z,
                                                     serialize, use_sparse, seed, sp_time, ds_time);
+    }
+
+    template <typename Ordinal, typename Value, class partitioner_t, typename Real = double>
+    auto Run(partitioner_t partitioner,
+             std::ostream &out,
+             std::shared_ptr<Matrix<Ordinal, Value> > mtx,
+             Order order_type,
+             Ordinal P,
+             Ordinal Q,
+             Ordinal Z,
+             bool triangular,
+             bool serialize,
+             Real sparsify,
+             bool use_sparse,
+             bool use_data,
+             int seed) {
+        auto a_ord = AlgorithmOrder<Ordinal, Value>(mtx, order_type, triangular, use_data);
+        sparsify = utils::get_prob(a_ord->NNZ(), P, Q == 0 ? P : Q, sparsify);
+#if defined(ENABLE_CPP_PARALLEL)
+        auto [a_sp, sp_time, ds_time] = AlgorithmPlan<Ordinal, Value>(a_ord, sparsify, seed, use_sparse);
+#else
+        auto terms = AlgorithmPlan<Ordinal, Value>(a_ord, sparsify, seed, use_sparse);
+        auto a_sp = std::get<0>(terms);
+        auto sp_time = std::get<1>(terms);
+        auto ds_time = std::get<2>(terms);
+#endif
+        return AlgorithmRun<partitioner_t, Ordinal, Value>(partitioner, out, a_ord, a_sp, P, Q, Z,
+                                                           serialize, use_sparse, seed, sp_time, ds_time);
     }
 }

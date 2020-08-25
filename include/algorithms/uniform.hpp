@@ -6,8 +6,12 @@
 * is one of the straightforward algorithms that is used to solve
 * mLI problem. Its dual (sarma::uniform::bal) solves the mNC problem
 */
+#if defined(ENABLE_CPP_PARALLEL)
 namespace sarma::uniform {
-
+#else
+namespace sarma{
+    namespace uniform {
+#endif
     /**
     * @brief Implements the uniform (checker-board) partitioning
     * taking number of rows and number of cuts as parameters.
@@ -73,4 +77,7 @@ namespace sarma::uniform {
         }
         return sarma::uniform::partition(A.N(), l);
     }
-};
+}
+#if !defined(ENABLE_CPP_PARALLEL)
+} // nested namespace
+#endif

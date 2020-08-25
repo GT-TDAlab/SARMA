@@ -12,8 +12,12 @@
 * require sparse-prefix-sum data-structure.
 * Note that, for now, this implementation is sequential.
 **/
+#if defined(ENABLE_CPP_PARALLEL)
 namespace sarma::ordered_probe_a_load {
-
+#else
+namespace sarma{
+    namespace ordered_probe_a_load {
+#endif
     template <typename Int, typename Value>
     std::vector<Int> probe(const std::vector<Int> &indptr, const std::vector<std::pair<Int, bool>> &indices, const std::vector<Value> &data, const Value L, const Int P = std::numeric_limits<Int>::max()) {
         std::vector<Int> p;
@@ -27,7 +31,12 @@ namespace sarma::ordered_probe_a_load {
             Value mx = 0;
             for (; k < indptr.size() - 1; k++) {
                 for (auto l = indptr[k]; l < indptr[k + 1]; l++) {
+#if defined(ENABLE_CPP_PARALLEL)
                     const auto [i, b] = indices[l];
+#else
+                    const auto i = indices[l].first;
+                    const auto b = indices[l].second;
+#endif
                     const auto idx = utils::lowerbound_index(p, i);
                     auto &Lr = b || idx == p.size() - 1 ? L1 : L2;
                     mx = std::max(mx, Lr[idx] += data.empty() ? 1 : data[l]);
@@ -79,7 +88,14 @@ namespace sarma::ordered_probe_a_load {
 
     template <typename Int, typename Value>
     std::vector<Int> probe(const Matrix<Int, Value> &A, const Value L) {
+#if defined(ENABLE_CPP_PARALLEL)
         const auto [indptr, indices, data] = transform(A);
+#else
+        const auto terms = transform(A);
+        const auto indptr = std::get<0>(terms);
+        const auto indices = std::get<1>(terms);
+        const auto data = std::get<2>(terms);
+#endif
         return probe(indptr, indices, data, L);
     }
 
@@ -98,11 +114,19 @@ namespace sarma::ordered_probe_a_load {
         const auto N = std::max(A.N(), A.M);
         const auto M = A.total_load();
 
+#if defined(ENABLE_CPP_PARALLEL)
         const auto [indptr, indices, data] = transform(A);
+#else
+        const auto terms = transform(A);
+        const auto indptr = std::get<0>(terms);
+        const auto indices = std::get<1>(terms);
+        const auto data = std::get<2>(terms);
+#endif
+
 
         auto l = (M - 1 + P * P) / P / P;
         auto r = std::min(M, (M + P - 1) / P + N);
-        while (l < r) {
+        while (l + .5 < r) {
             const auto m = l + (r - l) / 2;
             const auto p = probe(indptr, indices, data, m, P);
             if (p.back() < N)
@@ -113,3 +137,6 @@ namespace sarma::ordered_probe_a_load {
         return probe(indptr, indices, data, r, P);
     }
 }
+#if !defined(ENABLE_CPP_PARALLEL)
+} // nested namespace
+#endif

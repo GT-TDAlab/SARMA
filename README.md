@@ -67,9 +67,11 @@ with the following options:
 
 ### Dependencies
 
-`cmake` is used to build sarma.
+`cmake (version >= 3.13)` and `gcc (version >= 7.0.0)` are used to build sarma.
 
-This project depends on Intel's TBB library because gcc depends on it for its parallel stl implementation.
+For gcc version 9.0.0 and greater this project depends on Intel's TBB library
+because gcc depends on it for its parallel stl implementation. For other gcc versions
+parallel execution is disabled.
 
 You can install the latest version with your favorite package manager or 
 you could go to [tbb releases](https://github.com/oneapi-src/oneTBB/releases) 
@@ -102,8 +104,6 @@ Shape of the matrix:  (1005, 1005)
 >>> Q = sps(A)
 >>> p = nic(A,8)
 >>> L = Q.max_load(*p)
->>> print('Load imbalance: ', L)
-Load imbalance:  543
 >>> print('Max load : ', L)
 Max load :  543
 >>> print('Cut vectors: ', p)
@@ -118,7 +118,7 @@ for outputs processing.
 
 **For Documentation:**
 
-Documentation and API Reference is available [here](https://gt-tdalab.github.io/sarma) for local generation the following are needed:
+Documentation and API Reference is available [here](https://sarma.github.io) for local generation the following are needed:
 
 * [Python 3](https://www.python.org/downloads/)
 * [Pip](https://pip.pypa.io/en/stable/installing/)
@@ -290,3 +290,78 @@ make compare HASH=<commit-hash> CONFIG=<config_file>
 
 This command will compare the head commit with the given hash, and configuration file.
 
+## Using SARMA as a library
+
+There are two ways to use Sarma as a library. First, you can copy SARMA repository
+into your own project tree. This can be done using a git submodule.
+If it is a cmake project, then you can update  your CMakeLists.txt:
+
+```
+add_subdirectory(sarma EXCLUDE_FROM_ALL)
+add_executable(foo ...)
+target_link_libraries(foo SARMA::libsarma)
+```
+
+The other method that we encourage is to install SARMA outside your project and
+import SARMA as a package. To install SARMA:
+
+```
+cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR ..
+make -j
+make install
+```
+
+Then an example CMakeLists.txt can be as follows:
+
+```
+cmake_minimum_required (VERSION 3.13)
+project (foo)
+set(CMAKE_CXX_STANDARD 17)
+find_package(SARMA REQUIRED)
+add_executable(foo foo.cpp)
+target_link_libraries(foo SARMA::libsarma)
+```
+
+And an example c++ code that uses SARMA as a library that loads and sparsifies
+a matrix and partitions it, is provided below. For detailed usage please
+see our documentation.
+
+```c++
+#include <iostream>
+#include "sarma.hpp"
+
+int main(int argc, char** argv){
+    std::string file_name = argv[1];
+    unsigned int number_of_cuts = atoi(argv[2]);
+
+    auto A_org = std::make_shared<sarma::Matrix<unsigned int, unsigned int>>(file_name, false);
+
+    auto A_sp = std::make_shared<sarma::Matrix<unsigned int, unsigned int>>(
+        A_org->sparsify(sarma::utils::get_prob(A_org->NNZ(), number_of_cuts, number_of_cuts, 100.), 4254)
+    );
+
+    A_sp->get_sps();
+
+    auto cuts = sarma::probe_a_load::partition<unsigned int, unsigned int>(*A_sp, number_of_cuts);
+
+    for (size_t i = 0; i <= number_of_cuts; i++){
+        std::cout << cuts[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+## Primary tested compilers and architectures
+
+Primary tested compilers and architectures are:
+
+* GCC 7.4.0, 8.4.0, 9.2.0, 10.1.0, x86, Broadwell (Intel, Xeon E5-2683, v4, 2.10GHz)
+* GCC GCC 8.3.1, 10.2.0, x86, Broadwell (Intel, Xeon CPU E5-2683, v4, 2.10GHz)
+* GCC 7.5.0, x86, Haswell (Intel, Xeon E7-4850, v3, 2.20GHz)
+* GCC 9.3.0, x86, Macbook Pro (Intel Core i7, 2.90GHz)
+* GCC 7.5.0, x86, AMD (EPYC 7551)
+* GCC 7.4.0, powerpc64, POWER9 (altivec supported, 3.80GHz)
+* GCC 8.3.0, x86, (Xeon 6226 CPU, 2.70GHz)
+* GCC 9.3.0, x86, (Intel Core i7-7820HQ, 2.90GHz)

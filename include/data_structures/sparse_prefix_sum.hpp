@@ -21,7 +21,11 @@
 
 namespace sarma {
 
+#if defined(ENABLE_CPP_PARALLEL)
     template <typename Int, typename Value, typename Real = Int, auto lowest = std::numeric_limits<Real>::lowest()>
+#else
+    template <typename Int, typename Value, typename Real = Int, Real lowest = std::numeric_limits<Real>::lowest()>
+#endif
     struct coordinate_compressor {
 
         coordinate_compressor() = default;
@@ -30,11 +34,17 @@ namespace sarma {
             X.reserve(pts.size() + 1);
             Y.reserve(pts.size() + 1);
 
+#if defined(ENABLE_CPP_PARALLEL)
             for (auto [x, y]: pts) {
                 X.push_back(x);
                 Y.push_back(y);
             }
-
+#else
+            for (auto i: pts) {
+                X.push_back(i.first);
+                Y.push_back(i.second);
+            }
+#endif
             compress();
         }
 
@@ -58,20 +68,30 @@ namespace sarma {
         auto convert(const std::vector<std::pair<Real, Real>> &pts, const std::vector<Value> &data) {
             std::vector<std::pair<Int, Int>> i_pts(pts.size());
 
+#if defined(ENABLE_CPP_PARALLEL)
             std::transform(exec_policy, std::begin(pts), std::end(pts), std::begin(i_pts), [](const auto &p) {
                 return query(p);
             });
-
+#else
+            std::transform(std::begin(pts), std::end(pts), std::begin(i_pts), [&](const auto &p) {
+                return query(p);
+            });
+#endif
             return Matrix<Int, Value>(i_pts, data);
         }
 
         auto convert(const Matrix<Int, Value> &A) {
             std::vector<std::pair<Int, Int>> i_pts(A.indptr.back());
 
+#if defined(ENABLE_CPP_PARALLEL)
             std::transform(exec_policy, std::begin(A.indices), std::end(A.indices), std::begin(i_pts), [&](const auto &j) {
                 return query({utils::lowerbound_index(A.indptr, (Int) std::distance(A.indices.data(), &j)), j});
             });
-
+#else
+            std::transform( std::begin(A.indices), std::end(A.indices), std::begin(i_pts), [&](const auto &j) {
+                return query({utils::lowerbound_index(A.indptr, (Int) std::distance(A.indices.data(), &j)), j});
+            });
+#endif
             return Matrix<Int, Value>(i_pts, A.get_data());
         }
 
@@ -80,12 +100,22 @@ namespace sarma {
         std::vector<Real> X = {lowest}, Y = {lowest};
 
         void compress() {
+#if defined(ENABLE_CPP_PARALLEL)
             std::sort(exec_policy, std::begin(X), std::end(X));
             X.resize(std::distance(std::begin(X), std::unique(exec_policy, std::begin(X), std::end(X))));
+#else
+            std::sort( std::begin(X), std::end(X));
+            X.resize(std::distance(std::begin(X), std::unique( std::begin(X), std::end(X))));
+#endif
             X.shrink_to_fit();
 
+#if defined(ENABLE_CPP_PARALLEL)
             std::sort(exec_policy, std::begin(Y), std::end(Y));
             Y.resize(std::distance(std::begin(Y), std::unique(exec_policy, std::begin(Y), std::end(Y))));
+#else
+            std::sort( std::begin(Y), std::end(Y));
+            Y.resize(std::distance(std::begin(Y), std::unique( std::begin(Y), std::end(Y))));
+#endif
             Y.shrink_to_fit();
         }
     };
@@ -229,14 +259,31 @@ namespace sarma {
             for (Int i = 0; i < p.size(); i++)
                 for (Int j = 0; j < q.size(); j++)
                     temp.emplace_back(p[i], q[j], &loads[i][j]);
+
+#if defined(ENABLE_CPP_PARALLEL)
             std::for_each(exec_policy, std::begin(temp), std::end(temp), [this](const std::tuple<Int, Int, Value *> item) {
                 auto [i, j, L_ptr] = item;
+#else
+            std::for_each( std::begin(temp), std::end(temp), [this](const std::tuple<Int, Int, Value *> item) {
+                auto i = std::get<0>(item);
+                auto j = std::get<1>(item);
+                auto L_ptr = std::get<2>(item);
+#endif
+                
                 *L_ptr = query(i, j);
             });
             return loads;
         }
 
     public:
+
+        auto getN() const {
+            return N;
+        }
+
+        auto getM() const {
+            return M;
+        }
 
         /**
          * @brief return the maximum of row or column of the underlying matrix
@@ -265,30 +312,51 @@ namespace sarma {
             std::iota(std::begin(iota_v), std::end(iota_v), 0);
 
             BITs.resize(num_structures);
+#if defined(ENABLE_CPP_PARALLEL)
             std::transform(exec_policy, std::begin(iota_v), std::end(iota_v), std::begin(BITs), [&](const auto i) {
-                return persistent_BIT<Int, Value>(v_arr[i], M, A.indptr.data() + v_arr[i] - 1, A.indptr.data() + v_arr[i + 1], A);
+                return persistent_BIT<Int, Value>(v_arr[i], A.M, A.indptr.data() + v_arr[i] - 1, A.indptr.data() + v_arr[i + 1], A);
             });
-
-            #ifdef LOGGING
-                const auto bytes = std::transform_reduce(exec_policy, std::begin(BITs), std::end(BITs), num_structures * (A.N() + 2) * sizeof(std::size_t), std::plus<>(), [](const auto &BIT_i) {
+#else
+            std::transform( std::begin(iota_v), std::end(iota_v), std::begin(BITs), [&](const auto i) {
+                return persistent_BIT<Int, Value>(v_arr[i], A.M, A.indptr.data() + v_arr[i] - 1, A.indptr.data() + v_arr[i + 1], A);
+            });
+#endif
+            #if defined(LOGGING) && defined(ENABLE_CPP_PARALLEL)
+                const auto bytes = std::transform_reduce(exec_policy std::begin(BITs), std::end(BITs), num_structures * (A.M + 2) * sizeof(std::size_t), std::plus<>(), [](const auto &BIT_i) {
                     return BIT_i.nnz() * (sizeof(Int) + sizeof(Value));
                 });
                 std::cerr << "BITs have been constructed & " << bytes << " bytes have been used" << std::endl;
             #endif
+
             std::vector<std::vector<Value>> lasts(num_structures - 1);
+#if defined(ENABLE_CPP_PARALLEL)
             std::transform(exec_policy, std::begin(BITs), std::end(BITs) - 1, std::begin(lasts), [](const auto &BIT_i) {
                 return BIT_i.getLast();
             });
+#else
+            std::transform( std::begin(BITs), std::end(BITs) - 1, std::begin(lasts), [](const auto &BIT_i) {
+                return BIT_i.getLast();
+            });
+#endif
 
+#if defined(ENABLE_CPP_PARALLEL)
             std::for_each(exec_policy, std::begin(iota_v), std::end(iota_v), [&](const auto i) {
-                const Int begin = i * 1ll * M / num_structures + 1;
-                const Int end = (i + 1) * 1ll * M / num_structures + 1;
+#else
+            std::for_each( std::begin(iota_v), std::end(iota_v), [&](const auto i) {
+#endif
+                const Int begin = i * 1ll * A.M / num_structures + 1;
+                const Int end = (i + 1) * 1ll * A.M / num_structures + 1;
                 for (Int l = 1; l < lasts.size(); l++)
                     for (Int u = begin; u < end; u++)
                         lasts[l][u] += lasts[l - 1][u];
             });
 
+
+#if defined(ENABLE_CPP_PARALLEL)
             std::for_each(exec_policy, std::begin(iota_v) + 1, std::end(iota_v), [&](const auto i) {
+#else
+            std::for_each( std::begin(iota_v) + 1, std::end(iota_v), [&](const auto i) {
+#endif
                 BITs[i].incAll(lasts[i - 1]);
             });
         }

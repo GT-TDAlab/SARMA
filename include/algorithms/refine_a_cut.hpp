@@ -12,7 +12,12 @@
 * is one of the algorithms that is used to solve
 * mLI problem. Its dual (sarma::refine_a_cut::bal) solves the mNC problem
 */
+#if defined(ENABLE_CPP_PARALLEL)
 namespace sarma::refine_a_cut {
+#else
+namespace sarma{
+    namespace refine_a_cut {
+#endif
 
     /** An enum type used to define refinement direction. 
      */
@@ -38,7 +43,11 @@ namespace sarma::refine_a_cut {
     auto refinement(const Matrix<Ordinal, Value> &A, std::vector<Value> &prefix, const std::vector<Ordinal> &prev_cuts) {      
 
         prefix[0] = 0;
+#if defined(ENABLE_CPP_PARALLEL)
         std::for_each(exec_policy, prefix.begin(), prefix.end() - 1, [&](auto &prefix_i) {
+#else
+        std::for_each(prefix.begin(), prefix.end() - 1, [&](auto &prefix_i) {
+#endif
             const auto i = std::distance(&prefix[0], &prefix_i);
             Ordinal max_i = 0, max_k = 0, k = 0;
             for (Ordinal j = A.indptr[i]; j < A.indptr[i + 1]; ++j) {
@@ -52,7 +61,13 @@ namespace sarma::refine_a_cut {
             prefix[i+1] = std::max(max_i, max_k);
         });
 
+#if defined(ENABLE_CPP_PARALLEL)
         std::inclusive_scan(exec_policy, prefix.begin(), prefix.end(), prefix.begin());
+#else
+        for (size_t i=1; i<prefix.size(); i++){
+            prefix[i] += prefix[i-1];
+        }
+#endif
         return nicol1d::partition_prefix<Ordinal, Value>(prefix, prev_cuts.size() - 1);
     }
 
@@ -70,17 +85,29 @@ namespace sarma::refine_a_cut {
     template <typename Ordinal, typename Value>
     auto nic_refinement(const Matrix<Ordinal, Value> &A, std::vector<std::vector<Value>> &prefixes, const std::vector<Ordinal> &prev_cuts) {      
 
+#if defined(ENABLE_CPP_PARALLEL)
         for (auto &v: prefixes)
             std::fill(exec_policy, v.begin(), v.end(), 0);
-
         std::for_each(exec_policy, A.indptr.begin(), A.indptr.end() - 1, [&](const auto &indptr_i) {
+#else
+        for (auto &v: prefixes)
+            std::fill(v.begin(), v.end(), 0);
+        std::for_each(A.indptr.begin(), A.indptr.end() - 1, [&](const auto &indptr_i) {
+#endif
             const auto i = std::distance(&A.indptr[0], &indptr_i);
             for (auto j = indptr_i; j < A.indptr[i + 1]; j++)
                 prefixes[utils::lowerbound_index(prev_cuts, A.indices[j])][i + 1] += A.data(j);
         });
 
-        for (auto &v: prefixes)
+        for (auto &v: prefixes){
+#if defined(ENABLE_CPP_PARALLEL)
             std::inclusive_scan(exec_policy, v.begin(), v.end(), v.begin());
+#else
+            for (size_t i=1; i<v.size(); i++){
+                v[i] += v[i-1];
+            }
+#endif
+        }
 
         return nicol1d::partition<Ordinal, Value>(&prefixes[0], (Ordinal)prefixes.size(), prev_cuts.size()-1);
     }
@@ -219,3 +246,6 @@ namespace sarma::refine_a_cut {
         return sarma::refine_a_cut::partition(A, l);
     }
 }
+#if !defined(ENABLE_CPP_PARALLEL)
+} // nested namespace
+#endif

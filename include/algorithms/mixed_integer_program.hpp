@@ -21,7 +21,12 @@
 * Gurobi. This namespace contains required functions.
 * @note This mixed integer program implementation can also handle non-symmetric partitioning.
 **/
+#if defined(ENABLE_CPP_PARALLEL)
 namespace sarma::mixed_integer_program {
+#else
+namespace sarma{
+    namespace mixed_integer_program {
+#endif
 
     /**
     * @brief Implements the mixed integer program solver for rectilinear partitioning
@@ -53,8 +58,11 @@ namespace sarma::mixed_integer_program {
             
             model.addConstr(p[P] >= A.N());
 
-
+#if defined(ENABLE_CPP_PARALLEL)
             if constexpr (!symmetric) {
+#else
+            if (!symmetric) {
+#endif
                 for(Int i = 0; i <= Q; i++)
                     q.emplace_back(model.addVar(0.0, A.M, 0.0, GRB_INTEGER, "q_" + std::to_string(i)));
                 
@@ -81,7 +89,11 @@ namespace sarma::mixed_integer_program {
             std::vector<std::vector<GRBVar>> J_original(Q + 1);
             auto &J = symmetric ? I : J_original;
             
+#if defined(ENABLE_CPP_PARALLEL)
             if constexpr (!symmetric) {
+#else
+            if (!symmetric) {
+#endif
                 for (Int j = 0; j <= Q; j++)
                     for (Int v = 0; v < A.M; v++) {
                         auto z = model.addVar(0.0, 1.0, 0.0, GRB_BINARY);
@@ -123,7 +135,11 @@ namespace sarma::mixed_integer_program {
             }
             std::cerr << std::endl;
 
-            if constexpr (symmetric)
+#if defined(ENABLE_CPP_PARALLEL)
+            if constexpr (symmetric) {
+#else
+            if (symmetric) {
+#endif
                 return cuts;
             else {
                 std::vector<Int> cuts2;
@@ -142,7 +158,11 @@ namespace sarma::mixed_integer_program {
             std::cerr << "Exception during optimization" << std::endl;
         }
 
-        if constexpr (symmetric)
+#if defined(ENABLE_CPP_PARALLEL)
+        if constexpr (symmetric) {
+#else
+        if (symmetric) {
+#endif
             return std::vector<Int>(P + 1, 0);
         else
             return std::make_pair(std::vector<Int>(P + 1, 0), std::vector<Int>(Q + 1, 0));
@@ -150,3 +170,6 @@ namespace sarma::mixed_integer_program {
     }
 
 }
+#if !defined(ENABLE_CPP_PARALLEL)
+} // nested namespace
+#endif

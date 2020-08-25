@@ -29,8 +29,8 @@ PYBIND11_MODULE(_sarma, m) {
         .def("size", &sparse_prefix_sum_wrapper::size)
         .def("query", (Value (sparse_prefix_sum_wrapper::*)(const std::pair<Int, Int>, const std::pair<Int, Int>) const)&sparse_prefix_sum_wrapper::query)
         .def("loads", &sparse_prefix_sum_wrapper::compute_loads)
-        .def("max_load", (Value (sparse_prefix_sum_wrapper::*)(const std::vector<Int> &, const std::vector<Int> &) const)&sparse_prefix_sum_wrapper::compute_maxload);
-    
+        .def("max_load", (Value (sparse_prefix_sum_wrapper::*)(const std::vector<Int> &, const std::vector<Int> &) const)&sparse_prefix_sum_wrapper::compute_maxload)
+    ;    
     using namespace pybind11::literals;
 
     m.def("nic", [] (std::vector<Int> &&indptr, std::vector<Int> &&indices, std::vector<Value> &&data, const Int M, const Int P) {

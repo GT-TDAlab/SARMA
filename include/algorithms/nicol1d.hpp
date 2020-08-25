@@ -12,8 +12,12 @@
 * Nicol's optimal one-dimensional partitioning algorithm.
 * described in "David Nicol, Rectilinear Partitioning of Irregular Data Parallel Computations, JPDC, 1994".
 */
+#if defined(ENABLE_CPP_PARALLEL)
 namespace sarma::nicol1d {
-
+#else
+namespace sarma{
+    namespace nicol1d {
+#endif
     /**
      * @brief Implements 2D probe with 'version' choosing different optimizations.
      * Given 2D prefix sum array (Q by N), number of partitions (P = UB.size() - 1)
@@ -36,6 +40,7 @@ namespace sarma::nicol1d {
 
         p.push_back(0);
         while ((!UB && p.back() < N) || (UB && p.size() < UB->size())) {
+#if defined(ENABLE_CPP_PARALLEL)
             if constexpr (version) {
                 std::atomic<Ordinal> r = (UB ? (*UB)[p.size()] : N);
                 std::for_each(exec_policy, prefixes, prefixes + Q, [&](const auto &prefix) {
@@ -49,7 +54,7 @@ namespace sarma::nicol1d {
                             while(n > m - 1 && !r.compare_exchange_weak(n, m - 1, std::memory_order_release));
                     }
                 });
-                p.push_back(r);
+                p.push_back(r);   
             }
             else {
                 p.push_back(std::transform_reduce(exec_policy, prefixes, prefixes + Q, N, [](const auto &a, const auto &b) {
@@ -67,7 +72,24 @@ namespace sarma::nicol1d {
                     return l;
                 }));
             }
+#else
+            std::atomic<Ordinal> r(0);
+            if (UB){ r = (*UB)[p.size()]; }
+            else{ r=N; }
 
+            std::for_each(prefixes, prefixes + Q, [&](const auto &prefix) {
+                auto l = p.back();
+                for (Ordinal n; l < (n = r.load(std::memory_order_acquire));) {
+                    const auto m = (l + 1) + (n - (l + 1)) / 2;
+                    const auto CL = prefix[m] - prefix[p.back()];
+                    if (CL <= L)
+                        l = m;
+                    else
+                        while(n > m - 1 && !r.compare_exchange_weak(n, m - 1, std::memory_order_release));
+                }
+            });
+            p.push_back(r);   
+#endif
             // when there is no progress in cuts.
             if (p.back() == p[p.size() - 2]) {
                 while(UB && p.size() < UB->size())
@@ -97,8 +119,11 @@ namespace sarma::nicol1d {
 
     template <class Ordinal, class Value>
     auto partition_values(std::vector<Value> const * prefixes, const Ordinal Q, const Ordinal P) {
+#if defined(ENABLE_CPP_PARALLEL)
         static_assert(std::is_integral_v<Value>, "Value template parameter has to be an integer!");
-
+#else
+        static_assert(std::is_integral<Value>::value, "Value template parameter has to be an integer!");
+#endif
         const auto N = (Ordinal)prefixes->size() - 1;
         std::vector<Ordinal> UB(P + 1, N);
         auto l = std::accumulate(prefixes, prefixes + Q, (Value)0, [P](const auto a, const auto &prefix) {
@@ -133,6 +158,7 @@ namespace sarma::nicol1d {
                 return std::max(a, prefix[r] - prefix[l]);
             });
         };
+
         Ordinal pback = 0;
         for (Ordinal i = 1; i <= P; i++) {
             auto l = pback, r = UB[i];
@@ -185,7 +211,11 @@ namespace sarma::nicol1d {
      */
     template <class Ordinal, class Value, bool use_indices = true>
     auto partition(std::vector<Value> const * prefixes, const Ordinal Q, const Ordinal P) {
+#if defined(ENABLE_CPP_PARALLEL)
         if constexpr (use_indices)
+#else
+        if (use_indices)
+#endif
             return partition_indices(prefixes, Q, P);
         else
             return partition_values(prefixes, Q, P);
@@ -224,7 +254,16 @@ namespace sarma::nicol1d {
     std::vector<Ordinal> partition(const std::vector<Value> &array,
                                                        const Ordinal P) {
         std::vector<Value> prefix(array.size() + 1, 0);
+
+#if defined(ENABLE_CPP_PARALLEL)
         std::inclusive_scan(exec_policy, array.begin(), array.end(), prefix.begin() + 1);
+#else
+        for (size_t i=0; i<array.size(); i++)
+            prefix[i+1] = prefix[i] + array[i];
+#endif
         return partition_prefix(prefix, P);
     }
 }
+#if !defined(ENABLE_CPP_PARALLEL)
+} // nested namespace
+#endif

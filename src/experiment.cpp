@@ -1,11 +1,9 @@
 #include <iostream>
 #include <vector>
-#include <filesystem>
 #include <map>
 #include <cstdlib>
 #include <iostream>
 #include <exception>
-#include <execution>
 #include <functional>
 
 #include "sarma.hpp"
@@ -49,7 +47,7 @@ int main(int /*argc*/, const char *argv[]) {
     std::vector<int> seeds;
     for (size_t i = 0; i < count; i++) seeds.push_back(std::stoi(argv[ap++]));
 
-    std::filesystem::path outpath(argv[ap++]);
+    ns_filesystem::path outpath(argv[ap++]);
     const auto triangular = false;
     const auto serialize = false;
     const auto use_data = false;
@@ -63,15 +61,28 @@ int main(int /*argc*/, const char *argv[]) {
             for (auto seed : seeds) {
                 for (auto prob : probs) {
                     for (auto cut : cuts) {
+#if defined(ENABLE_CPP_PARALLEL)
                         auto[a_sp, sp_time, ds_time] = AlgorithmPlan(a_ord, utils::get_prob(a_ord->NNZ(), cut, cut, prob), seed, true);
+#else
+                        auto terms = AlgorithmPlan(a_ord, utils::get_prob(a_ord->NNZ(), cut, cut, prob), seed, true);
+                        auto a_sp = std::get<0>(terms);
+                        auto sp_time = std::get<1>(terms);
+                        auto ds_time = std::get<2>(terms);
+#endif
                         std::for_each(std::begin(algorithms), std::end(algorithms), [&](const auto &algorithm) {
+#if defined(ENABLE_CPP_PARALLEL)
                             const auto &[alg, use_sparse] = algs.at(algorithm);
-                            auto filename = outpath / order / graph / std::filesystem::path(
+#else
+                            const auto &terms = algs.at(algorithm);
+                            const auto &alg = terms.first;
+                            const auto &use_sparse = terms.second;
+#endif
+                            auto filename = outpath / order / graph / ns_filesystem::path(
                                     algorithm + "$" + std::to_string(cut) + "$" + std::to_string(prob) +
                                     "$" + (use_sparse ? "w" : "wo") + "$" +
                                     std::to_string(seed) + "$out");
-                            std::filesystem::create_directories(filename.parent_path());
-                            if (!std::filesystem::exists(filename)) {
+                            ns_filesystem::create_directories(filename.parent_path());
+                            if (!ns_filesystem::exists(filename)) {
                                 try {
                                     std::ofstream out(filename, std::ofstream::out);
                                     AlgorithmRun(alg, out, a_ord, a_sp, cut, cut, (Ordinal)0, serialize,

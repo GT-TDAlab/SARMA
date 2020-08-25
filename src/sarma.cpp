@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <cctype>
 #include <functional>
-#include <filesystem>
+#include <iomanip>
 
 #include "sarma.hpp"
 
@@ -14,8 +14,8 @@ using namespace sarma;
 
 struct Parameters {
     std::string file_name = "-";
-    std::filesystem::path dir_name = "";
-    std::filesystem::path res_file = "";
+    ns_filesystem::path dir_name = "";
+    ns_filesystem::path res_file = "";
     std::string alg = "pal";
     Order order_type = Order::NAT;
     Ordinal p = 8;
@@ -51,9 +51,16 @@ int main(int argc, const char *argv[]) {
     std::cout << "=========================" << std::endl;
     
     const auto algs = get_algorithm_map<Ordinal, Value>();
-    
+
+#if defined(ENABLE_CPP_PARALLEL)    
     const auto [p, q] = Run<Ordinal, Value>(algs.at(params.alg).first, std::cout, params.file_name, params.order_type, params.p, params.q, params.z, params.triangular,
                             params.serialize, params.sparsify, algs.at(params.alg).second, params.use_data, params.seed);
+#else
+    const auto pq = Run<Ordinal, Value>(algs.at(params.alg).first, std::cout, params.file_name, params.order_type, params.p, params.q, params.z, params.triangular,
+                            params.serialize, params.sparsify, algs.at(params.alg).second, params.use_data, params.seed);
+    const auto p = pq.first;
+    const auto q = pq.second;
+#endif    
     
     if (!params.res_file.empty()) {
         std::ofstream out(params.res_file);
@@ -189,7 +196,7 @@ int parse_parameters(Parameters &params, int argc, const char **argv ){
             const auto gdir = params.dir_name;
             std::vector<std::string> graphs;
 
-            for (const auto &g: std::filesystem::directory_iterator(gdir))
+            for (const auto &g: ns_filesystem::directory_iterator(gdir))
                 if (g.path().extension() == ".mtx" || g.path().extension() == ".bin")
                     graphs.push_back(g.path().filename());
 

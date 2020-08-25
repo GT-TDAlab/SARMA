@@ -29,7 +29,7 @@ int main(int /*argc*/, const char *argv[]) {
 
     unsigned ap = 1;
     std::vector<std::string> graphs;
-    std::filesystem::path outpath;
+    ns_filesystem::path outpath;
 
     // Reading args
     try {
@@ -39,7 +39,7 @@ int main(int /*argc*/, const char *argv[]) {
         graph_dir = argv[ap++];
         outpath = argv[ap++];
 
-        if (!std::filesystem::exists(outpath)) {
+        if (!ns_filesystem::exists(outpath)) {
             throw std::runtime_error("Output path doesn't exist");
         }
     } catch (std::exception &e) {
@@ -61,7 +61,7 @@ int main(int /*argc*/, const char *argv[]) {
     for (auto graph: graphs) {
 
         auto A = std::make_shared<Matrix<Ordinal, Value>>(graph_dir + graph + SUFFIX);
-        auto filename = outpath / std::filesystem::path( graph + ".spart");
+        auto filename = outpath / ns_filesystem::path( graph + ".spart");
 
         try {
             std::ofstream out(filename);

@@ -11,15 +11,16 @@
 #include <cctype>
 #include <algorithm>
 #include <mutex>
-#include <execution>
 #include <random>
 #include <cstdio>
 
-const auto exec_policy = std::execution::par_unseq;
-
 std::mutex iomutex;
-
-namespace sarma::utils {
+#if defined(ENABLE_CPP_PARALLEL)
+namespace sarma::utils{
+#else
+namespace sarma{
+    namespace utils {
+#endif
 
     template <class Ordinal, class Real>
     auto get_prob(const Ordinal M, const Ordinal P, const Ordinal Q, const Real prob) {
@@ -37,7 +38,16 @@ namespace sarma::utils {
                 r1[i] = std::max(r1[i], loads[i][j]);
                 r2[j] = std::max(r2[j], loads[i][j]);
             }
+
+#if defined(ENABLE_CPP_PARALLEL)
         return symmetric ? std::vector<std::vector<Value>>{r1} : std::vector{r1, r2};
+#else
+        std::vector<std::vector<Value>> ans;
+        ans.push_back(r1);
+        if (symmetric)
+            ans.push_back(r2);
+        return ans;
+#endif
     }
 
     template <typename Iter, typename Int>
@@ -64,8 +74,8 @@ namespace sarma::utils {
 
     template <typename Value>
     auto max(const std::vector<std::vector<Value>> &loads) {
-        const auto [i, j] = argmax(loads);
-        return loads[i][j];
+        const auto ind = argmax(loads);
+        return loads[ind.first][ind.second];
     }
 
     auto get_matrix_type(std::istream &in) {
@@ -85,9 +95,15 @@ namespace sarma::utils {
         if (keep_prob >= 1.0)
             mask.assign(N, true);
         else if (keep_prob > 1.0 / 3)
+#if defined(ENABLE_CPP_PARALLEL)
             std::generate(exec_policy, mask.begin(), mask.end(), [&]() {
                 return rnd(gen) <= keep_prob;
             });
+#else
+            std::generate( mask.begin(), mask.end(), [&]() {
+                return rnd(gen) <= keep_prob;
+            });
+#endif
         else {
             const auto Q = log(1 - keep_prob);
             auto failure_count = [&]() -> std::size_t {
@@ -104,3 +120,6 @@ namespace sarma::utils {
         return mask;
     }
 }
+#if !defined(ENABLE_CPP_PARALLEL)
+} //closing nested namespace
+#endif

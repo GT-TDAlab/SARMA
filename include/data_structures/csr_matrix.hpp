@@ -9,11 +9,12 @@
 #include <numeric>
 #include <cassert>
 #include <cstdlib>
-#include <filesystem>
 #include <cstdio>
 #include <thread>
 #include <atomic>
+#include <random>
 
+#include "sarma.hpp"
 extern "C" {
 #include "mmio.h"
 }
@@ -29,7 +30,8 @@ namespace sarma {
         ASC, /**< Order rows in an ascending way st. |A(i,*)| <= |A(i+1,*)| */
         DSC, /**< Order rows in an descending way st. |A(i,*)| >= |A(i+1,*)| */
         RCM, /**< Order rows usin reverse Cuthill-McKee algorithm */
-        NAT /**< Don't apply any ordering. Default, natural order */
+        NAT, /**< Don't apply any ordering. Default, natural order */
+        RND  /**< Random ordering */
     };
 
     template <class Ordinal, class Value>
@@ -125,11 +127,11 @@ namespace sarma {
         * Construct the graph from a file that should be
         * formatted as our csr format
         **/
-        Matrix(const std::filesystem::path &path, const bool use_data = false) {
+        Matrix(const ns_filesystem::path &path, const bool use_data = false) {
             if (path.filename() == "-") {
                 read_binary(std::cin, use_data);
             }
-            else if (!std::filesystem::exists(path)) {
+            else if (!ns_filesystem::exists(path)) {
                 std::cerr << "Failed to open graph file: " << path << std::endl;
                 std::exit(1); // UVC: exit if cannot open file; 
                 // throw std::runtime_error("Failed to open graph file " + filename);
@@ -150,14 +152,29 @@ namespace sarma {
 
         Matrix(const std::vector<std::pair<Ordinal, Ordinal>> &pts, const std::vector<Value> &data) : sorted_(true) {
             std::vector<Ordinal> idx(pts.size());
+#if defined(ENABLE_CPP_PARALLEL)
             std::for_each(exec_policy, idx.begin(), idx.end(), [&](auto &idx_i) {
+#else
+            std::for_each(idx.begin(), idx.end(), [&](auto &idx_i) {
+#endif
                 idx_i = std::distance(&idx[0], &idx_i);
             });
+
+#if defined(ENABLE_CPP_PARALLEL)
             std::sort(exec_policy, std::begin(idx), std::end(idx), [&](const auto i, const auto j) {
                 return pts[i] < pts[j];
             });
+#else
+            std::sort(std::begin(idx), std::end(idx), [&](const auto i, const auto j) {
+                return pts[i] < pts[j];
+            });
+#endif
             indptr_.resize(pts[idx.back()].first + 2);
+#if defined(ENABLE_CPP_PARALLEL)
             std::for_each(exec_policy, std::begin(indptr_), std::end(indptr_) - 1, [&](auto &indptr_i) {
+#else
+            std::for_each(std::begin(indptr_), std::end(indptr_) - 1, [&](auto &indptr_i) {
+#endif
                 const auto i = std::distance(&indptr_[0], &indptr_i);
                 indptr_i = std::lower_bound(std::begin(idx), std::end(idx), i, [&](const auto &idx_i, const auto &i) {
                     return pts[idx_i].first < i;
@@ -167,7 +184,11 @@ namespace sarma {
             indices_.resize(NNZ());
             if (data.size() == NNZ())
                 data_.resize(NNZ());
+#if defined(ENABLE_CPP_PARALLEL)
             std::for_each(exec_policy, std::begin(indptr), std::end(indptr) - 1, [&](const auto &indptr_i) {
+#else
+            std::for_each(std::begin(indptr), std::end(indptr) - 1, [&](const auto &indptr_i) {
+#endif
                 const auto i = std::distance(&indptr[0], &indptr_i);
                 for (auto j = indptr_i; j < indptr[i + 1]; j++) {
                     indices_[j] = pts[idx[j]].second;
@@ -175,7 +196,11 @@ namespace sarma {
                         data_[j] = data[idx[j]];
                 }
             });
+#if defined(ENABLE_CPP_PARALLEL)
             M_ = 1 + *std::max_element(exec_policy, std::begin(indices), std::end(indices));
+#else
+            M_ = 1 + *std::max_element( std::begin(indices), std::end(indices));
+#endif
         }
 
         /**
@@ -239,7 +264,13 @@ namespace sarma {
         }
 
         void read_binary(std::istream &in, const bool use_data) {
+#if defined(ENABLE_CPP_PARALLEL)
             const auto [v_dtype, e_dtype] = utils::get_matrix_type(in);
+#else
+            const auto dtypes = utils::get_matrix_type(in);
+            const auto v_dtype = dtypes.first;
+            const auto e_dtype = dtypes.second;
+#endif
             assert(v_dtype == sizeof(Ordinal) && e_dtype == sizeof(Ordinal));
             Ordinal N = v_dtype + e_dtype;
             in.read(reinterpret_cast<char *>(&N), sizeof(Ordinal));
@@ -303,7 +334,11 @@ namespace sarma {
             std::vector<std::vector<std::vector<Value>>> loadss(num_threads, std::vector<std::vector<Value>>(p.size() - 1, std::vector<Value>(q.size() - 1, 0)));
             const auto v_arr = nicol1d::partition_prefix(indptr, num_threads);
             if (is_using_data()) {
+#if defined(ENABLE_CPP_PARALLEL)
                 std::for_each(exec_policy, loadss.begin(), loadss.end(), [&](auto &loads) {
+#else
+                std::for_each(loadss.begin(), loadss.end(), [&](auto &loads) {
+#endif
                     const auto tid = std::distance(&loadss[0], &loads);
                     const auto begin = v_arr[tid], end = v_arr[tid + 1];
                     for (Ordinal i = begin, u = 0; i < end; i++) {
@@ -314,7 +349,11 @@ namespace sarma {
                     }
                 });
             } else {
+#if defined(ENABLE_CPP_PARALLEL)
                 std::for_each(exec_policy, loadss.begin(), loadss.end(), [&](auto &loads) {
+#else
+                std::for_each(loadss.begin(), loadss.end(), [&](auto &loads) {
+#endif
                     const auto tid = std::distance(&loadss[0], &loads);
                     const auto begin = v_arr[tid], end = v_arr[tid + 1];
                     for (Ordinal i = begin, u = 0; i < end; i++) {
@@ -325,6 +364,8 @@ namespace sarma {
                     }
                 });
             }
+
+#if defined(ENABLE_CPP_PARALLEL)
             return std::reduce(exec_policy, loadss.begin(), loadss.end(), std::vector<std::vector<Value>>(p.size() - 1, std::vector<Value>(q.size() - 1, 0)), [](const auto &L1, const auto &L2) {
                 std::vector<std::vector<Value>> L(L1.size(), std::vector<Value>(L1[0].size(), 0));
                 for (Ordinal i = 0; i < L.size(); i++)
@@ -332,6 +373,15 @@ namespace sarma {
                         L[i][j] += L1[i][j] + L2[i][j];
                 return L;
             });
+#else
+            auto L = std::vector<std::vector<Value>>(p.size() - 1, std::vector<Value>(q.size() - 1, 0));    
+            for (Ordinal k=0; k<loadss.size(); k++)
+                for (Ordinal i = 0; i < L.size(); i++)
+                    for (Ordinal j = 0; j < L[i].size(); j++)
+                        L[i][j] += loadss[k][i][j];
+
+            return L;
+#endif
         }
 
         template <typename Real = double>
@@ -386,7 +436,11 @@ namespace sarma {
             const auto num_threads = std::thread::hardware_concurrency();
             const auto v_arr = nicol1d::partition_prefix(indptr, num_threads * 8); //overdecomposing
 
+#if defined(ENABLE_CPP_PARALLEL)
             std::for_each(exec_policy, v_arr.cbegin(), v_arr.cend() - 1, [&](const auto &begin) {
+#else
+            std::for_each(v_arr.cbegin(), v_arr.cend() - 1, [&](const auto &begin) {
+#endif
                 const auto tid = std::distance(&v_arr[0], &begin);
                 const auto end = v_arr[tid + 1];
                 for (Ordinal i = begin; i < end; i++)
@@ -395,12 +449,21 @@ namespace sarma {
             });
 
             A.indptr_.assign(indptr_.begin(), indptr_.end());
+#if defined(ENABLE_CPP_PARALLEL)
             std::inclusive_scan(exec_policy, A.indptr_.begin(), A.indptr_.end(), A.indptr_.begin());
-
+#else
+            for (Ordinal i=1; i<A.indptr_.size(); i++){
+                A.indptr_[i] += A.indptr_[i-1];
+            }
+#endif
             A.indices_.assign(NNZ(), 0);
             A.data_.resize(is_pattern() ? 0 : NNZ());
             
+#if defined(ENABLE_CPP_PARALLEL)
             std::for_each(exec_policy, indptr.begin(), indptr.end() - 1, [&](const auto &indptr_i) {
+#else
+            std::for_each(indptr.begin(), indptr.end() - 1, [&](const auto &indptr_i) {
+#endif
                 const auto i = std::distance(&indptr[0], &indptr_i);
                 for (Ordinal j = indptr[i]; j < indptr[i + 1]; j++) {
                     const auto loc = A.indptr_[indices[j]] + dloc[j];
@@ -415,8 +478,13 @@ namespace sarma {
 
         Matrix & sort() {
             if (!sorted) {
+#if defined(ENABLE_CPP_PARALLEL)
                 std::for_each(exec_policy, indptr.begin(), indptr.end() - 1, [&](const auto &indptr_i) {
+#else
+                std::for_each(indptr.begin(), indptr.end() - 1, [&](const auto &indptr_i) {
+#endif
                     const auto i = std::distance(&indptr[0], &indptr_i);
+                    //FIXME: if use_data, sort with data.
                     std::sort(indices_.begin() + indptr_i, indices_.begin() + indptr[i + 1]);
                 });
                 sorted_ = true;
@@ -451,21 +519,68 @@ namespace sarma {
         }
 
         /**
+         * @brief used for re-ordering, to check whether if map is one-to-one id maping
+         * from [0...expected_size-1] to [min_id...min_id+expected_size-1]
+         * @parameter map, the id mapping to be verified
+         * @parameter expected_size, the expected size of map
+         * @parameter min_id, the minimum id of the ids to be mapped to
+         * @return whether map is valid
+         **/
+        bool verify_id_map (const std::vector<Ordinal> & map, Ordinal expected_size, Ordinal min_id=0) const {
+
+            if (map.size() != expected_size)
+                return false;
+
+            Ordinal max_id = expected_size - 1 + min_id;
+            std::vector<bool> visited(expected_size, false);
+            for (auto id : map) {
+                if (id < min_id || id > max_id)
+                    return false;
+                if (visited[id - min_id])
+                    return false;
+                visited[id - min_id] = true;
+            }
+            return true;
+        }
+
+        /**
+         * @brief reverse id map
+         * @parameter map, the map to be reversed. map is expected to be valid as verified in the verify_id_map
+         * @return reversed_map
+         **/
+        auto reverse_id_map(const std::vector<Ordinal> & map) const {
+
+            assert(verify_id_map(map, map.size()));
+
+            std::vector<Ordinal> reversed_map(map.size());
+            for (Ordinal i = 0; i < map.size(); i++)
+                reversed_map[map[i]] = i;
+            return reversed_map;
+        }
+
+        /**
         * @brief Generalized order function
         * @param type ASC, DSC, RCM or NAT
         * @param triangular Flag to use only upper half of matrix
         * @param reverse decides rcm is reversed
         * @note that reverse is by default true for ASC, and false for DSC
         **/
-        Matrix order(Order order = Order::NAT, bool triangular = false, bool reverse = false) const {
+        Matrix order(Order order = Order::NAT, bool triangular = false, bool reverse = false, int seed = 1) const {
             // No order is specified and all matrix is used
             if (order == Order::NAT && !triangular)
                 return *this;
 
+            // generate map: map[org_id] = new_id
             auto get_order_map = [&] () {
                 if (order == Order::RCM) 
                     return rcm_helper(reverse);
                 std::vector<Ordinal> map(N());
+                if (order == Order::RND) {
+                    std::iota(map.begin(), map.end(), 0);
+                    std::mt19937_64 gen(seed);
+                    std::shuffle(map.begin(), map.end(), gen);
+                    return map;
+                }
                 // If not rcm, it is asc or dsc
                 std::vector<std::pair<Ordinal, Ordinal>> degrees;
                 degrees.reserve(N());
@@ -481,6 +596,8 @@ namespace sarma {
             };
 
             auto map = get_order_map();
+            assert(verify_id_map(map, N()));
+
             std::vector<Ordinal> t_indptr(N()+1);
             for (size_t i = 0; i < N(); i++) {
                 Ordinal count = 0;
@@ -497,7 +614,7 @@ namespace sarma {
             std::partial_sum(t_indptr.begin(), t_indptr.end(), t_indptr.begin());
 
             std::vector<Ordinal> t_indices(t_indptr.back());
-            std::vector<Value> t_data(is_pattern() ? 0 : NNZ());
+            std::vector<Value> t_data(is_pattern() ? 0 : t_indptr.back());
             for (Ordinal i = 0; i < N(); i++) {
                 auto st = t_indptr[map[i]];
                 for (auto j = indptr[i]; j < indptr[i + 1]; j++) {
@@ -505,12 +622,12 @@ namespace sarma {
                     if (triangular) {
                         if (map[indices[j]] > map[i]) {
                             if (!is_pattern())
-                                t_data[st] = map[data(j)];
+                                t_data[st] = data(j);
                             t_indices[st++] = map[indices[j]];
                         }
                     } else {
                         if (!is_pattern())
-                            t_data[st] = map[data(j)];
+                            t_data[st] = data(j);
                         t_indices[st++] = map[indices[j]];
                     }
                 }
@@ -518,6 +635,90 @@ namespace sarma {
                     std::next(t_indices.begin(), st));
             }
             return Matrix(std::move(t_indptr), std::move(t_indices), std::move(t_data), M);
+        }
+
+        /**
+         * @brief ReOrder rows and cols
+         * @parameter _rows_id_map, mapping between new row id and old row id
+         * @parameter _cols_id_map, mapping between new row id and old row id
+         * @parameter rows_new_to_org, true indicating _rows_id_map[new_row_id] = old_row_id; false indicating _rows_id_map[old_row_id] = new_row_id
+         * @parameter cols_new_to_org, true indicating _cols_id_map[new_row_id] = old_row_id; false indicating _cols_id_map[old_row_id] = new_row_id
+         * @return new matrix, with the new orders of rows and cols.
+         **/
+        Matrix order(
+                const std::vector<Ordinal> & _rows_id_map, const std::vector<Ordinal> & _cols_id_map,
+                bool rows_new_to_org = false, bool cols_new_to_org = false) const {
+
+            bool reorder_rows = _rows_id_map.size() == 0 ? false : true;
+            bool reorder_cols = _cols_id_map.size() == 0 ? false : true;
+
+            if (!reorder_rows && !reorder_cols)
+                return *this;
+
+            if (reorder_rows)
+                assert(verify_id_map(_rows_id_map, N()));
+            if (reorder_cols)
+                assert(verify_id_map(_cols_id_map, M));
+
+            // change to org to new to have sequential reading and writing if it's new_to_org.
+            const std::vector<Ordinal> & rows_id_map = (!reorder_rows || rows_new_to_org) ? _rows_id_map : (reverse_id_map(_rows_id_map));
+            const std::vector<Ordinal> & cols_id_map = (!reorder_cols || !cols_new_to_org) ? _cols_id_map : (reverse_id_map(_cols_id_map));
+
+            std::vector<Ordinal> t_indptr(N()+1);
+            std::vector<Ordinal> t_indices(NNZ());
+            std::vector<Value> t_data(is_pattern() ? 0 : NNZ());
+
+            Ordinal st = 0;
+            for (Ordinal i = 0; i < N(); i++) {
+
+                t_indptr[i] = st;
+                Ordinal org_row_st = reorder_rows ? indptr[_rows_id_map[i]] : indptr[i];
+                Ordinal org_row_en = reorder_rows ? indptr[_rows_id_map[i] + 1] : indptr[i + 1];
+
+                if (reorder_cols && !is_pattern()) {
+                    std::vector<std::pair<Ordinal, Value>> pairs;
+                    for (auto j = org_row_st; j < org_row_en; j++) {
+                        pairs.push_back( std::make_pair(cols_id_map[indices[j]], data(j)) );
+                    }
+                    std::sort(pairs.begin(), pairs.end());
+                    for (auto pair : pairs) {
+                        t_indices[st] = pair.first;
+                        t_data[st++] = pair.second;
+                    }
+                } else {
+                    for (auto j = org_row_st; j < org_row_en; j++) {
+                        if (!is_pattern())
+                            t_data[st] = data(j);
+                        t_indices[st++] = reorder_cols? cols_id_map[indices[j]] : indices[j];
+                    }
+                    if (reorder_cols)
+                        std::sort(std::next(t_indices.begin(), t_indptr[i]),
+                                std::next(t_indices.begin(), st));
+                }
+            }
+            t_indptr[N()] = NNZ();
+
+            return Matrix(std::move(t_indptr), std::move(t_indices), std::move(t_data), M);
+        }
+
+        /**
+         * @brief ReOrder cols only
+         * @param map, lenght M vector, represents the mapping relationship of org id and new id
+         * @param new_to_org, if true, map[i] represents new col i is the origin col map[i] otherwise the other way around
+         * @return new matrix, such that the order of cols are shuffled based on map.
+         **/
+        Matrix order_cols(const std::vector<Ordinal> & _map, bool new_to_org = false) const {
+            return order(std::vector<Ordinal>(), _map, false, new_to_org);
+        }
+
+        /**
+         * @brief ReOrder rows only
+         * @param map, lenght N() vector, represents the mapping relationship of org id and new id
+         * @param new_to_org, if true, map[i] represents new row i is the origin row map[i] otherwise the other way around
+         * @return new matrix, such that the order of rows are shuffled based on map.
+         **/
+        Matrix order_rows(const std::vector<Ordinal> & _map, bool new_to_org = false) const {
+            return order(_map, std::vector<Ordinal>(), new_to_org, false);
         }
 
         /**
@@ -613,6 +814,7 @@ namespace sarma {
         * @brief Helper function to return the mapping
         * Just a revisited version of Apo's implementation of
         * CuthillMcKee algorithm
+        * Note this algorithm supports matrix with symmetric pattern only
         **/
         std::vector<Ordinal> rcm_helper(bool reverse) const {
             const auto INF = std::numeric_limits<Ordinal>::max();
@@ -665,7 +867,7 @@ namespace sarma {
             /** @note This is where CuthillMcKee ends, now we adjust the map and return **/
             if (reverse) 
                 for (size_t i = 0; i < N(); i++)
-                    map[i] = N() - map[i];
+                    map[i] = N() - 1 - map[i];
 
             return map;
         }

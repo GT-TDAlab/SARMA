@@ -2,10 +2,9 @@
 #include <random>
 #include <algorithm>
 
+#include "test_utils.hpp"
 #include "data_structures/csr_matrix.hpp"
 #include "data_structures/sparse_prefix_sum.hpp"
-
-#include "test_utils.hpp"
 
 using namespace sarma;
 
@@ -18,7 +17,7 @@ int main() {
     std::default_random_engine gen(1);
 
     for (const auto &A: matrices) {
-        const sarma::sparse_prefix_sum sps(A);
+        const sarma::sparse_prefix_sum<Ordinal, Ordinal> sps(A);
         for (int i = 0; i < num_iters; i++) {
             std::vector<std::vector<Ordinal>> pq(2);
             for (auto &p: pq) {
