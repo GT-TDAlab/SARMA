@@ -355,13 +355,13 @@ int main(int argc, char** argv){
 
 ## Primary tested compilers and architectures
 
-Primary tested compilers and architectures are:
+Primary tested compilers and systems are:
 
-* GCC 7.4.0, 8.4.0, 9.2.0, 10.1.0, x86, Broadwell (Intel, Xeon E5-2683, v4, 2.10GHz)
-* GCC GCC 8.3.1, 10.2.0, x86, Broadwell (Intel, Xeon CPU E5-2683, v4, 2.10GHz)
-* GCC 7.5.0, x86, Haswell (Intel, Xeon E7-4850, v3, 2.20GHz)
-* GCC 9.3.0, x86, Macbook Pro (Intel Core i7, 2.90GHz)
-* GCC 7.5.0, x86, AMD (EPYC 7551)
-* GCC 7.4.0, powerpc64, POWER9 (altivec supported, 3.80GHz)
-* GCC 8.3.0, x86, (Xeon 6226 CPU, 2.70GHz)
-* GCC 9.3.0, x86, (Intel Core i7-7820HQ, 2.90GHz)
+* GCC 7.4.0, 8.3.0, 9.2.0, 10.1.0, x86, Red Hat 7.6
+* GCC 7.4.0, 8.4.0, 9.2.0, 10.1.0, x86, Ubuntu 16.03
+* GCC 7.4.0, powerpc64, Red Hat 7.6
+* GCC 7.5.0, x86, Ubuntu 18.04
+* GCC 7.5.0, x86, CentOS 7.7.1908
+* GCC GCC 8.3.1, 10.2.0, x86, CentOS 8.2.2004
+* GCC 9.3.0, x86, macOS Mojave 10.14.6
+* GCC 9.3.0, x86, macOS Catalina 10.15.5
