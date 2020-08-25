@@ -178,37 +178,10 @@
   <div class="section" id="mixed-integer-programming">
 <h1>Mixed Integer Programming<a class="headerlink" href="#mixed-integer-programming" title="Permalink to this headline">¶</a></h1>
 <p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/algorithms/mixed_integer_program.hpp">algorithms/mixed_integer_program.hpp</a></p>
-<dl class="cpp type">
-<dt id="_CPPv4N5sarma21mixed_integer_programE">
-<span id="_CPPv3N5sarma21mixed_integer_programE"></span><span id="_CPPv2N5sarma21mixed_integer_programE"></span><span id="sarma::mixed_integer_program"></span><span class="target" id="namespacesarma_1_1mixed__integer__program"></span><em class="property">namespace </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">mixed_integer_program</code><a class="headerlink" href="#_CPPv4N5sarma21mixed_integer_programE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>To the best of our knowledge, this is the first work that tackles the symmetric rectilinear partitioning problem. Symmetric rectilinear partitioning is a restricted problem, therefore comparing our algorithms with more relaxed partitioning algorithms (such as jagged, rectilinear etc.) doesn’t provide enough information about the quality of the found partition vectors. Hence, we implemented a mathematical model that finds the optimal solution using Gurobi. This namespace contains required functions. </p>
-<p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>This mixed integer program implementation can also handle non-symmetric partitioning. </p>
-</dd>
-</dl>
-</p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Functions</p>
-<dl class="cpp function">
-<dt id="_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int">
-<span id="_CPPv3I_b00EN5sarma21mixed_integer_program9partitionERK6MatrixI3Int5ValueEK3IntK3Int"></span><span id="_CPPv2I_b00EN5sarma21mixed_integer_program9partitionERK6MatrixI3Int5ValueEK3IntK3Int"></span>template&lt;bool <code class="sig-name descname">symmetric</code>, typename <code class="sig-name descname">Int</code>, typename <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="namespacesarma_1_1mixed__integer__program_1a04c942941af2c6c0ce4e5fe8379a276f"></span>auto <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Int">Int</a>, <a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Int">Int</a> <em>P</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Int">Int</a> <em>Q_</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Implements the mixed integer program solver for rectilinear partitioning. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>a cut vector if symmetric and returns a pair of vectors if symmetric is false </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: the input matrix </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Q_</span></code>: number of parts in the other dimension for when template parameter symmetric is false </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>doxygennamespace: Cannot find namespace “sarma::mixed_integer_program” in doxygen xml output for project “sarma” from directory: /home/travis/build/GT-TDAlab/SARMA/build/docs/doxygen/xml</p>
 </div>
-</dd></dl>
-
 </div>
 
 

@@ -175,31 +175,37 @@
 <p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/data_structures/csr_matrix.hpp">data_structures/csr_matrix.hpp</a></p>
 <dl class="cpp enum">
 <dt id="_CPPv4N5sarma5OrderE">
-<span id="_CPPv3N5sarma5OrderE"></span><span id="_CPPv2N5sarma5OrderE"></span><span class="target" id="csr__matrix_8hpp_1a48d246398c0e4365a620a48dcd58bef4"></span><em class="property">enum </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Order</code><a class="headerlink" href="#_CPPv4N5sarma5OrderE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5sarma5OrderE"></span><span id="_CPPv2N5sarma5OrderE"></span><span class="target" id="namespacesarma_1a48d246398c0e4365a620a48dcd58bef4"></span><em class="property">enum </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Order</code><a class="headerlink" href="#_CPPv4N5sarma5OrderE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An enum type used to define row ordering of a given matrix. We provide three simple row ordering strategies. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
 <dt id="_CPPv4N5sarma5Order3ASCE">
-<span id="_CPPv3N5sarma5Order3ASCE"></span><span id="_CPPv2N5sarma5Order3ASCE"></span><span class="target" id="csr__matrix_8hpp_1a48d246398c0e4365a620a48dcd58bef4aa5b39c63ed94020b373682afb8436ac3"></span><em class="property">enumerator </em><code class="sig-name descname">ASC</code><a class="headerlink" href="#_CPPv4N5sarma5Order3ASCE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5sarma5Order3ASCE"></span><span id="_CPPv2N5sarma5Order3ASCE"></span><span class="target" id="namespacesarma_1a48d246398c0e4365a620a48dcd58bef4aa5b39c63ed94020b373682afb8436ac3"></span><em class="property">enumerator </em><code class="sig-name descname">ASC</code><a class="headerlink" href="#_CPPv4N5sarma5Order3ASCE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Order rows in an ascending way st. |A(i,*)| &lt;= |A(i+1,*)| </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt id="_CPPv4N5sarma5Order3DSCE">
-<span id="_CPPv3N5sarma5Order3DSCE"></span><span id="_CPPv2N5sarma5Order3DSCE"></span><span class="target" id="csr__matrix_8hpp_1a48d246398c0e4365a620a48dcd58bef4a72ad226e15aae80fbccee15c4fba8ce5"></span><em class="property">enumerator </em><code class="sig-name descname">DSC</code><a class="headerlink" href="#_CPPv4N5sarma5Order3DSCE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5sarma5Order3DSCE"></span><span id="_CPPv2N5sarma5Order3DSCE"></span><span class="target" id="namespacesarma_1a48d246398c0e4365a620a48dcd58bef4a72ad226e15aae80fbccee15c4fba8ce5"></span><em class="property">enumerator </em><code class="sig-name descname">DSC</code><a class="headerlink" href="#_CPPv4N5sarma5Order3DSCE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Order rows in an descending way st. |A(i,*)| &gt;= |A(i+1,*)| </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt id="_CPPv4N5sarma5Order3RCME">
-<span id="_CPPv3N5sarma5Order3RCME"></span><span id="_CPPv2N5sarma5Order3RCME"></span><span class="target" id="csr__matrix_8hpp_1a48d246398c0e4365a620a48dcd58bef4a92fa96ee7598a3b57e077524520e5ffd"></span><em class="property">enumerator </em><code class="sig-name descname">RCM</code><a class="headerlink" href="#_CPPv4N5sarma5Order3RCME" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5sarma5Order3RCME"></span><span id="_CPPv2N5sarma5Order3RCME"></span><span class="target" id="namespacesarma_1a48d246398c0e4365a620a48dcd58bef4a92fa96ee7598a3b57e077524520e5ffd"></span><em class="property">enumerator </em><code class="sig-name descname">RCM</code><a class="headerlink" href="#_CPPv4N5sarma5Order3RCME" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Order rows usin reverse Cuthill-McKee algorithm </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt id="_CPPv4N5sarma5Order3NATE">
-<span id="_CPPv3N5sarma5Order3NATE"></span><span id="_CPPv2N5sarma5Order3NATE"></span><span class="target" id="csr__matrix_8hpp_1a48d246398c0e4365a620a48dcd58bef4a5d0d3bbb02a87915a57a2c0a3245f681"></span><em class="property">enumerator </em><code class="sig-name descname">NAT</code><a class="headerlink" href="#_CPPv4N5sarma5Order3NATE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5sarma5Order3NATE"></span><span id="_CPPv2N5sarma5Order3NATE"></span><span class="target" id="namespacesarma_1a48d246398c0e4365a620a48dcd58bef4a5d0d3bbb02a87915a57a2c0a3245f681"></span><em class="property">enumerator </em><code class="sig-name descname">NAT</code><a class="headerlink" href="#_CPPv4N5sarma5Order3NATE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Don’t apply any ordering. Default, natural order </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N5sarma5Order3RNDE">
+<span id="_CPPv3N5sarma5Order3RNDE"></span><span id="_CPPv2N5sarma5Order3RNDE"></span><span class="target" id="namespacesarma_1a48d246398c0e4365a620a48dcd58bef4a2caf1b6a129231a31efb21b7f1ac92ea"></span><em class="property">enumerator </em><code class="sig-name descname">RND</code><a class="headerlink" href="#_CPPv4N5sarma5Order3RNDE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Random ordering </p>
 </dd></dl>
 
 </dd></dl>
@@ -295,8 +301,8 @@
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N5sarma6Matrix6MatrixERKNSt10filesystem4pathEKb">
-<span id="_CPPv3N5sarma6Matrix6MatrixERKNSt10filesystem4pathEKb"></span><span id="_CPPv2N5sarma6Matrix6MatrixERKNSt10filesystem4pathEKb"></span><span id="sarma::Matrix::Matrix__std::filesystem::pathCR.bC"></span><span class="target" id="classsarma_1_1Matrix_1a2742a3f40220cbec136dcf5c08852641"></span><code class="sig-name descname">Matrix</code><span class="sig-paren">(</span><em class="property">const</em> std::filesystem::path &amp;<em>path</em>, <em class="property">const</em> bool <em>use_data</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5sarma6Matrix6MatrixERKNSt10filesystem4pathEKb" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N5sarma6Matrix6MatrixERKN13ns_filesystem4pathEKb">
+<span id="_CPPv3N5sarma6Matrix6MatrixERKN13ns_filesystem4pathEKb"></span><span id="_CPPv2N5sarma6Matrix6MatrixERKN13ns_filesystem4pathEKb"></span><span id="sarma::Matrix::Matrix__ns_filesystem::pathCR.bC"></span><span class="target" id="classsarma_1_1Matrix_1a1a9fc86d9e3117ea5f208752d8e1587a"></span><code class="sig-name descname">Matrix</code><span class="sig-paren">(</span><em class="property">const</em> ns_filesystem::path &amp;<em>path</em>, <em class="property">const</em> bool <em>use_data</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5sarma6Matrix6MatrixERKN13ns_filesystem4pathEKb" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>IO constructor Construct the graph from a file that should be formatted as our csr format. </p>
 </dd></dl>
 
@@ -399,8 +405,30 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK5sarma6Matrix5orderE5Orderbb">
-<span id="_CPPv3NK5sarma6Matrix5orderE5Orderbb"></span><span id="_CPPv2NK5sarma6Matrix5orderE5Orderbb"></span><span id="sarma::Matrix::order__Order.b.bC"></span><span class="target" id="classsarma_1_1Matrix_1a27d584af86380fa0b55ace984e1fe5b1"></span><a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a> <code class="sig-name descname">order</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N5sarma5OrderE" title="sarma::Order">Order</a> <em>order</em> = <a class="reference internal" href="#_CPPv4N5sarma5OrderE" title="sarma::Order">Order</a>::<a class="reference internal" href="#_CPPv4N5sarma5Order3NATE" title="sarma::Order::NAT">NAT</a>, bool <em>triangular</em> = false, bool <em>reverse</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma6Matrix5orderE5Orderbb" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4NK5sarma6Matrix13verify_id_mapERKNSt6vectorI7OrdinalEE7Ordinal7Ordinal">
+<span id="_CPPv3NK5sarma6Matrix13verify_id_mapERKNSt6vectorI7OrdinalEE7Ordinal7Ordinal"></span><span id="_CPPv2NK5sarma6Matrix13verify_id_mapERKNSt6vectorI7OrdinalEE7Ordinal7Ordinal"></span><span id="sarma::Matrix::verify_id_map__std::vector:Ordinal:CR.Ordinal.OrdinalC"></span><span class="target" id="classsarma_1_1Matrix_1aeaac939c28d87fba63fa3210d31869eb"></span>bool <code class="sig-name descname">verify_id_map</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix::Ordinal">Ordinal</a>&gt; &amp;<em>map</em>, <a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix::Ordinal">Ordinal</a> <em>expected_size</em>, <a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix::Ordinal">Ordinal</a> <em>min_id</em> = 0<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma6Matrix13verify_id_mapERKNSt6vectorI7OrdinalEE7Ordinal7Ordinal" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>used for re-ordering, to check whether if map is one-to-one id maping from [0…expected_size-1] to [min_id…min_id+expected_size-1] &#64;parameter map, the id mapping to be verified &#64;parameter expected_size, the expected size of map &#64;parameter min_id, the minimum id of the ids to be mapped to </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>whether map is valid </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma6Matrix14reverse_id_mapERKNSt6vectorI7OrdinalEE">
+<span id="_CPPv3NK5sarma6Matrix14reverse_id_mapERKNSt6vectorI7OrdinalEE"></span><span id="_CPPv2NK5sarma6Matrix14reverse_id_mapERKNSt6vectorI7OrdinalEE"></span><span id="sarma::Matrix::reverse_id_map__std::vector:Ordinal:CRC"></span><span class="target" id="classsarma_1_1Matrix_1aeaa969eca835124ce533e9ddf9cf1059"></span>auto <code class="sig-name descname">reverse_id_map</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix::Ordinal">Ordinal</a>&gt; &amp;<em>map</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma6Matrix14reverse_id_mapERKNSt6vectorI7OrdinalEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>reverse id map &#64;parameter map, the map to be reversed. map is expected to be valid as verified in the verify_id_map </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>reversed_map </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma6Matrix5orderE5Orderbbi">
+<span id="_CPPv3NK5sarma6Matrix5orderE5Orderbbi"></span><span id="_CPPv2NK5sarma6Matrix5orderE5Orderbbi"></span><span id="sarma::Matrix::order__Order.b.b.iC"></span><span class="target" id="classsarma_1_1Matrix_1a08885dd84e512079c0f0f7d4135509c5"></span><a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a> <code class="sig-name descname">order</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N5sarma5OrderE" title="sarma::Order">Order</a> <em>order</em> = <a class="reference internal" href="#_CPPv4N5sarma5OrderE" title="sarma::Order">Order</a>::<a class="reference internal" href="#_CPPv4N5sarma5Order3NATE" title="sarma::Order::NAT">NAT</a>, bool <em>triangular</em> = false, bool <em>reverse</em> = false, int <em>seed</em> = 1<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma6Matrix5orderE5Orderbbi" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Generalized order function. </p>
 <p><dl class="simple">
 <dt><strong>Note</strong></dt><dd><p>that reverse is by default true for ASC, and false for DSC </p>
@@ -409,6 +437,49 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: ASC, DSC, RCM or NAT </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">triangular</span></code>: Flag to use only upper half of matrix </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">reverse</span></code>: decides rcm is reversed </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma6Matrix5orderERKNSt6vectorI7OrdinalEERKNSt6vectorI7OrdinalEEbb">
+<span id="_CPPv3NK5sarma6Matrix5orderERKNSt6vectorI7OrdinalEERKNSt6vectorI7OrdinalEEbb"></span><span id="_CPPv2NK5sarma6Matrix5orderERKNSt6vectorI7OrdinalEERKNSt6vectorI7OrdinalEEbb"></span><span id="sarma::Matrix::order__std::vector:Ordinal:CR.std::vector:Ordinal:CR.b.bC"></span><span class="target" id="classsarma_1_1Matrix_1abefe4b10af89abc7ee75e051deec8d57"></span><a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a> <code class="sig-name descname">order</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix::Ordinal">Ordinal</a>&gt; &amp;<em>_rows_id_map</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix::Ordinal">Ordinal</a>&gt; &amp;<em>_cols_id_map</em>, bool <em>rows_new_to_org</em> = false, bool <em>cols_new_to_org</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma6Matrix5orderERKNSt6vectorI7OrdinalEERKNSt6vectorI7OrdinalEEbb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>ReOrder rows and cols &#64;parameter _rows_id_map, mapping between new row id and old row id &#64;parameter _cols_id_map, mapping between new row id and old row id &#64;parameter rows_new_to_org, true indicating _rows_id_map[new_row_id] = old_row_id; false indicating _rows_id_map[old_row_id] = new_row_id &#64;parameter cols_new_to_org, true indicating _cols_id_map[new_row_id] = old_row_id; false indicating _cols_id_map[old_row_id] = new_row_id. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>new matrix, with the new orders of rows and cols. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma6Matrix10order_colsERKNSt6vectorI7OrdinalEEb">
+<span id="_CPPv3NK5sarma6Matrix10order_colsERKNSt6vectorI7OrdinalEEb"></span><span id="_CPPv2NK5sarma6Matrix10order_colsERKNSt6vectorI7OrdinalEEb"></span><span id="sarma::Matrix::order_cols__std::vector:Ordinal:CR.bC"></span><span class="target" id="classsarma_1_1Matrix_1ac281956a4523c456b113800e506c8c00"></span><a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a> <code class="sig-name descname">order_cols</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix::Ordinal">Ordinal</a>&gt; &amp;<em>_map</em>, bool <em>new_to_org</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma6Matrix10order_colsERKNSt6vectorI7OrdinalEEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>ReOrder cols only. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>new matrix, such that the order of cols are shuffled based on map. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span><span class="pre">lenght</span></code>: M vector, represents the mapping relationship of org id and new id </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">new_to_org</span><span class="pre">if</span></code>: true, map[i] represents new col i is the origin col map[i] otherwise the other way around </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK5sarma6Matrix10order_rowsERKNSt6vectorI7OrdinalEEb">
+<span id="_CPPv3NK5sarma6Matrix10order_rowsERKNSt6vectorI7OrdinalEEb"></span><span id="_CPPv2NK5sarma6Matrix10order_rowsERKNSt6vectorI7OrdinalEEb"></span><span id="sarma::Matrix::order_rows__std::vector:Ordinal:CR.bC"></span><span class="target" id="classsarma_1_1Matrix_1a30834f2ef5898264e4dce2eb8cec7acb"></span><a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a> <code class="sig-name descname">order_rows</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix::Ordinal">Ordinal</a>&gt; &amp;<em>_map</em>, bool <em>new_to_org</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK5sarma6Matrix10order_rowsERKNSt6vectorI7OrdinalEEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>ReOrder rows only. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>new matrix, such that the order of rows are shuffled based on map. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span><span class="pre">lenght</span></code>: <a class="reference internal" href="#classsarma_1_1Matrix_1aa90685223df93599bd2c64cf912c1afa"><span class="std std-ref">N()</span></a> vector, represents the mapping relationship of org id and new id </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">new_to_org</span><span class="pre">if</span></code>: true, map[i] represents new row i is the origin row map[i] otherwise the other way around </p></li>
 </ul>
 </dd>
 </dl>
