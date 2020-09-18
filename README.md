@@ -37,6 +37,10 @@ Citation for the rectilinear partitioners (BibTeX):
         author =  {Abdurrahman Ya\c{s}ar and M. Fatih Bal{\i}n and Xiaojing An and Kaan Sancak and {\"{U}}mit V. {\c{C}}ataly{\"{u}}rek},
         title = {On Symmetric Rextilinear Matrix Partitioning},
         institution = {ArXiv},
+        number = {arXiv:2009.07735},
+        url    = {http://arxiv.org/abs/2009.07735},
+        month  = {Sep},
+        year   = {2020},
         KEYWORDS = {Spatial partitioning, rectilinear partitioning, symmetric partitioning},
     }
 ```
