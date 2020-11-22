@@ -55,8 +55,8 @@ namespace sarma {
         std::vector<Value> data_;
         Ordinal M_;
         bool sorted_ = false;
-        std::shared_ptr<std::unique_ptr<sparse_prefix_sum<Ordinal, Value>>> sps_
-            = std::make_shared<std::unique_ptr<sparse_prefix_sum<Ordinal, Value>>>(nullptr);
+        std::shared_ptr<std::shared_ptr<sparse_prefix_sum<Ordinal, Value>>> sps_
+            = std::make_shared<std::shared_ptr<sparse_prefix_sum<Ordinal, Value>>>(nullptr);
 
         auto use_data_off(std::size_t /*i*/) const {
             return (Value)1;
@@ -87,7 +87,11 @@ namespace sarma {
         }
 
         Value total_load() const {
-            return is_using_data() ? std::accumulate(data_.begin(), data_.end(), (Value)0) : NNZ();
+            #ifdef ENABLE_CPP_PARALLEL
+                return is_using_data() ? std::reduce(exec_policy, data_.begin(), data_.end(), (Value)0) : NNZ();
+            #else
+                return is_using_data() ? std::accumulate(data_.begin(), data_.end(), (Value)0) : NNZ();
+            #endif
         }
 
         const auto & get_sps() const;
@@ -150,7 +154,7 @@ namespace sarma {
             // std::cerr << "N: " << N() << ", NNZ: " << NNZ() << std::endl;
         }
 
-        Matrix(const std::vector<std::pair<Ordinal, Ordinal>> &pts, const std::vector<Value> &data) : sorted_(true) {
+        Matrix(const std::vector<std::pair<Ordinal, Ordinal>> &pts, const std::vector<Value> &data, bool _use_data = false) : sorted_(true) {
             std::vector<Ordinal> idx(pts.size());
 #if defined(ENABLE_CPP_PARALLEL)
             std::for_each(exec_policy, idx.begin(), idx.end(), [&](auto &idx_i) {
@@ -196,11 +200,12 @@ namespace sarma {
                         data_[j] = data[idx[j]];
                 }
             });
-#if defined(ENABLE_CPP_PARALLEL)
+        #ifdef ENABLE_CPP_PARALLEL
             M_ = 1 + *std::max_element(exec_policy, std::begin(indices), std::end(indices));
-#else
-            M_ = 1 + *std::max_element( std::begin(indices), std::end(indices));
-#endif
+        #else
+            M_ = 1 + *std::max_element(std::begin(indices), std::end(indices));
+        #endif
+            use_data(_use_data);
         }
 
         /**
@@ -208,18 +213,18 @@ namespace sarma {
         * @note uses move semantics.
         **/
         Matrix(std::vector<Ordinal> &&indptr, std::vector<Ordinal> &&indices,
-            std::vector<Value> &&data, const Ordinal M)
-            : indptr_(std::move(indptr)), indices_(std::move(indices)), data_(std::move(data)), M_(M) {}
+            std::vector<Value> &&data, const Ordinal M, bool use_data_ = false)
+            : indptr_(std::move(indptr)), indices_(std::move(indices)), data_(std::move(data)), M_(M) { use_data(use_data_); }
 
         /**
         * @brief Constructor to create a graph given all the class members
         * this one is for mostly external usage, uses copy instead of move
         **/
-        Matrix(std::vector<Ordinal> &indptr, std::vector<Ordinal> &indices,
-            std::vector<Value> &data, const Ordinal M)
-            : indptr_(indptr), indices_(indices), data_(data), M_(M) {}
+        Matrix(const std::vector<Ordinal> &indptr, const std::vector<Ordinal> &indices,
+            const std::vector<Value> &data, const Ordinal M, bool use_data_ = false)
+            : indptr_(indptr), indices_(indices), data_(data), M_(M) { use_data(use_data_); }
 
-        Matrix(const Matrix &other) : indptr_(other.indptr), indices_(other.indices), data_(other.data_), M_(other.M), sorted_(other.sorted) {}
+        Matrix(const Matrix &other) : indptr_(other.indptr), indices_(other.indices), data_(other.data_), M_(other.M), sorted_(other.sorted), sps_(other.sps_), use_data_(other.use_data_) {}
 
         Matrix & operator =(const Matrix &other) {
             indptr_ = other.indptr;
@@ -227,10 +232,12 @@ namespace sarma {
             data_ = other.data_;
             M_ = other.M;
             sorted_ = other.sorted;
+            sps_ = other.sps_;
+            use_data_ = other.use_data_;
             return *this;
         }
 
-        Matrix(Matrix &&other) : indptr_(std::move(other.indptr)), indices_(std::move(other.indices)), data_(std::move(other.data_)), M_(other.M), sorted_(other.sorted) {}
+        Matrix(Matrix &&other) : indptr_(std::move(other.indptr)), indices_(std::move(other.indices)), data_(std::move(other.data_)), M_(other.M), sorted_(other.sorted), sps_(other.sps_), use_data_(other.use_data_) {}
 
         Matrix & operator =(Matrix &&other) {
             indptr_ = std::move(other.indptr);
@@ -238,6 +245,8 @@ namespace sarma {
             data_ = std::move(other.data_);
             M_ = other.M;
             sorted_ = other.sorted;
+            sps_ = other.sps_;
+            use_data_ = other.use_data_;
             return *this;
         }
 
@@ -406,8 +415,18 @@ namespace sarma {
             }
             out << "<<<" << '\n';
 
+            const auto P = p.size() - 1;
+            const auto Q = q.size() - 1;
+            Value max_tri_load = 0;
+
+            for (Ordinal i = 0; i < P; i++)
+                for (Ordinal k = 0; k < std::min(P, Q); k++)
+                    for (Ordinal j = 0; j < Q; j++)
+                        max_tri_load = std::max(max_tri_load, loads[i][k] + loads[k][j] + loads[i][j]);
+
             auto maxLoad = utils::max(loads);
             out << "Max load: " << maxLoad << '\n';
+            out << "Max tri_load: " << max_tri_load << '\n';
             out << "Sparsification time (s): " << sp_time << '\n';
             out << "Sparse data structure construction time (s): " << ds_time << '\n';
             out << "Partitioning time (s): " << par_time << '\n';
@@ -878,5 +897,5 @@ namespace sarma {
 
 template <class Ordinal, class Value>
 const auto & sarma::Matrix<Ordinal, Value>::get_sps() const {
-    return *sps_ ? **sps_ : *(*sps_ = std::make_unique<sparse_prefix_sum<Ordinal, Value>>(*this));
+    return *sps_ ? **sps_ : *(*sps_ = std::make_shared<sparse_prefix_sum<Ordinal, Value>>(*this));
 }

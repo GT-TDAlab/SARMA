@@ -7,8 +7,8 @@
 
 namespace sarma {
 
+    static std::mutex iomutex;
     class timer {
-        static std::mutex iomutex;
         const std::string name;
         const std::chrono::high_resolution_clock::time_point start;
         std::mutex &mtx;
@@ -38,6 +38,4 @@ namespace sarma {
             return std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - start).count();
         }
     };
-
-    std::mutex timer::iomutex;
 }

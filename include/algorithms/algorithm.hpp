@@ -17,49 +17,82 @@
 #include "nicol2d.hpp"
 #include "probe_a_load.hpp"
 #include "ordered_probe_a_load.hpp"
+#include "subgradient_method.hpp"
 #include "uniform.hpp"
 #include "refine_a_cut.hpp"
 
+#ifdef ENABLE_CPP_PARALLEL
 #ifdef GUROBI_FOUND
+#define ENABLE_GUROBI
+#endif
+#endif
+
+#ifdef ENABLE_GUROBI
 #include "mixed_integer_program.hpp"
 #endif
 
 namespace sarma {
     template <typename Ordinal, typename Value>
-    std::pair<std::vector<Ordinal>, std::vector<Ordinal>> uni(const Matrix<Ordinal, Value> &A,
+    inline std::pair<std::vector<Ordinal>, std::vector<Ordinal>> uni(const Matrix<Ordinal, Value> &A,
                 const Ordinal P, const Ordinal /*Q*/, const Value Z, const int /*seed*/) {
         const auto cuts = uniform::partition(A, P, Z);
         return {cuts, cuts};
     }
 
     template <typename Ordinal, typename Value, bool use_indices = true>
-    std::pair<std::vector<Ordinal>, std::vector<Ordinal>> nic(const Matrix<Ordinal, Value> &A,
+    inline std::pair<std::vector<Ordinal>, std::vector<Ordinal>> nic(const Matrix<Ordinal, Value> &A,
             const Ordinal P, const Ordinal Q, const Value /* Z */, const int /*seed*/) {
         return nicol2d::partition<Ordinal, Value, use_indices>(A, P, Q == 0 ? P : Q);
     }
 
     template <typename Ordinal, typename Value>
-    std::pair<std::vector<Ordinal>, std::vector<Ordinal>> rac(const Matrix<Ordinal, Value> &A,
+    inline std::pair<std::vector<Ordinal>, std::vector<Ordinal>> rac(const Matrix<Ordinal, Value> &A,
             const Ordinal P, const Ordinal /* Q */, const Value Z, const int /*seed*/) {
         const auto p = refine_a_cut::partition<Ordinal, Value>(A, P, Z);
         return {p, p};
     }
 
     template <typename Ordinal, typename Value>
-    std::pair<std::vector<Ordinal>, std::vector<Ordinal>> pal(const Matrix<Ordinal, Value> &A,
+    inline std::pair<std::vector<Ordinal>, std::vector<Ordinal>> pal(const Matrix<Ordinal, Value> &A,
             const Ordinal P, const Ordinal /*Q*/, const Value Z, const int /*seed*/) {
         const auto cuts = Z == 0 ? probe_a_load::partition(A, P) : probe_a_load::probe(A, Z);
         return {cuts, cuts};
     }
 
     template <typename Ordinal, typename Value>
-    std::pair<std::vector<Ordinal>, std::vector<Ordinal>> opal(const Matrix<Ordinal, Value> &A,
+    inline std::pair<std::vector<Ordinal>, std::vector<Ordinal>> opal(const Matrix<Ordinal, Value> &A,
             const Ordinal P, const Ordinal /*Q*/, const Value Z, const int /*seed*/) {
         const auto cuts = Z == 0 ? ordered_probe_a_load::partition(A, P) : ordered_probe_a_load::probe(A, Z);
         return {cuts, cuts};
     }
 
-#ifdef GUROBI_FOUND
+    template <typename Ordinal, typename Value>
+    std::pair<std::vector<Ordinal>, std::vector<Ordinal>> sgo(const Matrix<Ordinal, Value> &A,
+            const Ordinal P, const Ordinal Q, const Value /*Z*/, const int seed) {
+        if (Q == 0) {
+            const auto p = subgradient_method::partition(A, P, seed);
+            return {p, p};
+        } else
+            return subgradient_method::partition(A, P, Q, seed);
+    }
+
+    template <typename Ordinal, typename Value>
+    std::pair<std::vector<Ordinal>, std::vector<Ordinal>> sgo_tri(const Matrix<Ordinal, Value> &A,
+            const Ordinal P, const Ordinal /*Q*/, const Value /*Z*/, const int seed) {
+        const auto p = subgradient_method::partition_tri(A, P, seed);
+        return {p, p};
+    }
+
+    template <bool nic = true, typename Ordinal, typename Value>
+    std::pair<std::vector<Ordinal>, std::vector<Ordinal>> sgo_nic(const Matrix<Ordinal, Value> &A,
+            const Ordinal P, const Ordinal Q, const Value /*Z*/, const int seed) {
+        const auto terms = subgradient_method::partition(A, P, Q == 0 ? P : Q, seed);
+        const auto p = terms.first;
+        const auto q = terms.second;
+        return nic ? nicol2d::partition(A, p, Q == 0 ? P : Q) : std::make_pair(p, q);
+    }
+
+#ifdef ENABLE_GUROBI
     template <typename Ordinal, typename Value>
     std::pair<std::vector<Ordinal>, std::vector<Ordinal>> mip(const Matrix<Ordinal, Value> &A,
             const Ordinal P, const Ordinal Q, const Value /*Z*/, const int /*seed*/) {
@@ -73,7 +106,7 @@ namespace sarma {
 #endif
 
     template <typename Ordinal, typename Value>
-    constexpr auto get_algorithm_vec() {
+    inline constexpr auto get_algorithm_vec() {
 
         std::vector<std::pair<std::string, std::pair<std::function<std::pair<std::vector<Ordinal>, std::vector<Ordinal>>(
              const Matrix<Ordinal, Value> &, const Ordinal, const Ordinal, const Value, const int)>, bool>>> alg_vec;
@@ -90,14 +123,18 @@ namespace sarma {
         alg_vec.push_back({"rac", {rac<Ordinal, Value>, false}});
         alg_vec.push_back({"pal", {pal<Ordinal, Value>, true}});
         alg_vec.push_back({"opal", {opal<Ordinal, Value>, false}});
-#ifdef GUROBI_FOUND
+        alg_vec.push_back({"sgo_2ds", {sgo<Ordinal, Value>, true}});
+        alg_vec.push_back({"sgo_3ds", {sgo_tri<Ordinal, Value>, true}});
+        alg_vec.push_back({"sgo_2dr_nic", {sgo_nic<true, Ordinal, Value>, true}});
+        alg_vec.push_back({"sgo_2dr", {sgo_nic<false, Ordinal, Value>, true}});
+#ifdef ENABLE_GUROBI
         alg_vec.push_back({"mip", {mip<Ordinal, Value>, false}});
 #endif
         return alg_vec;
     }
 
     template <typename Ordinal, typename Value>
-    constexpr auto get_algorithm_map() {
+    inline constexpr auto get_algorithm_map() {
 
         std::map<std::string, std::pair<std::function<std::pair<std::vector<Ordinal>, std::vector<Ordinal>>(
              const Matrix<Ordinal, Value> &, const Ordinal, const Ordinal, const Value, const int)>, bool>> alg_list;
@@ -115,12 +152,12 @@ namespace sarma {
         return alg_list;
     }
 
-    auto get_order_vec() {
+    inline auto get_order_vec() {
         return std::vector<std::pair<std::string, Order>> {
             {"nat", Order::NAT}, {"asc", Order::ASC}, {"dsc", Order::DSC}, {"rcm", Order::RCM}, {"rnd", Order::RND}};
     }
 
-    auto get_order_map() {
+    inline auto get_order_map() {
         std::map<std::string, Order> order_map;
 #if defined(ENABLE_CPP_PARALLEL)
         for (auto &[str, order] : get_order_vec()){

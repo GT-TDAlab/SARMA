@@ -19,6 +19,7 @@ Welcome to SARMA's documentation!
 
    api/data_structures
    api/algorithms
+   api/tools
 
 .. toctree::
    :caption: Other

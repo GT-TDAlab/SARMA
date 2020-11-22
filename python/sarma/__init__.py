@@ -3,8 +3,8 @@
 from scipy.sparse import csr_matrix
 
 from ._sarma import sps as _sps, \
-                    sgo as _sgo, \
-                    sgo_n as _sgo_n, \
+                    sgo_2ds as _sgo_2ds, \
+                    sgo_2dr as _sgo_2dr, \
                     nic as _nic, \
                     pal as _pal, \
                     rac as _rac, \
@@ -23,7 +23,7 @@ def partition(A, p, alg, *args):
     return alg(A.indptr, A.indices, A.data.astype('uint32'), A.get_shape()[1], p, *args)
 
 def sgo(A, p, q=None):
-    return partition(A, p, _sgo) if q is None else partition(A, p, _sgo_n, q)
+    return partition(A, p, _sgo_2ds) if q is None else partition(A, p, _sgo_2dr, q)
 
 def nic(A, p):
     return partition(A, p, _nic)

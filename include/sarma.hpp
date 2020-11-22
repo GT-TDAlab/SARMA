@@ -1,10 +1,6 @@
 #pragma once
 
-#define GCC_VERSION (__GNUC__ * 10000 + \
-                     __GNUC_MINOR__ * 100 + \
-                     __GNUC_PATCHLEVEL__)
-
-#if GCC_VERSION < 90000
+#if __cplusplus < 201703L
 #include <experimental/filesystem>
 namespace ns_filesystem = std::experimental::filesystem;
 

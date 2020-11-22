@@ -93,7 +93,7 @@ html_context = {
     'github_user': 'GT-TDALab',
     'github_repo': 'SARMA',
     'github_version': 'master',
-    'conf_py_path': '/doc/'
+    'conf_py_path': '/docs/'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -110,7 +110,6 @@ html_static_path = []
 # 'searchbox.html']``.
 #
 # html_sidebars = {}
-html_logo = 'logo.png'
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -212,4 +211,4 @@ def setup(app):
     from recommonmark.transform import AutoStructify
     app.add_domain(GithubURLDomain)
     app.add_transform(AutoStructify)
-    app.add_css_file('css/custom_tweaks.css')
+    app.add_css_file('css/side_color.css')

@@ -23,7 +23,7 @@ if (Doxygen_FOUND AND Sphinx_FOUND)
     set(SPHINX_SOURCE ${CMAKE_CURRENT_SOURCE_DIR})
     set(SPHINX_BUILD ${CMAKE_CURRENT_BINARY_DIR}/sphinx)
     set(SPHINX_INDEX_FILE ${SPHINX_BUILD}/index.html)
-    set(SPHINX_CUSTOM_CSS ${SPHINX_BUILD}/_static/css/custom_tweaks.css)
+    set(SPHINX_CUSTOM_SIDE ${SPHINX_BUILD}/_static/css/side_color.css)
 
     add_custom_command(OUTPUT ${SPHINX_INDEX_FILE}
             COMMAND
@@ -36,7 +36,7 @@ if (Doxygen_FOUND AND Sphinx_FOUND)
             MAIN_DEPENDENCY ${SPHINX_SOURCE}/conf.py
             COMMENT "Generating documentation with Sphinx")
 
-    add_custom_command(OUTPUT ${SPHINX_CUSTOM_CSS}
+    add_custom_command(OUTPUT ${SPHINX_CUSTOM_SIDE}
             COMMAND
             echo ".wy-menu-vertical header, .wy-menu-vertical p.caption { color: #55a5d9; }\
              .wy-side-nav-search > a img.logo, .wy-side-nav-search .wy-dropdown > a img.logo { height: 55px; }" > ${SPHINX_CUSTOM_CSS}
@@ -45,11 +45,13 @@ if (Doxygen_FOUND AND Sphinx_FOUND)
             VERBATIM)
 
     if (NOT TARGET docs)
-        add_custom_target(docs DEPENDS ${DOXYGEN_INDEX_FILE} ${SPHINX_INDEX_FILE} ${SPHINX_CUSTOM_CSS})
+        add_custom_target(docs DEPENDS ${DOXYGEN_INDEX_FILE} ${SPHINX_INDEX_FILE} ${SPHINX_CUSTOM_SIDE})
     endif ()
 
-    include(GNUInstallDirs)
-    install(DIRECTORY ${SPHINX_BUILD} DESTINATION ${CMAKE_INSTALL_DOCDIR})
+    # Install if docs are built
+    if (EXISTS ${SPHINX_BUILD})
+        install(DIRECTORY ${SPHINX_BUILD}/ DESTINATION ${CMAKE_INSTALL_DOCDIR})
+    endif ()
 else ()
     message(WARNING "Doxygen and Sphinx needed for Doc generation. Skipping target")
 endif ()

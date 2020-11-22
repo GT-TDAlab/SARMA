@@ -92,7 +92,7 @@ namespace sarma {
                 return query({utils::lowerbound_index(A.indptr, (Int) std::distance(A.indices.data(), &j)), j});
             });
 #endif
-            return Matrix<Int, Value>(i_pts, A.get_data());
+            return Matrix<Int, Value>(i_pts, A.get_data(), A.is_using_data());
         }
 
     private:

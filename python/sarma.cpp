@@ -38,6 +38,16 @@ PYBIND11_MODULE(_sarma, m) {
         return nicol2d::partition(A, P, P);
     }, "Symmetric spatial partitioning with probe target load");
     
+    m.def("sgo_2ds", [] (std::vector<Int> &&indptr, std::vector<Int> &&indices, std::vector<Value> &&data, const Int M, const Int P, const int seed = 1) {
+        const Matrix<Int, Value> A(std::move(indptr), std::move(indices), std::move(data), M);
+        return subgradient_method::partition(A, P, seed);
+    }, "Symmetric spatial partitioning with stochatic subgradient optimization", "indptr"_a, "indices"_a, "data"_a, "numcols"_a, "P"_a, "seed"_a = 1);
+
+    m.def("sgo_2dr", [] (std::vector<Int> &&indptr, std::vector<Int> &&indices, std::vector<Value> &&data, const Int M, const Int P, const Int Q, const int seed = 1) {
+        const Matrix<Int, Value> A(std::move(indptr), std::move(indices), std::move(data), M);
+        return subgradient_method::partition(A, P, Q, seed);
+    }, "Non-symmetric spatial partitioning with stochatic subgradient optimization", "indptr"_a, "indices"_a, "data"_a, "numcols"_a, "P"_a, "Q"_a, "seed"_a = 1);
+    
     m.def("pal", [] (std::vector<Int> &&indptr, std::vector<Int> &&indices, std::vector<Value> &&data, const Int M, const Int P) {
         Matrix<Int, Value> A(std::move(indptr), std::move(indices), std::move(data), M);
         return probe_a_load::partition(A, P);

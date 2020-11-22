@@ -97,6 +97,16 @@ add_executable(sarma src/sarma.cpp)
 add_executable(experiment src/experiment.cpp)
 add_executable(sarma-bench src/sarma-bench.cpp)
 
+##############################################################################
+# Installation
+
+install(TARGETS sarma DESTINATION bin)
+install(FILES include/sarma.hpp DESTINATION include/sarma)
+install(DIRECTORY include/algorithms DESTINATION include/sarma)
+install(DIRECTORY include/data_structures DESTINATION include/sarma)
+install(DIRECTORY include/tools DESTINATION include/sarma)
+install(DIRECTORY external DESTINATION include/sarma)
+
 find_package(GUROBI QUIET)
 if (GUROBI_FOUND)
     include_directories(${GUROBI_INCLUDE_DIRS})

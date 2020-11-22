@@ -16,12 +16,12 @@
 
 using namespace sarma;
 
-int main(int /*argc*/, const char *argv[]) {
+int main(int argc, const char *argv[]) {
     std::ios_base::sync_with_stdio(false);
 
     const std::string GRAPH_DIR = std::getenv("GRAPH_DIR");
 
-    unsigned ap = 1;
+    int ap = 1;
 
     std::size_t count = std::stoi(argv[ap++]);
     std::vector<std::string> graphs;
@@ -48,9 +48,9 @@ int main(int /*argc*/, const char *argv[]) {
     for (size_t i = 0; i < count; i++) seeds.push_back(std::stoi(argv[ap++]));
 
     ns_filesystem::path outpath(argv[ap++]);
-    const auto triangular = false;
-    const auto serialize = false;
-    const auto use_data = false;
+    const auto triangular = ap++ < argc;
+    const auto use_data = ap++ < argc;
+    const auto serialize = ap++ < argc;
 
     const auto algs = get_algorithm_map<Ordinal, Value>();
     const auto ords = get_order_map();
@@ -58,17 +58,19 @@ int main(int /*argc*/, const char *argv[]) {
     for (auto graph: graphs) {
         for (auto order: orders) {
             auto a_ord = AlgorithmOrder<Ordinal, Value>(GRAPH_DIR + graph, ords.at(order), triangular, use_data);
+            std::map<Matrix<Ordinal, Value> *, std::pair<double, double>> times;
             for (auto seed : seeds) {
                 for (auto prob : probs) {
                     for (auto cut : cuts) {
-#if defined(ENABLE_CPP_PARALLEL)
-                        auto[a_sp, sp_time, ds_time] = AlgorithmPlan(a_ord, utils::get_prob(a_ord->NNZ(), cut, cut, prob), seed, true);
-#else
-                        auto terms = AlgorithmPlan(a_ord, utils::get_prob(a_ord->NNZ(), cut, cut, prob), seed, true);
+                        const auto sparsify = utils::get_prob(a_ord->NNZ(), cut, cut, prob);
+                        auto terms = AlgorithmPlan(a_ord, sparsify, seed, true);
                         auto a_sp = std::get<0>(terms);
                         auto sp_time = std::get<1>(terms);
                         auto ds_time = std::get<2>(terms);
-#endif
+                        if (times.find(a_sp.get()) == times.end())
+                            times[a_sp.get()] = {sp_time, ds_time};
+                        else
+                            std::tie(sp_time, ds_time) = times[a_sp.get()];
                         std::for_each(std::begin(algorithms), std::end(algorithms), [&](const auto &algorithm) {
 #if defined(ENABLE_CPP_PARALLEL)
                             const auto &[alg, use_sparse] = algs.at(algorithm);
@@ -85,7 +87,7 @@ int main(int /*argc*/, const char *argv[]) {
                             if (!ns_filesystem::exists(filename)) {
                                 try {
                                     std::ofstream out(filename, std::ofstream::out);
-                                    AlgorithmRun(alg, out, a_ord, a_sp, cut, cut, (Ordinal)0, serialize,
+                                    AlgorithmRun(alg, out, a_ord, a_sp, cut, (Ordinal)0, (Ordinal)0, serialize,
                                                         use_sparse, seed, sp_time,
                                                         ds_time);
                                 } catch (std::exception &e) {

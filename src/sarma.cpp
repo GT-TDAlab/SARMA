@@ -16,7 +16,7 @@ struct Parameters {
     std::string file_name = "-";
     ns_filesystem::path dir_name = "";
     ns_filesystem::path res_file = "";
-    std::string alg = "pal";
+    std::string alg = "sgo_2ds";
     Order order_type = Order::NAT;
     Ordinal p = 8;
     Ordinal q = 0;
@@ -92,25 +92,28 @@ auto strcasecmp(const std::string &a, const std::string &b) {
 
 void print_usage(){
     std::cout << "SARMA: SpatiAl Rectilinear Matrix pArtitioning" << std::endl;
-    std::cout << "SARMA 1.0 - Copyright (c) 2020 by GT-TDAlab" << std::endl;
-    std::cout << "syntax: sarma --graph <path> [OPTION].. [--help | -h]" << std::endl;
+    std::cout << "SARMA 1.2 - Copyright (c) 2020 by GT-TDAlab" << std::endl;
+    std::cout << "syntax: sarma --graph <path> [OPTIONS] [--help | -h]" << std::endl;
     std::cout << "Options:                                                           (Defaults:)" << std::endl;
     std::cout << "  --dir <path>       Path for the dataset directory.               ()" << std::endl;
-    std::cout << "  --alg <str>        Name of the partitionin algorithm.            (pal)" << std::endl;
-    std::cout << "                     Algorithms: [uni | nic | rac | pal | opal]" << std::endl;
+    std::cout << "  --alg <str>        Name of the partitionin algorithm.            (sgo-2ds)" << std::endl;
+    std::cout << "                     Algorithms: [uni | nic | sgo-2dr | sgo-2ds |" << std::endl;
+    std::cout << "                                  sgo-3ds | rac | pal | opal]" << std::endl;
     std::cout << "                     uni: Uniform partitioning" << std::endl;
     std::cout << "                     nic: Nicol's 2D rectilinear partitioning" << std::endl;
+    std::cout << "                     sgo: Subgradient Optimization" << std::endl;
     std::cout << "                     rac: Refine a Cut partitioning" << std::endl;
     std::cout << "                     pal: Probe a Load partitioning" << std::endl;
     std::cout << "                     opal: Ordered Probe a Load partitioning" << std::endl;
     std::cout << "  --use-data         Use weight of nonzero elements in the matrix  (false)" << std::endl;
     std::cout << "                     Note: Otherwise matrix is considered binary." << std::endl;
     std::cout << "  --order <str>      Row ordering algorithm.                       (nat)" << std::endl;
-    std::cout << "                     Orderings: [nat | asc | dsc | rcm]" << std::endl;
+    std::cout << "                     Orderings: [nat | asc | dsc | rcm | rnd]" << std::endl;
     std::cout << "                     nat: Natural order of the matrix" << std::endl;
     std::cout << "                     asc: Ascending nnz ordering" << std::endl;
     std::cout << "                     dsc: Descending nnz ordering" << std::endl;
     std::cout << "                     rcm: Reverse Cuthill-McKee ordering" << std::endl;
+    std::cout << "                     rnd: Random ordering" << std::endl;
     std::cout << "  --res-file <path>  Filename for the partition vector(s).         ()" << std::endl;
     std::cout << "  --use-upper        Use only upper half of the matrix.            (false)" << std::endl;
     std::cout << "  --z <int>          Target load. Available on [uni | rac | pal].  (0)" << std::endl;
@@ -121,7 +124,7 @@ void print_usage(){
     std::cout << "  --seed <int>       Seed for random number generator.             (2147483647)" << std::endl;
     std::cout << "                     Note: used when '--sparsify' != 1.0" << std::endl;
     std::cout << "  --serialize        Serialize the output matrix.                  (false)" << std::endl;
-    std::cout << "  --list             List matrices under '--dir'                   ()" << std::endl << std::endl;;
+    std::cout << "  --list             List matrices under '--dir'                   ()" << std::endl << std::endl;
 
     std::cout << "Examples:" << std::endl;
     std::cout << "  sarma --graph email-Eu-core.mtx --alg pal -p 4" << std::endl;

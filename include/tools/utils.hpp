@@ -14,7 +14,6 @@
 #include <random>
 #include <cstdio>
 
-std::mutex iomutex;
 #if defined(ENABLE_CPP_PARALLEL)
 namespace sarma::utils{
 #else
@@ -26,7 +25,7 @@ namespace sarma{
     auto get_prob(const Ordinal M, const Ordinal P, const Ordinal Q, const Real prob) {
         if (prob <= 1.0)
             return prob;
-        return (P * 1.0 * prob) * (Q * 1.0 * prob) / M;
+        return std::min(1.0, (P * 1.0 * prob) * (Q * 1.0 * prob) / M);
     };
 
     template<typename Value>
@@ -78,7 +77,7 @@ namespace sarma{
         return loads[ind.first][ind.second];
     }
 
-    auto get_matrix_type(std::istream &in) {
+    inline auto get_matrix_type(std::istream &in) {
         char s[4];
         in.read(s, sizeof s);
         assert(std::isdigit(s[0]));
@@ -87,7 +86,7 @@ namespace sarma{
         return std::make_pair(std::stoi(s), std::stoi(s + 2));
     }
 
-    auto sparse_mask(const size_t N, const double keep_prob = 1.0, const int seed = 1) {
+    inline auto sparse_mask(const size_t N, const double keep_prob = 1.0, const int seed = 1) {
         std::vector<bool> mask(N, false);
         static thread_local std::mt19937_64 gen(seed);
         std::uniform_real_distribution<double> rnd;

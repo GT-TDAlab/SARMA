@@ -2,7 +2,7 @@
 add_test (NAME sys_helpstring COMMAND
     bash -x -c "
         # If the help string is changed, update this
-        \"${PROJECT_BINARY_DIR}/sarma\" -h 2>&1 | shasum | grep 87360fe2d890856248ec8413ef0c173a14a16671
+        \"${PROJECT_BINARY_DIR}/sarma\" -h 2>&1 | shasum | grep 955db9cb4f6f1e6d13c5efe69b748a88598e1188
     " --
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
