@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Progress Bar &mdash; SARMA 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/side_color.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="SARMA 1.0.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Miscellaneous Tools" href="../tools.html"/>
+        <link rel="next" title="Timer" href="timer.html"/>
+        <link rel="prev" title="Miscellaneous Tools" href="../tools.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SARMA
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">SARMA</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Containers and Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../algorithms.html">Algorithms</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tools.html">Miscellaneous Tools</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Progress Bar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timer.html">Timer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utility Functions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SARMA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../tools.html">Miscellaneous Tools</a> &raquo;</li>
+        
+      <li>Progress Bar</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/docs/api/tools/progress_bar.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="progress-bar">
+<h1>Progress Bar<a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h1>
+<p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/tools/progress_bar.hpp">tools/progress_bar.hpp</a></p>
+<dl class="cpp class">
+<dt id="_CPPv4N5sarma5utils12progress_barE">
+<span id="_CPPv3N5sarma5utils12progress_barE"></span><span id="_CPPv2N5sarma5utils12progress_barE"></span><span id="sarma::utils::progress_bar"></span><span class="target" id="classsarma_1_1utils_1_1progress__bar"></span><em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sarma</span><span class="pre">::</span><span class="pre">utils</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">progress_bar</span></code><a class="headerlink" href="#_CPPv4N5sarma5utils12progress_barE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N5sarma5utils12progress_bar12progress_barENSt6size_tERNSt7ostreamENSt6size_tE">
+<span id="_CPPv3N5sarma5utils12progress_bar12progress_barENSt6size_tERNSt7ostreamENSt6size_tE"></span><span id="_CPPv2N5sarma5utils12progress_bar12progress_barENSt6size_tERNSt7ostreamENSt6size_tE"></span><span id="sarma::utils::progress_bar::progress_bar__std::s.osR.std::s"></span><span class="target" id="classsarma_1_1utils_1_1progress__bar_1a2f48108fe37631c390f93fc4657ed30d"></span><em class="property"><span class="pre">inline</span></em> <code class="sig-name descname"><span class="pre">progress_bar</span></code><span class="sig-paren">(</span><span class="pre">std</span><span class="pre">::</span><span class="pre">size_t</span> <em><span class="pre">capacity</span></em>, <span class="pre">std</span><span class="pre">::</span><span class="pre">ostream</span> <span class="pre">&amp;</span><em><span class="pre">os</span></em> <span class="pre">=</span> <span class="pre">std</span><span class="pre">::</span><span class="pre">cerr</span>, <span class="pre">std</span><span class="pre">::</span><span class="pre">size_t</span> <em><span class="pre">width</span></em> <span class="pre">=</span> <span class="pre">100</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5sarma5utils12progress_bar12progress_barENSt6size_tERNSt7ostreamENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N5sarma5utils12progress_bar6updateEv">
+<span id="_CPPv3N5sarma5utils12progress_bar6updateEv"></span><span id="_CPPv2N5sarma5utils12progress_bar6updateEv"></span><span id="sarma::utils::progress_bar::update"></span><span class="target" id="classsarma_1_1utils_1_1progress__bar_1a11956f017a6f96ff2fef53f2871f1dab"></span><em class="property"><span class="pre">inline</span></em> <span class="pre">void</span> <code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5sarma5utils12progress_bar6updateEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N5sarma5utils12progress_bar8capacityE">
+<span id="_CPPv3N5sarma5utils12progress_bar8capacityE"></span><span id="_CPPv2N5sarma5utils12progress_bar8capacityE"></span><span id="sarma::utils::progress_bar::capacity__std::sC"></span><span class="target" id="classsarma_1_1utils_1_1progress__bar_1a3ae40e86abd2b4d18f3f8d7666a66cbb"></span><em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">size_t</span> <code class="sig-name descname"><span class="pre">capacity</span></code><a class="headerlink" href="#_CPPv4N5sarma5utils12progress_bar8capacityE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N5sarma5utils12progress_bar5widthE">
+<span id="_CPPv3N5sarma5utils12progress_bar5widthE"></span><span id="_CPPv2N5sarma5utils12progress_bar5widthE"></span><span id="sarma::utils::progress_bar::width__std::sC"></span><span class="target" id="classsarma_1_1utils_1_1progress__bar_1a10e3f441dacb8f01469b7b93e5475605"></span><em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">size_t</span> <code class="sig-name descname"><span class="pre">width</span></code><a class="headerlink" href="#_CPPv4N5sarma5utils12progress_bar5widthE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="timer.html" class="btn btn-neutral float-right" title="Timer" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../tools.html" class="btn btn-neutral" title="Miscellaneous Tools" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GT-TDAlab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

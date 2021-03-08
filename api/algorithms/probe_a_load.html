@@ -28,7 +28,7 @@
   
 
   
-    <link rel="stylesheet" href="../../_static/css/custom_tweaks.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/side_color.css" type="text/css" />
   
 
   
@@ -60,9 +60,6 @@
             <a href="../../index.html" class="icon icon-home"> SARMA
           
 
-          
-            
-            <img src="../../_static/logo.png" class="logo" />
           
           </a>
 
@@ -101,9 +98,11 @@
 <li class="toctree-l2"><a class="reference internal" href="ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Probe a Load (PaL)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="refine_a_cut.html">Refine a Cut (RaC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgradient_method.html">Subgradient Method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uniform.html">Uniform</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Miscellaneous Tools</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -161,7 +160,7 @@
         
             
             
-              <a href="https://github.com/GT-TDALab/SARMA/blob/master/doc/api/algorithms/probe_a_load.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/docs/api/algorithms/probe_a_load.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -180,12 +179,12 @@
 <p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/algorithms/probe_a_load.hpp">algorithms/probe_a_load.hpp</a></p>
 <dl class="cpp type">
 <dt id="_CPPv4N5sarma12probe_a_loadE">
-<span id="_CPPv3N5sarma12probe_a_loadE"></span><span id="_CPPv2N5sarma12probe_a_loadE"></span><span id="sarma::probe_a_load"></span><span class="target" id="namespacesarma_1_1probe__a__load"></span><em class="property">namespace </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">probe_a_load</code><a class="headerlink" href="#_CPPv4N5sarma12probe_a_loadE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5sarma12probe_a_loadE"></span><span id="_CPPv2N5sarma12probe_a_loadE"></span><span id="sarma::probe_a_load"></span><span class="target" id="namespacesarma_1_1probe__a__load"></span><em class="property"><span class="pre">namespace</span> </em><code class="sig-prename descclassname"><span class="pre">sarma</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">probe_a_load</span></code><a class="headerlink" href="#_CPPv4N5sarma12probe_a_loadE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE">
-<span id="_CPPv3I00EN5sarma12probe_a_load5probeERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE"></span><span id="_CPPv2I00EN5sarma12probe_a_load5probeERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE"></span>template&lt;typename <code class="sig-name descname">Ordinal</code>, typename <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="probe__a__load_8hpp_1a586efd2f4bb5d3c7e48c0b266ede1512"></span>std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Ordinal">Ordinal</a>&gt; <code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Value">Value</a> <em>L</em>, std::vector&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Ordinal">Ordinal</a>&gt; *<em>UB</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I00EN5sarma12probe_a_load5probeERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE"></span><span id="_CPPv2I00EN5sarma12probe_a_load5probeERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Ordinal</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="probe__a__load_8hpp_1a586efd2f4bb5d3c7e48c0b266ede1512"></span><span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Ordinal"><span class="pre">Ordinal</span></a><span class="pre">&gt;</span> <code class="sig-name descname"><span class="pre">probe</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Ordinal"><span class="pre">Ordinal</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Value"><span class="pre">Value</span></a> <em><span class="pre">L</span></em>, <span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="sarma::probe_a_load::probe::Ordinal"><span class="pre">Ordinal</span></a><span class="pre">&gt;</span> <span class="pre">*</span><em><span class="pre">UB</span></em> <span class="pre">=</span> <span class="pre">nullptr</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma12probe_a_load5probeENSt6vectorI7OrdinalEERK6MatrixI7Ordinal5ValueEK5ValuePNSt6vectorI7OrdinalEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Implements the Probe a Load algorithm. This algorithm applies a greedy probe algorithm on diagonal direction by running binary searches over the possible range of maximum load targets. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>a cut vector </p>
@@ -206,7 +205,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4I00EN5sarma12probe_a_load9partitionEDaRK6MatrixI7Ordinal5ValueEK7Ordinal">
-<span id="_CPPv3I00EN5sarma12probe_a_load9partitionERK6MatrixI7Ordinal5ValueEK7Ordinal"></span><span id="_CPPv2I00EN5sarma12probe_a_load9partitionERK6MatrixI7Ordinal5ValueEK7Ordinal"></span>template&lt;typename <code class="sig-name descname">Ordinal</code>, typename <code class="sig-name descname">Value</code>&gt;<br /><span class="target" id="probe__a__load_8hpp_1a5c3a4f5adcfab2321e1a97c39f57ab41"></span>auto <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load9partitionEDaRK6MatrixI7Ordinal5ValueEK7Ordinal" title="sarma::probe_a_load::partition::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load9partitionEDaRK6MatrixI7Ordinal5ValueEK7Ordinal" title="sarma::probe_a_load::partition::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load9partitionEDaRK6MatrixI7Ordinal5ValueEK7Ordinal" title="sarma::probe_a_load::partition::Ordinal">Ordinal</a> <em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma12probe_a_load9partitionEDaRK6MatrixI7Ordinal5ValueEK7Ordinal" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I00EN5sarma12probe_a_load9partitionERK6MatrixI7Ordinal5ValueEK7Ordinal"></span><span id="_CPPv2I00EN5sarma12probe_a_load9partitionERK6MatrixI7Ordinal5ValueEK7Ordinal"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Ordinal</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="probe__a__load_8hpp_1a5c3a4f5adcfab2321e1a97c39f57ab41"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load9partitionEDaRK6MatrixI7Ordinal5ValueEK7Ordinal" title="sarma::probe_a_load::partition::Ordinal"><span class="pre">Ordinal</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load9partitionEDaRK6MatrixI7Ordinal5ValueEK7Ordinal" title="sarma::probe_a_load::partition::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma12probe_a_load9partitionEDaRK6MatrixI7Ordinal5ValueEK7Ordinal" title="sarma::probe_a_load::partition::Ordinal"><span class="pre">Ordinal</span></a> <em><span class="pre">P</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma12probe_a_load9partitionEDaRK6MatrixI7Ordinal5ValueEK7Ordinal" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Implements the dual of the Probe a Load (PaL) algorithm using Bound a Load procedure and applying PaL as the mNC algorithm. This algorithm applies a greedy probe algorithm on diagonal direction by running binary searches over the possible range of maximum load targets. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>a cut vector </p>
@@ -276,7 +275,6 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/language_data.js"></script>
 
   
 

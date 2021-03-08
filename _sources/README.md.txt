@@ -366,6 +366,6 @@ Primary tested compilers and systems are:
 * GCC 7.4.0, powerpc64, Red Hat 7.6
 * GCC 7.5.0, x86, Ubuntu 18.04
 * GCC 7.5.0, x86, CentOS 7.7.1908
-* GCC GCC 8.3.1, 10.2.0, x86, CentOS 8.2.2004
+* GCC 8.3.1, 10.2.0, x86, CentOS 8.2.2004
 * GCC 9.3.0, x86, macOS Mojave 10.14.6
 * GCC 9.3.0, x86, macOS Catalina 10.15.5

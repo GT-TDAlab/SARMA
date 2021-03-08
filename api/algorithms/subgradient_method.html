@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Subgradient Method &mdash; SARMA 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/side_color.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="SARMA 1.0.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Algorithms" href="../algorithms.html"/>
+        <link rel="next" title="Uniform" href="uniform.html"/>
+        <link rel="prev" title="Refine a Cut (RaC)" href="refine_a_cut.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SARMA
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">SARMA</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Containers and Views</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../algorithms.html">Algorithms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mixed_integer_program.html">Mixed Integer Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nicol1d.html">Nicol 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nicol2d.html">Nicol 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="probe_a_load.html">Probe a Load (PaL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refine_a_cut.html">Refine a Cut (RaC)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Subgradient Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uniform.html">Uniform</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Miscellaneous Tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SARMA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../algorithms.html">Algorithms</a> &raquo;</li>
+        
+      <li>Subgradient Method</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/docs/api/algorithms/subgradient_method.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="subgradient-method">
+<h1>Subgradient Method<a class="headerlink" href="#subgradient-method" title="Permalink to this headline">¶</a></h1>
+<p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/algorithms/subgradient_method.hpp">algorithms/subgradient_method.hpp</a></p>
+<dl class="cpp type">
+<dt id="_CPPv4N5sarma18subgradient_methodE">
+<span id="_CPPv3N5sarma18subgradient_methodE"></span><span id="_CPPv2N5sarma18subgradient_methodE"></span><span id="sarma::subgradient_method"></span><span class="target" id="namespacesarma_1_1subgradient__method"></span><em class="property"><span class="pre">namespace</span> </em><code class="sig-prename descclassname"><span class="pre">sarma</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">subgradient_method</span></code><a class="headerlink" href="#_CPPv4N5sarma18subgradient_methodE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma18subgradient_method12uniform_initEDaK3IntK5Value">
+<span id="_CPPv3I00EN5sarma18subgradient_method12uniform_initEK3IntK5Value"></span><span id="_CPPv2I00EN5sarma18subgradient_method12uniform_initEK3IntK5Value"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="subgradient__method_8hpp_1a93fa644873e01666b7e060fbb6e5e4ac"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">uniform_init</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method12uniform_initEDaK3IntK5Value" title="sarma::subgradient_method::uniform_init::Int"><span class="pre">Int</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method12uniform_initEDaK3IntK5Value" title="sarma::subgradient_method::uniform_init::Value"><span class="pre">Value</span></a> <em><span class="pre">total_load</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma18subgradient_method12uniform_initEDaK3IntK5Value" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I000EN5sarma18subgradient_method11random_initEDaK3IntK5ValueR3Gen">
+<span id="_CPPv3I000EN5sarma18subgradient_method11random_initEK3IntK5ValueR3Gen"></span><span id="_CPPv2I000EN5sarma18subgradient_method11random_initEK3IntK5ValueR3Gen"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Gen</span></code><span class="pre">&gt;</span><br /><span class="target" id="subgradient__method_8hpp_1a8ea7c6ff95b1448574f3ce7ccf94ade9"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">random_init</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I000EN5sarma18subgradient_method11random_initEDaK3IntK5ValueR3Gen" title="sarma::subgradient_method::random_init::Int"><span class="pre">Int</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I000EN5sarma18subgradient_method11random_initEDaK3IntK5ValueR3Gen" title="sarma::subgradient_method::random_init::Value"><span class="pre">Value</span></a> <em><span class="pre">total_load</span></em>, <a class="reference internal" href="#_CPPv4I000EN5sarma18subgradient_method11random_initEDaK3IntK5ValueR3Gen" title="sarma::subgradient_method::random_init::Gen"><span class="pre">Gen</span></a> <span class="pre">&amp;</span><em><span class="pre">gen</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I000EN5sarma18subgradient_method11random_initEDaK3IntK5ValueR3Gen" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I0EN5sarma18subgradient_method9partitionEDaRNSt6vectorINSt6vectorIdEEEE11pis_to_rs_tKNSt6size_tEKd">
+<span id="_CPPv3I0EN5sarma18subgradient_method9partitionERNSt6vectorINSt6vectorIdEEEE11pis_to_rs_tKNSt6size_tEKd"></span><span id="_CPPv2I0EN5sarma18subgradient_method9partitionERNSt6vectorINSt6vectorIdEEEE11pis_to_rs_tKNSt6size_tEKd"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">pis_to_rs_t</span></code><span class="pre">&gt;</span><br /><span class="target" id="subgradient__method_8hpp_1ae5f5a6bd6ef09a9e585b5b3a283fe548"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition</span></code><span class="sig-paren">(</span><span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><span class="pre">double</span><span class="pre">&gt;</span><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">pis</span></em>, <a class="reference internal" href="#_CPPv4I0EN5sarma18subgradient_method9partitionEDaRNSt6vectorINSt6vectorIdEEEE11pis_to_rs_tKNSt6size_tEKd" title="sarma::subgradient_method::partition::pis_to_rs_t"><span class="pre">pis_to_rs_t</span></a> <em><span class="pre">to_rs</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">size_t</span> <em><span class="pre">C</span></em> <span class="pre">=</span> <span class="pre">10</span>, <em class="property"><span class="pre">const</span></em> <span class="pre">double</span> <em><span class="pre">eps</span></em> <span class="pre">=</span> <span class="pre">0.001</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN5sarma18subgradient_method9partitionEDaRNSt6vectorINSt6vectorIdEEEE11pis_to_rs_tKNSt6size_tEKd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the SubGradient Optimization algorithm. This algorithm initializes the cut vectors randomly and tries to refine them at each iteration by moving all the cuts in the negative direction of the gradient to minimize the maximum load. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>vector of cut vector parametrizations </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pis</span></code>: vector of cut vector parametrizations </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_rs</span></code>: lambda function to compute gradients given pis </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: number of iterations to wait when objective value flattens </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eps</span></code>: the improvement in the optimization objective expected </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma18subgradient_method9partitionEDaKNSt6stringEKNSt6vectorINSt17reference_wrapperIK6MatrixI3Int5ValueEEEEEKNSt6vectorI3IntEEi">
+<span id="_CPPv3I00EN5sarma18subgradient_method9partitionEKNSt6stringEKNSt6vectorINSt17reference_wrapperIK6MatrixI3Int5ValueEEEEEKNSt6vectorI3IntEEi"></span><span id="_CPPv2I00EN5sarma18subgradient_method9partitionEKNSt6stringEKNSt6vectorINSt17reference_wrapperIK6MatrixI3Int5ValueEEEEEKNSt6vectorI3IntEEi"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="subgradient__method_8hpp_1ac31b356e8ecacda3217980e5855a3180"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">string</span> <em><span class="pre">s</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><span class="pre">std</span><span class="pre">::</span><span class="pre">reference_wrapper</span><span class="pre">&lt;</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaKNSt6stringEKNSt6vectorINSt17reference_wrapperIK6MatrixI3Int5ValueEEEEEKNSt6vectorI3IntEEi" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaKNSt6stringEKNSt6vectorINSt17reference_wrapperIK6MatrixI3Int5ValueEEEEEKNSt6vectorI3IntEEi" title="sarma::subgradient_method::partition::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span><span class="pre">&gt;</span><span class="pre">&gt;</span> <em><span class="pre">As</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaKNSt6stringEKNSt6vectorINSt17reference_wrapperIK6MatrixI3Int5ValueEEEEEKNSt6vectorI3IntEEi" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a><span class="pre">&gt;</span> <em><span class="pre">Ps</span></em>, <span class="pre">int</span> <em><span class="pre">seed</span></em> <span class="pre">=</span> <span class="pre">1</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaKNSt6stringEKNSt6vectorINSt17reference_wrapperIK6MatrixI3Int5ValueEEEEEKNSt6vectorI3IntEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>An easy to use wrapper for the the SubGradient Optimization algorithm. This algorithm initializes the cut vectors randomly and tries to refine them at each iteration by moving all the cuts in the negative direction of the gradient to minimize the maximum load. The first parameter, the string s describes the optimization objective. Each term in the optimization objective is made up of a digit indicating the index of the matrix, the name of the first dimension of the matrix and the name of the second dimension of the matrix separated by “+” signs inbetween. As examples, sgo_2dr -&gt; “0ij”, sgo_2ds -&gt; “0ij,i=j”, sgo_3ds -&gt; “0ij+0jk+0ik” and sgo_3dr -&gt; “0ij+1jk”. As one can guess, the part before the comma represents the optimization objective and after the comma includes constraints that can’t be derived automatically from the optimization objective. As an example, for sgo_2ds, we had to explicitly put the constraint that the two cut vectors in the two dimensions need to be the same via stating “i=j”. However, sgo_3ds can do that automatically because the same matrix dimension is named different letters “i” and “j” etc. that that causes all the dimensions to collapse into one removing the need to put the constraints explicitly. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a vector of cut vectors </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">s</span></code>: a string describing the optimization objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: a vector of references to matrices used in the optimization objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts in each dimension of the resulting cut vectors </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seed</span></code>: </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma18subgradient_method14partition_spmvEDaRK6MatrixI3Int5ValueEK3IntKdKdKi">
+<span id="_CPPv3I00EN5sarma18subgradient_method14partition_spmvERK6MatrixI3Int5ValueEK3IntKdKdKi"></span><span id="_CPPv2I00EN5sarma18subgradient_method14partition_spmvERK6MatrixI3Int5ValueEK3IntKdKdKi"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="subgradient__method_8hpp_1a721831362765033958360e4a5da26f55"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition_spmv</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method14partition_spmvEDaRK6MatrixI3Int5ValueEK3IntKdKdKi" title="sarma::subgradient_method::partition_spmv::Int"><span class="pre">Int</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method14partition_spmvEDaRK6MatrixI3Int5ValueEK3IntKdKdKi" title="sarma::subgradient_method::partition_spmv::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method14partition_spmvEDaRK6MatrixI3Int5ValueEK3IntKdKdKi" title="sarma::subgradient_method::partition_spmv::Int"><span class="pre">Int</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">double</span> <em><span class="pre">alpha</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">double</span> <em><span class="pre">beta</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">int</span> <em><span class="pre">seed</span></em> <span class="pre">=</span> <span class="pre">1</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma18subgradient_method14partition_spmvEDaRK6MatrixI3Int5ValueEK3IntKdKdKi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma18subgradient_method13partition_triEDaRK6MatrixI3Int5ValueEK3IntKi">
+<span id="_CPPv3I00EN5sarma18subgradient_method13partition_triERK6MatrixI3Int5ValueEK3IntKi"></span><span id="_CPPv2I00EN5sarma18subgradient_method13partition_triERK6MatrixI3Int5ValueEK3IntKi"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="subgradient__method_8hpp_1aa4ef45c7f30226540495dd00dacb137f"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition_tri</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method13partition_triEDaRK6MatrixI3Int5ValueEK3IntKi" title="sarma::subgradient_method::partition_tri::Int"><span class="pre">Int</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method13partition_triEDaRK6MatrixI3Int5ValueEK3IntKi" title="sarma::subgradient_method::partition_tri::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method13partition_triEDaRK6MatrixI3Int5ValueEK3IntKi" title="sarma::subgradient_method::partition_tri::Int"><span class="pre">Int</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">int</span> <em><span class="pre">seed</span></em> <span class="pre">=</span> <span class="pre">1</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma18subgradient_method13partition_triEDaRK6MatrixI3Int5ValueEK3IntKi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the SubGradient Optimization algorithm, where each task is made of 3 tiles and tries to minimize task size. This algorithm initializes the cut vectors randomly and tries to refine them at each iteration by moving all the cuts in the negative direction of the gradient to minimize the maximum load. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seed</span></code>: </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti">
+<span id="_CPPv3I00EN5sarma18subgradient_method9partitionERK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti"></span><span id="_CPPv2I00EN5sarma18subgradient_method9partitionERK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="subgradient__method_8hpp_1a7f6e9e762036cbafe102e6dad3e8a0b5"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti" title="sarma::subgradient_method::partition::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti" title="sarma::subgradient_method::partition::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">B</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a> <em><span class="pre">Q</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a> <em><span class="pre">R</span></em>, <span class="pre">int</span> <em><span class="pre">seed</span></em> <span class="pre">=</span> <span class="pre">1</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueERK6MatrixI3Int5ValueEK3IntK3IntK3Inti" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the SubGradient Optimization algorithm, where each task is made up of 2 tiles from each matrix in SpGEMM matrix multiplication and tries to minimize task size. This algorithm initializes the cut vectors randomly and tries to refine them at each iteration by moving all the cuts in the negative direction of the gradient to minimize the maximum load. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts in 1st dimension </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code>: number of parts in 2nd dimension </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">R</span></code>: number of parts in 3rd dimension </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seed</span></code>: </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntKi">
+<span id="_CPPv3I00EN5sarma18subgradient_method9partitionERK6MatrixI3Int5ValueEK3IntKi"></span><span id="_CPPv2I00EN5sarma18subgradient_method9partitionERK6MatrixI3Int5ValueEK3IntKi"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="subgradient__method_8hpp_1a6a957041f33f090f08803855d9e21381"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntKi" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntKi" title="sarma::subgradient_method::partition::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntKi" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">int</span> <em><span class="pre">seed</span></em> <span class="pre">=</span> <span class="pre">1</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntKi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the SubGradient Optimization algorithm. This algorithm initializes the cut vectors randomly and tries to refine them at each iteration by moving all the cuts in the negative direction of the gradient to minimize the maximum load. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seed</span></code>: </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntK3IntKi">
+<span id="_CPPv3I00EN5sarma18subgradient_method9partitionERK6MatrixI3Int5ValueEK3IntK3IntKi"></span><span id="_CPPv2I00EN5sarma18subgradient_method9partitionERK6MatrixI3Int5ValueEK3IntK3IntKi"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="subgradient__method_8hpp_1a1a05cc36169187f90aaf5756570478aa"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntK3IntKi" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntK3IntKi" title="sarma::subgradient_method::partition::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntK3IntKi" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntK3IntKi" title="sarma::subgradient_method::partition::Int"><span class="pre">Int</span></a> <em><span class="pre">Q</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">int</span> <em><span class="pre">seed</span></em> <span class="pre">=</span> <span class="pre">1</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma18subgradient_method9partitionEDaRK6MatrixI3Int5ValueEK3IntK3IntKi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the SubGradient Optimization algorithm. This algorithm initializes the cut vectors randomly and tries to refine them at each iteration by moving all the cuts in the negative direction of the gradient to minimize the maximum load. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: <a class="reference internal" href="../data_structures/csr_matrix.html#classsarma_1_1Matrix"><span class="std std-ref">Matrix</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts in row dimension </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code>: number of parts in column dimension </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seed</span></code>: </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="uniform.html" class="btn btn-neutral float-right" title="Uniform" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="refine_a_cut.html" class="btn btn-neutral" title="Refine a Cut (RaC)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GT-TDAlab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -28,7 +28,7 @@
   
 
   
-    <link rel="stylesheet" href="../../_static/css/custom_tweaks.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/side_color.css" type="text/css" />
   
 
   
@@ -60,9 +60,6 @@
             <a href="../../index.html" class="icon icon-home"> SARMA
           
 
-          
-            
-            <img src="../../_static/logo.png" class="logo" />
           
           </a>
 
@@ -101,9 +98,11 @@
 <li class="toctree-l2"><a class="reference internal" href="ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="probe_a_load.html">Probe a Load (PaL)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="refine_a_cut.html">Refine a Cut (RaC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgradient_method.html">Subgradient Method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uniform.html">Uniform</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Miscellaneous Tools</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -161,7 +160,7 @@
         
             
             
-              <a href="https://github.com/GT-TDALab/SARMA/blob/master/doc/api/algorithms/mixed_integer_program.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/docs/api/algorithms/mixed_integer_program.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -178,10 +177,37 @@
   <div class="section" id="mixed-integer-programming">
 <h1>Mixed Integer Programming<a class="headerlink" href="#mixed-integer-programming" title="Permalink to this headline">¶</a></h1>
 <p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/algorithms/mixed_integer_program.hpp">algorithms/mixed_integer_program.hpp</a></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>doxygennamespace: Cannot find namespace “sarma::mixed_integer_program” in doxygen xml output for project “sarma” from directory: /home/travis/build/GT-TDAlab/SARMA/build/docs/doxygen/xml</p>
+<dl class="cpp type">
+<dt id="_CPPv4N5sarma21mixed_integer_programE">
+<span id="_CPPv3N5sarma21mixed_integer_programE"></span><span id="_CPPv2N5sarma21mixed_integer_programE"></span><span id="sarma::mixed_integer_program"></span><span class="target" id="namespacesarma_1_1mixed__integer__program"></span><em class="property"><span class="pre">namespace</span> </em><code class="sig-prename descclassname"><span class="pre">sarma</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">mixed_integer_program</span></code><a class="headerlink" href="#_CPPv4N5sarma21mixed_integer_programE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>To the best of our knowledge, this is the first work that tackles the symmetric rectilinear partitioning problem. Symmetric rectilinear partitioning is a restricted problem, therefore comparing our algorithms with more relaxed partitioning algorithms (such as jagged, rectilinear etc.) doesn’t provide enough information about the quality of the found partition vectors. Hence, we implemented a mathematical model that finds the optimal solution using Gurobi. This namespace contains required functions. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>This mixed integer program implementation can also handle non-symmetric partitioning. </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int">
+<span id="_CPPv3I_b00EN5sarma21mixed_integer_program9partitionERK6MatrixI3Int5ValueEK3IntK3Int"></span><span id="_CPPv2I_b00EN5sarma21mixed_integer_program9partitionERK6MatrixI3Int5ValueEK3IntK3Int"></span><span class="pre">template&lt;</span><span class="pre">bool</span> <code class="sig-name descname"><span class="pre">symmetric</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="namespacesarma_1_1mixed__integer__program_1a04c942941af2c6c0ce4e5fe8379a276f"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Int"><span class="pre">Int</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Int"><span class="pre">Int</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="sarma::mixed_integer_program::partition::Int"><span class="pre">Int</span></a> <em><span class="pre">Q_</span></em> <span class="pre">=</span> <span class="pre">0</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_b00EN5sarma21mixed_integer_program9partitionEDaRK6MatrixI3Int5ValueEK3IntK3Int" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Implements the mixed integer program solver for rectilinear partitioning. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a cut vector if symmetric and returns a pair of vectors if symmetric is false </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: the input matrix </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: number of parts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Q_</span></code>: number of parts in the other dimension for when template parameter symmetric is false </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 </div>
+</dd></dl>
+
 </div>
 
 
@@ -235,7 +261,6 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/language_data.js"></script>
 
   
 

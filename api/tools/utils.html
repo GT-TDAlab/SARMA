@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utility Functions &mdash; SARMA 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/side_color.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="SARMA 1.0.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Miscellaneous Tools" href="../tools.html"/>
+        <link rel="next" title="Site Map" href="../../genindex.html"/>
+        <link rel="prev" title="Timer" href="timer.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SARMA
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">SARMA</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">Containers and Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../algorithms.html">Algorithms</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tools.html">Miscellaneous Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="progress_bar.html">Progress Bar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timer.html">Timer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Utility Functions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SARMA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../tools.html">Miscellaneous Tools</a> &raquo;</li>
+        
+      <li>Utility Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/docs/api/tools/utils.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="utility-functions">
+<h1>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h1>
+<p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/tools/utils.hpp">tools/utils.hpp</a></p>
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma5utils8get_probEDaK7OrdinalK7OrdinalK7OrdinalK4Real">
+<span id="_CPPv3I00EN5sarma5utils8get_probEK7OrdinalK7OrdinalK7OrdinalK4Real"></span><span id="_CPPv2I00EN5sarma5utils8get_probEK7OrdinalK7OrdinalK7OrdinalK4Real"></span><span class="pre">template&lt;</span><span class="pre">class</span> <code class="sig-name descname"><span class="pre">Ordinal</span></code><span class="pre">,</span> <span class="pre">class</span> <code class="sig-name descname"><span class="pre">Real</span></code><span class="pre">&gt;</span><br /><span class="target" id="utils_8hpp_1a3a1fc837b17a3b024e7deadc8d76c12d"></span><span class="pre">auto</span> <code class="sig-prename descclassname"><span class="pre">sarma</span><span class="pre">::</span><span class="pre">utils</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">get_prob</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma5utils8get_probEDaK7OrdinalK7OrdinalK7OrdinalK4Real" title="sarma::utils::get_prob::Ordinal"><span class="pre">Ordinal</span></a> <em><span class="pre">M</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma5utils8get_probEDaK7OrdinalK7OrdinalK7OrdinalK4Real" title="sarma::utils::get_prob::Ordinal"><span class="pre">Ordinal</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma5utils8get_probEDaK7OrdinalK7OrdinalK7OrdinalK4Real" title="sarma::utils::get_prob::Ordinal"><span class="pre">Ordinal</span></a> <em><span class="pre">Q</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00EN5sarma5utils8get_probEDaK7OrdinalK7OrdinalK7OrdinalK4Real" title="sarma::utils::get_prob::Real"><span class="pre">Real</span></a> <em><span class="pre">prob</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma5utils8get_probEDaK7OrdinalK7OrdinalK7OrdinalK4Real" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I0EN5sarma5utils5transEDaNSt6vectorINSt6vectorI5ValueEEEEb">
+<span id="_CPPv3I0EN5sarma5utils5transENSt6vectorINSt6vectorI5ValueEEEEb"></span><span id="_CPPv2I0EN5sarma5utils5transENSt6vectorINSt6vectorI5ValueEEEEb"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="utils_8hpp_1ad394e30b876a4c2eefd24fbd000a1bb7"></span><span class="pre">auto</span> <code class="sig-prename descclassname"><span class="pre">sarma</span><span class="pre">::</span><span class="pre">utils</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">trans</span></code><span class="sig-paren">(</span><span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I0EN5sarma5utils5transEDaNSt6vectorINSt6vectorI5ValueEEEEb" title="sarma::utils::trans::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span><span class="pre">&gt;</span> <em><span class="pre">loads</span></em>, <span class="pre">bool</span> <em><span class="pre">symmetric</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN5sarma5utils5transEDaNSt6vectorINSt6vectorI5ValueEEEEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I00EN5sarma5utils16lowerbound_indexENSt6size_tE4Iter4Iter3Int">
+<span id="_CPPv3I00EN5sarma5utils16lowerbound_indexE4Iter4Iter3Int"></span><span id="_CPPv2I00EN5sarma5utils16lowerbound_indexE4Iter4Iter3Int"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Iter</span></code><span class="pre">,</span> <span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">&gt;</span><br /><span class="target" id="utils_8hpp_1ad04aaa11391deb72852ef18a18a85701"></span><span class="pre">std</span><span class="pre">::</span><span class="pre">size_t</span> <code class="sig-prename descclassname"><span class="pre">sarma</span><span class="pre">::</span><span class="pre">utils</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">lowerbound_index</span></code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00EN5sarma5utils16lowerbound_indexENSt6size_tE4Iter4Iter3Int" title="sarma::utils::lowerbound_index::Iter"><span class="pre">Iter</span></a> <em><span class="pre">begin</span></em>, <a class="reference internal" href="#_CPPv4I00EN5sarma5utils16lowerbound_indexENSt6size_tE4Iter4Iter3Int" title="sarma::utils::lowerbound_index::Iter"><span class="pre">Iter</span></a> <em><span class="pre">end</span></em>, <a class="reference internal" href="#_CPPv4I00EN5sarma5utils16lowerbound_indexENSt6size_tE4Iter4Iter3Int" title="sarma::utils::lowerbound_index::Int"><span class="pre">Int</span></a> <em><span class="pre">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN5sarma5utils16lowerbound_indexENSt6size_tE4Iter4Iter3Int" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I0EN5sarma5utils16lowerbound_indexENSt6size_tERKNSt6vectorI3IntEE3Int">
+<span id="_CPPv3I0EN5sarma5utils16lowerbound_indexERKNSt6vectorI3IntEE3Int"></span><span id="_CPPv2I0EN5sarma5utils16lowerbound_indexERKNSt6vectorI3IntEE3Int"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Int</span></code><span class="pre">&gt;</span><br /><span class="target" id="utils_8hpp_1a1da8f20c2fb38a84677ba245ec626f40"></span><span class="pre">std</span><span class="pre">::</span><span class="pre">size_t</span> <code class="sig-prename descclassname"><span class="pre">sarma</span><span class="pre">::</span><span class="pre">utils</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">lowerbound_index</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I0EN5sarma5utils16lowerbound_indexENSt6size_tERKNSt6vectorI3IntEE3Int" title="sarma::utils::lowerbound_index::Int"><span class="pre">Int</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">v_arr</span></em>, <a class="reference internal" href="#_CPPv4I0EN5sarma5utils16lowerbound_indexENSt6size_tERKNSt6vectorI3IntEE3Int" title="sarma::utils::lowerbound_index::Int"><span class="pre">Int</span></a> <em><span class="pre">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN5sarma5utils16lowerbound_indexENSt6size_tERKNSt6vectorI3IntEE3Int" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I0EN5sarma5utils6argmaxEDaRKNSt6vectorINSt6vectorI5ValueEEEE">
+<span id="_CPPv3I0EN5sarma5utils6argmaxERKNSt6vectorINSt6vectorI5ValueEEEE"></span><span id="_CPPv2I0EN5sarma5utils6argmaxERKNSt6vectorINSt6vectorI5ValueEEEE"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="utils_8hpp_1a7dee1a969aa7abb10a49ea856f0ff0d3"></span><span class="pre">auto</span> <code class="sig-prename descclassname"><span class="pre">sarma</span><span class="pre">::</span><span class="pre">utils</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">argmax</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I0EN5sarma5utils6argmaxEDaRKNSt6vectorINSt6vectorI5ValueEEEE" title="sarma::utils::argmax::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">loads</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN5sarma5utils6argmaxEDaRKNSt6vectorINSt6vectorI5ValueEEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I0EN5sarma5utils3maxEDaRKNSt6vectorINSt6vectorI5ValueEEEE">
+<span id="_CPPv3I0EN5sarma5utils3maxERKNSt6vectorINSt6vectorI5ValueEEEE"></span><span id="_CPPv2I0EN5sarma5utils3maxERKNSt6vectorINSt6vectorI5ValueEEEE"></span><span class="pre">template&lt;</span><span class="pre">typename</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">&gt;</span><br /><span class="target" id="utils_8hpp_1aa4d3f5f94dc7fab8a3ac517e910fcdde"></span><span class="pre">auto</span> <code class="sig-prename descclassname"><span class="pre">sarma</span><span class="pre">::</span><span class="pre">utils</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">max</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I0EN5sarma5utils3maxEDaRKNSt6vectorINSt6vectorI5ValueEEEE" title="sarma::utils::max::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">loads</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN5sarma5utils3maxEDaRKNSt6vectorINSt6vectorI5ValueEEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N5sarma5utils15get_matrix_typeERNSt7istreamE">
+<span id="_CPPv3N5sarma5utils15get_matrix_typeERNSt7istreamE"></span><span id="_CPPv2N5sarma5utils15get_matrix_typeERNSt7istreamE"></span><span id="sarma::utils::get_matrix_type__isR"></span><span class="target" id="utils_8hpp_1aec520b5b3e30e91d0f55d55c06b412c4"></span><em class="property"><span class="pre">inline</span></em> <span class="pre">auto</span> <code class="sig-prename descclassname"><span class="pre">sarma</span><span class="pre">::</span><span class="pre">utils</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">get_matrix_type</span></code><span class="sig-paren">(</span><span class="pre">std</span><span class="pre">::</span><span class="pre">istream</span> <span class="pre">&amp;</span><em><span class="pre">in</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5sarma5utils15get_matrix_typeERNSt7istreamE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N5sarma5utils11sparse_maskEK6size_tKdKi">
+<span id="_CPPv3N5sarma5utils11sparse_maskEK6size_tKdKi"></span><span id="_CPPv2N5sarma5utils11sparse_maskEK6size_tKdKi"></span><span id="sarma::utils::sparse_mask__sC.doubleC.iC"></span><span class="target" id="utils_8hpp_1aa158d40a5d3d2c7e15449d5b3c15e1e5"></span><em class="property"><span class="pre">inline</span></em> <span class="pre">auto</span> <code class="sig-prename descclassname"><span class="pre">sarma</span><span class="pre">::</span><span class="pre">utils</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">sparse_mask</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <span class="pre">size_t</span> <em><span class="pre">N</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">double</span> <em><span class="pre">keep_prob</span></em> <span class="pre">=</span> <span class="pre">1.0</span>, <em class="property"><span class="pre">const</span></em> <span class="pre">int</span> <em><span class="pre">seed</span></em> <span class="pre">=</span> <span class="pre">1</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5sarma5utils11sparse_maskEK6size_tKdKi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../genindex.html" class="btn btn-neutral float-right" title="Site Map" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="timer.html" class="btn btn-neutral" title="Timer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GT-TDAlab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

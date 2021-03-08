@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Algorithms &mdash; SARMA 1.0.0 documentation</title>
+  <title>Miscellaneous Tools &mdash; SARMA 1.0.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="SARMA 1.0.0 documentation" href="../index.html"/>
-        <link rel="next" title="Mixed Integer Programming" href="algorithms/mixed_integer_program.html"/>
-        <link rel="prev" title="Sparse Prefix Sum" href="data_structures/sparse_prefix_sum.html"/> 
+        <link rel="next" title="Progress Bar" href="tools/progress_bar.html"/>
+        <link rel="prev" title="Uniform" href="algorithms/uniform.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -90,18 +90,13 @@
 <p class="caption"><span class="caption-text">API Reference</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="data_structures.html">Containers and Views</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Algorithms</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="algorithms/mixed_integer_program.html">Mixed Integer Programming</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms/nicol1d.html">Nicol 1D</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms/nicol2d.html">Nicol 2D</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms/ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms/probe_a_load.html">Probe a Load (PaL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms/refine_a_cut.html">Refine a Cut (RaC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms/subgradient_method.html">Subgradient Method</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms/uniform.html">Uniform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Miscellaneous Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools/progress_bar.html">Progress Bar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/timer.html">Timer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/utils.html">Utility Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tools.html">Miscellaneous Tools</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -150,14 +145,14 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Algorithms</li>
+      <li>Miscellaneous Tools</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
             
-              <a href="https://github.com/GT-TDALab/SARMA/blob/master/docs/api/algorithms.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/docs/api/tools.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -171,18 +166,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="algorithms">
-<h1>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="miscellaneous-tools">
+<h1>Miscellaneous Tools<a class="headerlink" href="#miscellaneous-tools" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="algorithms/mixed_integer_program.html">Mixed Integer Programming</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms/nicol1d.html">Nicol 1D</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms/nicol2d.html">Nicol 2D</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms/ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms/probe_a_load.html">Probe a Load (PaL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms/refine_a_cut.html">Refine a Cut (RaC)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms/subgradient_method.html">Subgradient Method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms/uniform.html">Uniform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools/progress_bar.html">Progress Bar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools/timer.html">Timer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools/utils.html">Utility Functions</a></li>
 </ul>
 </div>
 </div>
@@ -194,10 +184,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="algorithms/mixed_integer_program.html" class="btn btn-neutral float-right" title="Mixed Integer Programming" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tools/progress_bar.html" class="btn btn-neutral float-right" title="Progress Bar" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="data_structures/sparse_prefix_sum.html" class="btn btn-neutral" title="Sparse Prefix Sum" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="algorithms/uniform.html" class="btn btn-neutral" title="Uniform" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

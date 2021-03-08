@@ -28,7 +28,7 @@
   
 
   
-    <link rel="stylesheet" href="../../_static/css/custom_tweaks.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/side_color.css" type="text/css" />
   
 
   
@@ -60,9 +60,6 @@
             <a href="../../index.html" class="icon icon-home"> SARMA
           
 
-          
-            
-            <img src="../../_static/logo.png" class="logo" />
           
           </a>
 
@@ -101,9 +98,11 @@
 <li class="toctree-l2"><a class="reference internal" href="ordered_probe_a_load.html">Ordered Probe a Load (OPaL)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="probe_a_load.html">Probe a Load (PaL)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="refine_a_cut.html">Refine a Cut (RaC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgradient_method.html">Subgradient Method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uniform.html">Uniform</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Miscellaneous Tools</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -161,7 +160,7 @@
         
             
             
-              <a href="https://github.com/GT-TDALab/SARMA/blob/master/doc/api/algorithms/nicol2d.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/GT-TDALab/SARMA/blob/master/docs/api/algorithms/nicol2d.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -180,17 +179,17 @@
 <p>Defined in <a class="reference external" href="https://github.com/GT-TDAlab/SARMA/blob/master/include/algorithms/nicol2d.hpp">algorithms/nicol2d.hpp</a></p>
 <dl class="cpp type">
 <dt id="_CPPv4N5sarma7nicol2dE">
-<span id="_CPPv3N5sarma7nicol2dE"></span><span id="_CPPv2N5sarma7nicol2dE"></span><span id="sarma::nicol2d"></span><span class="target" id="namespacesarma_1_1nicol2d"></span><em class="property">namespace </em><code class="sig-prename descclassname">sarma<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">nicol2d</code><a class="headerlink" href="#_CPPv4N5sarma7nicol2dE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5sarma7nicol2dE"></span><span id="_CPPv2N5sarma7nicol2dE"></span><span id="sarma::nicol2d"></span><span class="target" id="namespacesarma_1_1nicol2d"></span><em class="property"><span class="pre">namespace</span> </em><code class="sig-prename descclassname"><span class="pre">sarma</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">nicol2d</span></code><a class="headerlink" href="#_CPPv4N5sarma7nicol2dE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi">
-<span id="_CPPv3I00_bEN5sarma7nicol2d9partitionERK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi"></span><span id="_CPPv2I00_bEN5sarma7nicol2d9partitionERK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>, bool <code class="sig-name descname">use_indices</code> = true&gt;<br /><span class="target" id="nicol2d_8hpp_1a3387e5d83288b5e369acd0c055f6af5e"></span>auto <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="sarma::nicol2d::partition::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="sarma::nicol2d::partition::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="sarma::nicol2d::partition::Ordinal">Ordinal</a>&gt; &amp;<em>p</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="sarma::nicol2d::partition::Ordinal">Ordinal</a> <em>Q</em>, <em class="property">const</em> bool <em>p_is_rows</em> = true, int <em>max_iteration</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I00_bEN5sarma7nicol2d9partitionERK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi"></span><span id="_CPPv2I00_bEN5sarma7nicol2d9partitionERK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi"></span><span class="pre">template&lt;</span><span class="pre">class</span> <code class="sig-name descname"><span class="pre">Ordinal</span></code><span class="pre">,</span> <span class="pre">class</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">,</span> <span class="pre">bool</span> <code class="sig-name descname"><span class="pre">use_indices</span></code> <span class="pre">=</span> <span class="pre">true</span><span class="pre">&gt;</span><br /><span class="target" id="nicol2d_8hpp_1a3387e5d83288b5e369acd0c055f6af5e"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="sarma::nicol2d::partition::Ordinal"><span class="pre">Ordinal</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="sarma::nicol2d::partition::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">std</span><span class="pre">::</span><span class="pre">vector</span><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="sarma::nicol2d::partition::Ordinal"><span class="pre">Ordinal</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">p</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="sarma::nicol2d::partition::Ordinal"><span class="pre">Ordinal</span></a> <em><span class="pre">Q</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">bool</span> <em><span class="pre">p_is_rows</span></em> <span class="pre">=</span> <span class="pre">true</span>, <span class="pre">int</span> <em><span class="pre">max_iteration</span></em> <span class="pre">=</span> <span class="pre">0</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueERKNSt6vectorI7OrdinalEEK7OrdinalKbi" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi">
-<span id="_CPPv3I00_bEN5sarma7nicol2d9partitionERK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi"></span><span id="_CPPv2I00_bEN5sarma7nicol2d9partitionERK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi"></span>template&lt;class <code class="sig-name descname">Ordinal</code>, class <code class="sig-name descname">Value</code>, bool <code class="sig-name descname">use_indices</code> = true&gt;<br /><span class="target" id="nicol2d_8hpp_1afd42ced3f45cf1e9734e29f835ed063f"></span>auto <code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix">Matrix</a>&lt;<a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="sarma::nicol2d::partition::Ordinal">Ordinal</a>, <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="sarma::nicol2d::partition::Value">Value</a>&gt; &amp;<em>A</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="sarma::nicol2d::partition::Ordinal">Ordinal</a> <em>P</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="sarma::nicol2d::partition::Ordinal">Ordinal</a> <em>Q</em>, <em class="property">const</em> int <em>max_iteration</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I00_bEN5sarma7nicol2d9partitionERK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi"></span><span id="_CPPv2I00_bEN5sarma7nicol2d9partitionERK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi"></span><span class="pre">template&lt;</span><span class="pre">class</span> <code class="sig-name descname"><span class="pre">Ordinal</span></code><span class="pre">,</span> <span class="pre">class</span> <code class="sig-name descname"><span class="pre">Value</span></code><span class="pre">,</span> <span class="pre">bool</span> <code class="sig-name descname"><span class="pre">use_indices</span></code> <span class="pre">=</span> <span class="pre">true</span><span class="pre">&gt;</span><br /><span class="target" id="nicol2d_8hpp_1afd42ced3f45cf1e9734e29f835ed063f"></span><span class="pre">auto</span> <code class="sig-name descname"><span class="pre">partition</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <a class="reference internal" href="../data_structures/csr_matrix.html#_CPPv4I00EN5sarma6MatrixE" title="sarma::Matrix"><span class="pre">Matrix</span></a><span class="pre">&lt;</span><a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="sarma::nicol2d::partition::Ordinal"><span class="pre">Ordinal</span></a><span class="pre">,</span> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="sarma::nicol2d::partition::Value"><span class="pre">Value</span></a><span class="pre">&gt;</span> <span class="pre">&amp;</span><em><span class="pre">A</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="sarma::nicol2d::partition::Ordinal"><span class="pre">Ordinal</span></a> <em><span class="pre">P</span></em>, <em class="property"><span class="pre">const</span></em> <a class="reference internal" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="sarma::nicol2d::partition::Ordinal"><span class="pre">Ordinal</span></a> <em><span class="pre">Q</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">int</span> <em><span class="pre">max_iteration</span></em> <span class="pre">=</span> <span class="pre">0</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00_bEN5sarma7nicol2d9partitionEDaRK6MatrixI7Ordinal5ValueEK7OrdinalK7OrdinalKi" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Implements the rectilinear partitioning algorithm with iterative refinement described in “David Nicol, Rectilinear Partitioning of Irregular Data Parallel Computations, JPDC, 1994”. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>two cut vectors as a pair </p>
@@ -262,7 +261,6 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/language_data.js"></script>
 
   
 
