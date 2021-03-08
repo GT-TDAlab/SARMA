@@ -33,6 +33,7 @@ jobs:
         - make -i docs
         - cd ${TRAVIS_BUILD_DIR}
       deploy:
+        edge: true
         provider: pages
         local_dir: ${TRAVIS_BUILD_DIR}/build/docs/sphinx
         token: $GITHUB_TOKEN
