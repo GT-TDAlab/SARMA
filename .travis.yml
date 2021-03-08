@@ -34,7 +34,7 @@ jobs:
         - cd ${TRAVIS_BUILD_DIR}
       deploy:
         provider: pages
-        local_dir: ./build/docs/sphinx
+        local_dir: ${TRAVIS_BUILD_DIR}/build/docs/sphinx
         token: $GITHUB_TOKEN
         keep_history: true
         verbose: true
