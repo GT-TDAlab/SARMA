@@ -33,8 +33,9 @@ jobs:
         - make docs
         - cd ${TRAVIS_BUILD_DIR}
       deploy:
-        edge: true
         provider: pages
         local_dir: ./build/docs/sphinx
+        skip_cleanup: true
         token: $GITHUB_TOKEN
+        keep_history: true
         verbose: true
