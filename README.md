@@ -45,6 +45,21 @@ Citation for the rectilinear partitioners (BibTeX):
     }
 ```
 
+Citation for the subgradient method rectilinear partitioners (BibTex):
+
+```bibtex
+    @techreport{Balin23-ARXIV,
+        author =  {M. Fatih Bal{\i}n and Xiaojing An and Abdurrahman Ya\c{s}ar and {\"{U}}mit V. {\c{C}}ataly{\"{u}}rek},
+        title = {SGORP: A Subgradient-based Method for d-Dimensional Rectilinear Partitioning},
+        institution = {ArXiv},
+        number = {arXiv:2310.02470},
+        url    = {http://arxiv.org/abs/2310.02470},
+        month  = {Oct},
+        year   = {2023},
+        KEYWORDS = {Spatial partitioning, rectilinear partitioning, symmetric partitioning},
+    }
+```
+
 ## How to build
 
 Create a `build` directory and run `cmake` and `make` from there like
