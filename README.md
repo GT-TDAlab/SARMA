@@ -45,7 +45,7 @@ Citation for the rectilinear partitioners (BibTeX):
     }
 ```
 
-Citation for the subgradient method rectilinear partitioners (BibTex):
+Citation for the subgradient method rectilinear partitioners (BibTeX):
 
 ```bibtex
     @techreport{Balin23-ARXIV,
